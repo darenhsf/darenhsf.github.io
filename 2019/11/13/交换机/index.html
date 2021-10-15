@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.hsfan.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="共享型以太网共享式以太网的典型代表是使用10Base2&#x2F;10Base5 的总线型网络和以集线器为核心的星型网络。 集线器（Hub）是指将多条以太网双绞线或光纤集合连接在同一段物理介质下的设备。集线器是运作在OSI模型中的物理层。它可以视作多端口的中继器，若它侦测到碰撞，它会提交阻塞信号。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交换机">
+<meta property="og:url" content="http://www.hsfan.top/2019/11/13/%E4%BA%A4%E6%8D%A2%E6%9C%BA/index.html">
+<meta property="og:site_name" content="Angrily bullfighting">
+<meta property="og:description" content="共享型以太网共享式以太网的典型代表是使用10Base2&#x2F;10Base5 的总线型网络和以集线器为核心的星型网络。 集线器（Hub）是指将多条以太网双绞线或光纤集合连接在同一段物理介质下的设备。集线器是运作在OSI模型中的物理层。它可以视作多端口的中继器，若它侦测到碰撞，它会提交阻塞信号。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/DELL/AppData/Roaming/Typora/typora-user-images/image-20200531221450539.png">
+<meta property="og:image" content="c:/Users/DELL/AppData/Roaming/Typora/typora-user-images/image-20200531221502625.png">
+<meta property="article:published_time" content="2019-11-13T05:00:48.000Z">
+<meta property="article:modified_time" content="2021-10-15T03:35:19.578Z">
+<meta property="article:author" content="Daren">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/DELL/AppData/Roaming/Typora/typora-user-images/image-20200531221450539.png">
+
+
+<link rel="canonical" href="http://www.hsfan.top/2019/11/13/%E4%BA%A4%E6%8D%A2%E6%9C%BA/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.hsfan.top/2019/11/13/%E4%BA%A4%E6%8D%A2%E6%9C%BA/","path":"2019/11/13/交换机/","title":"交换机"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>交换机 | Angrily bullfighting</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Angrily bullfighting</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you are undecided, you can ask the spring breeze</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">81</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%9E%8B%E4%BB%A5%E5%A4%AA%E7%BD%91"><span class="nav-number">1.</span> <span class="nav-text">共享型以太网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E5%BC%8F%E4%BB%A5%E5%A4%AA%E7%BD%91"><span class="nav-number">2.</span> <span class="nav-text">交换式以太网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%8F%8C%E5%B7%A5%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F%E4%B8%8E%E5%8D%8A%E5%8F%8C%E5%B7%A5%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F%E2%80%98"><span class="nav-number">3.</span> <span class="nav-text">全双工工作模式与半双工工作模式‘</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number"></span> <span class="nav-text">交换机的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84MAC%E5%9C%B0%E5%9D%80%E8%A1%A8%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-number">1.</span> <span class="nav-text">交换机的MAC地址表的建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BAMAC%E5%9C%B0%E5%9D%80%E8%A1%A8%E7%9A%84%E9%9D%99%E6%80%81%E5%88%9B%E5%BB%BA%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">交换机MAC地址表的静态创建：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BAMAC%E5%9C%B0%E5%9D%80%E8%A1%A8%E7%9A%84%E7%BB%B4%E6%8A%A4"><span class="nav-number">3.</span> <span class="nav-text">交换机MAC地址表的维护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%B8%A7%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">对数据帧进行处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%AE%80%E4%BB%8B"><span class="nav-number"></span> <span class="nav-text">交换机简介</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Daren</p>
+  <div class="site-description" itemprop="description">The gentleman is as gentle as his jade</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button site-overview-item animated">
+    <button class="js-gitter-toggle-chat-button"><i class="fa fa-comment"></i>
+      Chat
+    </button>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.hsfan.top/2019/11/13/%E4%BA%A4%E6%8D%A2%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Daren">
+      <meta itemprop="description" content="The gentleman is as gentle as his jade">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Angrily bullfighting">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          交换机
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-13 13:00:48" itemprop="dateCreated datePublished" datetime="2019-11-13T13:00:48+08:00">2019-11-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-15 11:35:19" itemprop="dateModified" datetime="2021-10-15T11:35:19+08:00">2021-10-15</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="firestore-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="共享型以太网"><a href="#共享型以太网" class="headerlink" title="共享型以太网"></a>共享型以太网</h2><p>共享式以太网的典型代表是使用10Base2/10Base5 的总线型网络和以集线<br>器为核心的星型网络。</p>
+<p><strong>集线器</strong>（Hub）是指将多条以太网双绞线或光纤集合连接在同一段物理介质下的设备。集线器是运作在OSI模型中的物理层。它可以视作多端口的中继器，若它侦测到碰撞，它会提交阻塞信号。</p>
+<span id="more"></span>
+<p>集线器工作于OSI参考模型第一层，即物理层。集线器与<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E5%8D%A1/155684">网卡</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E7%BA%BF/1888463">网线</a>等传输<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BB%8B%E8%B4%A8">介质</a>一样，属于<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%B1%80%E5%9F%9F%E7%BD%91/98626">局域网</a>中的基础设备，采用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/CSMA%2FCD">CSMA/CD</a>（即带冲突检测的载波监听多路访问技术)介质访问控制机制。</p>
+<p>所有连接到集线器的设备共享同一介质,其结果是它们也共享同一冲突域、广播和带宽。因此集线器和它所连接的设备组成了一个单一的冲突域。</p>
+<p><img data-src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200531221450539.png" alt="image-20200531221450539"></p>
+<h2 id="交换式以太网"><a href="#交换式以太网" class="headerlink" title="交换式以太网"></a>交换式以太网</h2><p>交换式以太网是以交换式集线器（switching hub）或交换机（switch）为中心构成，是一种星型拓扑结构的网络。简称为以交换机为核心设备而建立起来的一种高速网络</p>
+<p>以太网交换机工作于OSI网络参考模型的第二层（即数据链路层），是一种基于MAC（Media Access Control，介质访问控制）地址识别、完成以太网数据帧转发的网络设备</p>
+<p>交换机分割冲突域，每个端口独立成一个冲突域。</p>
+<p><img data-src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200531221502625.png" alt="image-20200531221502625"></p>
+<h2 id="全双工工作模式与半双工工作模式‘"><a href="#全双工工作模式与半双工工作模式‘" class="headerlink" title="全双工工作模式与半双工工作模式‘"></a>全双工工作模式与半双工工作模式‘</h2><ul>
+<li>全双工模式（Full-Duplex）下，接口的网络适配器可以同时在收发两个方向上传输和处理数据；</li>
+<li>半双工模式（Half-Duplex）下，则代表数据的接收和发送不能同时进行。</li>
+</ul>
+<blockquote>
+<p>交换型以太网中，交换机端口默认工作在全双工模式下，</p>
+<p>对于全双工模式来说，电话为此模式的一个典型例子。</p>
+<p>共享型以太网中，交换机端口就只能工作在半双工模式下，</p>
+<p>对于半双工模式来说，对讲机为此模式的一个典型例子；</p>
+</blockquote>
+<p>半双工工作模式下的以太网使用CSMA/CD检测机制来避免冲突</p>
+<p>交换机能主动学习端口所接设备的MAC地址，在获知该端口的MAC 地址后，就会把传送给目标设备的直接发送到该端口而不是广播出去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">在早期的共享式以太网中,双向的传输信号就会发生碰撞,</span><br><span class="line">属于半双工工作模式</span><br><span class="line">为了解决此一问题,才有了CSMA/CD的技术</span><br><span class="line"></span><br><span class="line"> 随着技术的发展，交换式以太网取代了共享式以太网</span><br><span class="line"></span><br><span class="line">交换机每一个端口都是一个独立的冲突域，端口之间并不相互冲突</span><br><span class="line">属于全双工工作模式</span><br><span class="line"></span><br><span class="line"> 介质方面:使用4对线的UTP,传输和接收各自使用一对,可以全双工方式工作,这样,一边只管发,一边只管收,因此就能够避免碰撞</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="交换机的工作原理"><a href="#交换机的工作原理" class="headerlink" title="交换机的工作原理"></a>交换机的工作原理</h1><ul>
+<li><strong>接收端口</strong>与<strong>源数据包的MAC</strong>建立一张二元组的MAC地址表；</li>
+<li>目的MAC在自己的MAC地址表中，则从对应接口转发，否则向所有端口转发（flood）；</li>
+<li>接收到广播帧或组播帧则向所有端口转发</li>
+</ul>
+<h2 id="交换机的MAC地址表的建立"><a href="#交换机的MAC地址表的建立" class="headerlink" title="交换机的MAC地址表的建立"></a>交换机的MAC地址表的建立</h2><ul>
+<li>交换机通过自己接收到的数据帧，来建立数据帧源MAC地址和端口之间的对应关系</li>
+<li><strong>接收端口</strong>与<strong>源数据包的MAC</strong>对应信息加到MAC地址表</li>
+<li>交换机上这个存储映射关系的逻辑表叫做MAC地址表。</li>
+</ul>
+<h2 id="交换机MAC地址表的静态创建："><a href="#交换机MAC地址表的静态创建：" class="headerlink" title="交换机MAC地址表的静态创建："></a>交换机MAC地址表的静态创建：</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">静态添加的MAC地址条目优先级</span><br><span class="line">高于</span><br><span class="line">交换机通过自己的接口动态学习到的条目</span><br><span class="line"></span><br><span class="line">不受老化时间的影响，会一直保存在交换机的MAC地址表中。</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看MAC地址表</span></span><br><span class="line">display mac-address</span><br><span class="line"></span><br><span class="line"><span class="comment">#静态添加静态MAC地址条目</span></span><br><span class="line">mac-address static XXXX-XXXX-XXXX g1/1 vlan 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="交换机MAC地址表的维护"><a href="#交换机MAC地址表的维护" class="headerlink" title="交换机MAC地址表的维护"></a>交换机MAC地址表的维护</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">从同一接口接收到相同MAC地址为源MAC地址的数据帧，</span><br><span class="line">它就用新的时间来更新这个MAC地址条目</span><br><span class="line"></span><br><span class="line">在老化时间之内没有通过这个接口再次接收到这个MAC地址发来的数据帧，</span><br><span class="line">它就会将这个老化的条目从自己的MAC地址表中删除</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看,修改MAC地址表老化时间：</span></span><br><span class="line">display mac-address aging-time</span><br><span class="line"></span><br><span class="line">mac-address aging-time xx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="对数据帧进行处理"><a href="#对数据帧进行处理" class="headerlink" title="对数据帧进行处理"></a>对数据帧进行处理</h2><p>交换机查找MAC地址表结果对数据帧进行处理分三方面：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">泛洪（Flooding）：</span><br><span class="line">交换机没有在自己的MAC地址表中找到这个数据帧的目的MAC地址；</span><br><span class="line"></span><br><span class="line">转发（Forwarding）：</span><br><span class="line">交换机的MAC地址表中拥有这个数据帧的目的MAC地址，</span><br><span class="line">且其对应的接口并不接收到这个数据帧的接口；</span><br><span class="line"></span><br><span class="line">丢弃（Discarding）：</span><br><span class="line">交换机的MAC地址表中拥有这个数据帧的目的MAC地址，</span><br><span class="line">且其对应的接口正是接收到这个数据帧的接口。</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="交换机简介"><a href="#交换机简介" class="headerlink" title="交换机简介"></a>交换机简介</h1><p>交换机的重要性能参数：<br>端口数量<br>带宽<br>交换容量<br>转发性能<br>是否支持POE+</p>
+<p>交换机的交换容量：<br>指交换机的整机交换容量；<br>指交换机内部总线的传输容量；<br>交换机的整机交换容量总是大于交换机的接口交换容量。</p>
+<p>交换机的包转发率：<br>指交换机的整机包转发率；<br>指交换机每秒可以转发数据包的数量；<br>交换机的整机包转发率同样必须大于这台交换机的接口包转发率。</p>
+<p>总线型拓扑结构</p>
+<p>避免冲突产生的机制：<br>载波侦听多路访问/冲突检测（CSMA/CD）；<br>MA（多路访问）即指这种多个节点通过竞争的方式共享相同传输媒介的网络通信方式。</p>
+<p>共享型以太网特点：<br>所有设备都会使用相同的介质来发送数据；<br>由某一台设备发送给另一台设备的数据，会被连接到网络中的所有设备接收到。</p>
+<p>星型拓扑结构<br>终端设备通过集线器(Hub)连接在一起；<br>通过CSMA/CD来避免因同时发送数据而造成冲突。</p>
+<p>网桥（Bridge）<br>隔离冲突域；<br>每个端口隔离为一个独立的冲突域；<br>两个冲突域中的设备同时发送数据并不会形成冲突。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Daren
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://www.hsfan.top/2019/11/13/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" title="交换机">http://www.hsfan.top/2019/11/13/交换机/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/13/%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="关系数据库">
+                  <i class="fa fa-chevron-left"></i> 关系数据库
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/13/wireshark/" rel="next" title="安装wireshark">
+                  安装wireshark <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daren</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.10.5/dist/algoliasearch-lite.umd.js" integrity="sha256-HWlivbjXc58GuU4EIZziqIE83FFZ/da42de13pGZnMA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.30.2/dist/instantsearch.production.min.js" integrity="sha256-eqhx/eer5fsD7YooSb21wsfJaQkJ/4gF3bmRBZP7q2o=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.6/pdfobject.min.js","integrity":"sha256-77geM50MfxCD17eqyJR+Dag1svjJOLN+BJ2F/DMqMEY="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.1.0/firebase-app-compat.js" integrity="sha256-vHsVPXMiiuqVAnPSp1kYwUCcb78FqcfOLqyXWCg0Tio=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.1.0/firebase-firestore-compat.js" integrity="sha256-n06izZ6mb8g7z14QSr3zBn6ZharyPS6YCHqd1n8cnbg=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":null,"projectId":null}</script>
+  <script src="/js/third-party/statistics/firestore.js"></script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://www.hsfan.top/2019/11/13/%E4%BA%A4%E6%8D%A2%E6%9C%BA/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+
+</body>
+</html>
