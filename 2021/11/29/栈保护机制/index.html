@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.hsfan.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前提  主要研究了栈的保护机制和栈的不同保护机制下不同的渗透方法，关于栈的保护机制canary、fortify、nx、pie、relro都有不同的方法进行栈的保护，在ubuntu liunx中解决不同栈保护机制的问题。 在实验中，关于ubuntu liunx中pwn的应用软件的安装有出现了许多问题，比如安装中出现连接失败，无法继续下载，检查网络后发现有的工具得更换镜像才能下载，不然4Mb的小工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栈保护机制">
+<meta property="og:url" content="http://www.hsfan.top/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="Angrily bullfighting">
+<meta property="og:description" content="前提  主要研究了栈的保护机制和栈的不同保护机制下不同的渗透方法，关于栈的保护机制canary、fortify、nx、pie、relro都有不同的方法进行栈的保护，在ubuntu liunx中解决不同栈保护机制的问题。 在实验中，关于ubuntu liunx中pwn的应用软件的安装有出现了许多问题，比如安装中出现连接失败，无法继续下载，检查网络后发现有的工具得更换镜像才能下载，不然4Mb的小工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642061307/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113160812_ihhljc.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642061691/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161445_loscvr.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062390/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161617_jab7rz.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062391/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/_QMW4KM843E6J_L_WQU1_T_ygsftd.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062393/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161736_pxkmhv.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062397/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161746_cpwtff.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062398/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161755_np9wuq.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062887/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113163438_vecwhi.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062405/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161826_whiemz.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062406/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161836_kt55qv.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062407/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161847_d6dqqa.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062408/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161858_buwauw.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062409/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161908_jtfjym.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062410/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161919_fzwj9k.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062415/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161927_mlw1vo.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062417/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161936_a1ed98.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062412/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161945_sokggy.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062413/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161953_wkpus2.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642063581/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113164609_a6duwb.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062416/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162016_owfj5p.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642063723/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113164823_swkwmn.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062427/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162036_payxgg.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062419/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162048_yif8y4.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062429/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162100_l3sran.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642064186/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113165617_amvlop.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642064273/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113165746_tdmxdz.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062432/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162117_sdmlks.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642064354/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113165906_ech59p.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062433/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162125_mcjjeq.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642064451/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162150_h1t9to.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062435/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162201_kvbzn5.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642064563/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162211_oshv9e.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062437/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162221_iplff8.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062431/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162228_b4dld6.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062438/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162238_cngcyp.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062434/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162252_nt8yhs.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062445/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162259_fhw2pl.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642065132/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113171204_rbux2e.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062446/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162317_cnmfsf.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062447/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162324_jyyaq6.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062440/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162332_d8po7j.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062448/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162341_t2yk69.png">
+<meta property="og:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642062444/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162353_wtsgco.png">
+<meta property="article:published_time" content="2021-11-29T14:20:31.000Z">
+<meta property="article:modified_time" content="2022-01-13T09:19:40.441Z">
+<meta property="article:author" content="Daren">
+<meta property="article:tag" content="pwn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://res.cloudinary.com/darenfan/image/upload/v1642061307/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113160812_ihhljc.png">
+
+
+<link rel="canonical" href="http://www.hsfan.top/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.hsfan.top/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/","path":"2021/11/29/栈保护机制/","title":"栈保护机制"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>栈保护机制 | Angrily bullfighting</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Angrily bullfighting</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you are undecided, you can ask the spring breeze</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">33</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">89</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E7%9B%B8%E5%85%B3%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">栈相关的攻击方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E7%9A%84%E5%8F%8A%E5%85%B6%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80"><span class="nav-number">1.1.</span> <span class="nav-text">栈溢出的及其返回地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.2.</span> <span class="nav-text">格式化字符漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.3.</span> <span class="nav-text">整数溢出漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gets%E5%87%BD%E6%95%B0%E6%89%80%E4%BA%A7%E7%94%9F%E7%9A%84%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.4.</span> <span class="nav-text">gets函数所产生的漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROP"><span class="nav-number">1.5.</span> <span class="nav-text">ROP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">栈保护机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6-1"><span class="nav-number">2.1.</span> <span class="nav-text">栈保护机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Canary"><span class="nav-number">2.2.</span> <span class="nav-text">Canary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NX"><span class="nav-number">2.3.</span> <span class="nav-text">NX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ASLR%E4%B8%8EPIE"><span class="nav-number">2.4.</span> <span class="nav-text">ASLR与PIE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relro"><span class="nav-number">2.5.</span> <span class="nav-text">Relro</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fortif"><span class="nav-number">2.6.</span> <span class="nav-text">Fortif</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">攻击实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA"><span class="nav-number">3.1.</span> <span class="nav-text">栈溢出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Canary%E7%BB%95%E8%BF%87"><span class="nav-number">3.2.</span> <span class="nav-text">Canary绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NX-1"><span class="nav-number">3.3.</span> <span class="nav-text">NX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E5%BC%80NX%E4%BF%9D%E6%8A%A4%E6%9E%84%E9%80%A0shellcod"><span class="nav-number">3.4.</span> <span class="nav-text">未开NX保护构造shellcod</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E5%BE%97"><span class="nav-number">4.</span> <span class="nav-text">心得</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Daren</p>
+  <div class="site-description" itemprop="description">The gentleman is as gentle as his jade</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button site-overview-item animated">
+    <button class="js-gitter-toggle-chat-button"><i class="fa fa-comment"></i>
+      Chat
+    </button>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.hsfan.top/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Daren">
+      <meta itemprop="description" content="The gentleman is as gentle as his jade">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Angrily bullfighting">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          栈保护机制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-29 22:20:31" itemprop="dateCreated datePublished" datetime="2021-11-29T22:20:31+08:00">2021-11-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-01-13 17:19:40" itemprop="dateModified" datetime="2022-01-13T17:19:40+08:00">2022-01-13</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="firestore-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ul>
+<li>前提</li>
+</ul>
+<p>主要研究了栈的保护机制和栈的不同保护机制下不同的渗透方法，关于栈的保护机制canary、fortify、nx、pie、relro都有不同的方法进行栈的保护，在ubuntu liunx中解决不同栈保护机制的问题。</p>
+<p>在实验中，关于ubuntu liunx中pwn的应用软件的安装有出现了许多问题，比如安装中出现连接失败，无法继续下载，检查网络后发现有的工具得更换镜像才能下载，不然4Mb的小工具下3个小时抖不一定下好。还有下载好后如何正常使用，比如pwntools，中的checksec就无法查看elf文件的的框架和相应的栈保护机制，最后将工具放入正确的目录中就能使用。</p>
+<span id="more"></span>
+<h2 id="栈相关的攻击方法"><a href="#栈相关的攻击方法" class="headerlink" title="栈相关的攻击方法"></a>栈相关的攻击方法</h2><h3 id="栈溢出的及其返回地址"><a href="#栈溢出的及其返回地址" class="headerlink" title="栈溢出的及其返回地址"></a>栈溢出的及其返回地址</h3><p>栈顶：esp</p>
+<p>栈底：ebp</p>
+<p>如何知道返回地址的地址：<br>返回地址的地址位于ebp后，也就是栈底的地址加4个字节，假如ebp为0xFF99C968,那么返回地址就是0XFF99C96C</p>
+<p>中间相差4(或者8个字节)个字节，同时要说一下地址的数字越大代表在栈堆中的位置越往下，所以你也可以理解为返回地址在栈底下面4（或者）个字节。</p>
+<p>假设栈顶esp为0xFF99C944，栈底ebp为0XFF99C968<br>若想从栈顶输入一直到栈底溢出（不包括返回地址），请问需要输入多少字节字符？</p>
+<p>那么应该将两者相减，得到0x28==2*16+8=40字节 如果覆盖地址的话需要多加多少个字符，答案是4个</p>
+<p>因为我们可以看到0xFF99C944和0XF99C968是8个字符，如果是64位，应该是16个字符的长度</p>
+<p>例如0x00007FFCB22FC5A0，这就是64位的栈地址，而这时候函数的返回地址就是栈底的地址加8，也就是0x00007FFCB22FC5F8</p>
+<h3 id="格式化字符漏洞"><a href="#格式化字符漏洞" class="headerlink" title="格式化字符漏洞"></a>格式化字符漏洞</h3><p>主要这个开启了canary，就不能直接利用栈溢出覆盖返回地址了</p>
+<p>所以可以通过格式化字符串漏洞泄露canary的值，然后再进行栈溢出的覆盖</p>
+<p>格式化字符串漏洞是因为printf的输出完全由用户控制</p>
+<p>一个是通过%p（将参数以十六进制方式打印）来实现任意内存泄露</p>
+<p>64位前六个参数位于寄存器，第多少个%p是目的内存则可以通过栈帧进行计算，八位（0x8）为一个%p</p>
+<p>再就是通过%n（把输出字符的个数写入到地址中）来实现任意内存写入</p>
+<p>栈溢出需要注意的则是由于开启了CANNARY，覆盖是需要注意把canary用原值覆盖</p>
+<p>在使用输出功能时，例如使用printf()函数时</p>
+<p>使用了如下的代码，</p>
+<p>printf(&amp;s)，</p>
+<p>当然这是种错误的写法</p>
+<p>正确的写法是</p>
+<p>printf(“%s”,s)</p>
+<p>但是错误的写法可以运行么，答案是可以的。</p>
+<h3 id="整数溢出漏洞"><a href="#整数溢出漏洞" class="headerlink" title="整数溢出漏洞"></a>整数溢出漏洞</h3><p>c语言中整数是有安全问题的，由于整数再内存里面保存一个固定长度的空间内，它能储存的最大值和最小值是固定的，如果我们尝试去储存一个数，而这个数又大于这个固定的最大值时，就会导致整数溢出。</p>
+<p>假定一个整数，为int类型，我们要知道他的取值范围在0-65535之间，<br>那么如果我们赋值给var1=0,var2=65536,那么在条件判断语句if(var1=var2)之下，他们两个是相等的，同理可得var1=1=var2=65537。</p>
+<p>这题我们就根据这样的原理来做题</p>
+<h3 id="gets函数所产生的漏洞"><a href="#gets函数所产生的漏洞" class="headerlink" title="gets函数所产生的漏洞"></a>gets函数所产生的漏洞</h3><p>Gets函数不会限制输入的字符个数，所以会产生栈溢出漏洞</p>
+<p>gets函数和fgets函数最大的不同是gets函数的缓冲区虽然由用户提供，但是用户无法指定其一次最多读入多少字节的内容。这一点导致gets变成了一个非常危险的函数。</p>
+<p>该程序定义了一个缓冲区，但是使用gets函数接收用户输入的字符串时却会出现问题。</p>
+<h3 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h3><p>ROP全称为Return-oriented Programming（面向返回的编程）是一种新型的基于代码复用技术的攻击，攻击者从已有的库或可执行文件中提取指令片段，构建恶意代码。</p>
+<p>ROP是一种高级的内存的攻击技术，该技术允许攻击者再现代操作系统的各种通用防御下执行代码，如内存不可执行和代码签名等，这类攻击往往利用操作堆栈调用时的程序漏洞，通常时缓冲区溢出。攻击着控制堆栈调用以劫持程序控制流并执行针对性的机器语言指令序列gadgets，每一段gadget通常以return指令（ret，机器码为c3）结束，并位于共享代码中的子程序中，通过执行这些指令序列，也就控制了程序的执行</p>
+<h2 id="栈保护机制"><a href="#栈保护机制" class="headerlink" title="栈保护机制"></a>栈保护机制</h2><h3 id="栈保护机制-1"><a href="#栈保护机制-1" class="headerlink" title="栈保护机制"></a>栈保护机制</h3><p>1、    Stack Canary</p>
+<p>2、    NX</p>
+<p>3、    ASLR与PIE</p>
+<p>4、    Relro</p>
+<h3 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h3><p>canary意为金丝雀，作为栈保护技术之一，它的名字源自于17世纪，英国煤矿工人发现金丝雀对瓦斯十分敏感，每次下井都会带一只金丝雀作为“瓦斯检测指标”，从而挽救了很多工人的生命。<br>canary机制的原理很简单，就是在函数被调用之后，立即在栈帧中插入一个随机数，函数执行完在返回之前，程序通过检查这个随机数是否改变来判断是否存在栈溢出。<br>如图所示，如果buf数据覆盖了目标地址（红色）处的数据，那canary（黄棕色）处的数据也会改变。</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642061307/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113160812_ihhljc.png"></p>
+<h3 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h3><p>NX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</p>
+<p>通过学习以及个人的理解，我认为NX保护机制其实就是让我们不能直接利用程序中的某一段代码或者自己填写代码来获得 shell，而是通过其他途径绕过保护机制然后得到shell，例如ret2syscall是利用程序中的 gadgets 来获得 shell，libc则是控制函数的执行 libc 中的函数，通常是返回至某个函数的 plt 处或者函数的具体位置(即函数对应的 got表项的内容)。</p>
+<h3 id="ASLR与PIE"><a href="#ASLR与PIE" class="headerlink" title="ASLR与PIE"></a>ASLR与PIE</h3><p>ASLR的原理是程序开始时，在stack、mmap以及堆区处分配随机大小的空间，但程序不使用这段空间。但它会导致程序每次执行时后续的栈位置发生变化。ASLR的目的是将程序的堆栈地址和动态链接库的加载地址进行一定的随机化。这样，即使攻击者部署了shellcode并可以控制跳转，由于shellcode所在地址未知，依然很难执行shellcode。</p>
+<p>虽然ASLR很厉害，但是它不能随机化代码段（.text Segment）和数据段（.bss Segement、.data Segment），这时候就需要地址无关可执行PIE(Position Independent Executable)来对这些段进行随机化。</p>
+<p>pie机制简介 PIE(position-independent executable) 是一个针对代码段.text, 数据段.*data，.bss等固定地址的一个防护技术。同ASLR一样，应用了PIE的程序会在每次加载时都变换加载基址</p>
+<h3 id="Relro"><a href="#Relro" class="headerlink" title="Relro"></a>Relro</h3><p>Relro（Relocation Read-Only）重定向只读，这个主要作用是禁止got表和其它一些相关内存的写操作，从而阻止攻击者通过劫持got表来进行利用攻击。GOT(Global Offset Table)全局偏移表，保存了共享库（动态链接库）中函数实际地址（如printf(), gets()…），PLT（Procedure Linkage Table）进程链接表，保存了对应GOT表项的地址。</p>
+<p>got表用于动态链接时候，linux下加载使用GOT定位后间接寻址得到函数真实地址，每个got项伴随一个plt项用于跳转到got地址，等到函数调用，got表写入真实地址，call函数的时候使用plt跳转到got得到真实地址。</p>
+<p>RELRO为” Partial RELRO”时，说明我们对GOT表具有写权限。“FULL RELRO”表示我们只有读取权限。</p>
+<h3 id="Fortif"><a href="#Fortif" class="headerlink" title="Fortif"></a>Fortif</h3><p>这这个保护机制查了很久都没有个很好的汉语形容，根据我的理解它其实和栈保护都是gcc的新的为了增强保护的一种机制，防止缓冲区溢出攻击。gcc生成了一些附加代码，通过对数组大小的判断替换strcpy, memcpy, memset等函数名，达到防止缓冲区溢出的作用。</p>
+<p>利用的是fortify的报错泄露信息，在栈溢出的时候，数组越界写入，导致 canary值被修改。</p>
+<p>在函数退出时检查canary，发现canary被修改，函数不能安全返回,所以如果我们把它覆盖为flag的地址时，它就会把flag给打印出来。</p>
+<h2 id="攻击实例"><a href="#攻击实例" class="headerlink" title="攻击实例"></a>攻击实例</h2><h3 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h3><p>这里引用<a target="_blank" rel="noopener" href="http://www.pwnable.kr/">www.pwnable.kr</a> 上 的 bof</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642061691/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161445_loscvr.png"></p>
+<p>下载附件后，先拖入ubuntu中使用pwntools进行checksec出保护机制和判断时多少位的arch</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062390/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161617_jab7rz.png"></p>
+<p>看出来是32位的寄存器，将其拖入ida pro32位</p>
+<p>先进行 shift+f12查看反编译的字符串</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062391/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/_QMW4KM843E6J_L_WQU1_T_ygsftd.png"></p>
+<p>可以看出，虽然保护全开，但是文件里/bin/sh</p>
+<p>接下来看main函数</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062393/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161736_pxkmhv.png"></p>
+<p>可以看出main函数中只用了func，接下来在main中单击f5查看反编译的伪c代码</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062397/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161746_cpwtff.png"></p>
+<p>单步进入func函数</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062398/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161755_np9wuq.png"></p>
+<p>通过看这伪c代码，可以看到一个可以利用的gets漏洞</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062887/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113163438_vecwhi.png"></p>
+<p>当a1的值符合要求后就能得到system调用的/bin/sh，从而得到shell</p>
+<p>从题目中看</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062405/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161826_whiemz.png"></p>
+<p>当a1=0xcafebabe时便可直接通过程序自带的system调用出shell</p>
+<p>s的容量可以看出时是0x2c</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062406/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161836_kt55qv.png"></p>
+<p>单步进入可以看到a1的地址</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062407/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161847_d6dqqa.png"></p>
+<p>可以看出a1与s的距离为0x8</p>
+<p>接下来就可以编写payload，构造exp脚本</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062408/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161858_buwauw.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062409/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161908_jtfjym.png"></p>
+<h3 id="Canary绕过"><a href="#Canary绕过" class="headerlink" title="Canary绕过"></a>Canary绕过</h3><p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062410/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161919_fzwj9k.png"></p>
+<p>获取到附件后使用pwntools的checksec进行查看</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062415/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161927_mlw1vo.png"></p>
+<p>可以看到这里的canary和nx都是开启的</p>
+<p>文件是64位的，将其拖入到ida pro 64 中查看</p>
+<p>第一步是shift+f12查看反编译的字符串</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062417/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161936_a1ed98.png"></p>
+<p>发现有/bin/sh</p>
+<p>再看main的伪c代码</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062412/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161945_sokggy.png"></p>
+<p>可以看到这个有read函数可以利用，read溢出，但是需要绕过Canary<br>绕过方式就是在第一个read处输入到覆盖canary末尾的\x00，后面的printf会之间把canary输出来。canary的特性，通过末尾的\x00来截断参数，当\x00被覆盖后，canary也就变成了printf参数的一部分。</p>
+<p>使用GDB调试</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062413/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113161953_wkpus2.png"></p>
+<p>可用通过disasemble main 查看main反编译的字符串</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642063581/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113164609_a6duwb.png"></p>
+<p>在main入口下断点，，start开始后，n单步下去</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062416/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162016_owfj5p.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642063723/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113164823_swkwmn.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062427/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162036_payxgg.png"></p>
+<p>当我们单步到第一个read函数时进行分析，使用stack 100查看栈的分布情况</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062419/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162048_yif8y4.png"></p>
+<p>根据canary在ebp之前，我们可以判断出canary的位置</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062429/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162100_l3sran.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642064186/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113165617_amvlop.png"></p>
+<p>这里就能看见输入的参数到canary的情况了，计算得知需要0x238个字节覆盖到canary末尾</p>
+<p>char buf; // [rsp+10h] [rbp-240h],canary在rbp-8的位置</p>
+<p>0x240-0x8=0x238 换算成十进制为568</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642064273/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113165746_tdmxdz.png"></p>
+<p>这个偏移及可以在用 x 看内存布局来算，也能在栈上看出来，当然最直接的还是IDA上得知变量为0x240大小再减canary的8来得到。</p>
+<p>接下来寻找rdi ret,sys,/bin/sh的地址</p>
+<p>使用ROPgadget来寻址</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062432/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162117_sdmlks.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642064354/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113165906_ech59p.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062433/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162125_mcjjeq.png"></p>
+<p>已知了 Canary、rdi_ret、binsh、system的地址开始写payload构造exp</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642064451/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162150_h1t9to.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062435/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162201_kvbzn5.png"></p>
+<h3 id="NX-1"><a href="#NX-1" class="headerlink" title="NX"></a>NX</h3><p>这先用一个简单的开启nx保护机制的ctf题<br>Level0</p>
+<p>运行之后看到hello,world<br><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642064563/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162211_oshv9e.png"></p>
+<p>使用ida打开<br>可用看到有/bin/sh</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062437/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162221_iplff8.png"></p>
+<p>进入main函数有只有function函数，单步进入可用看到一个漏洞，buf比输入的值小，这个可用进行输入大于0x80的值进行覆盖</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062431/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162228_b4dld6.png"></p>
+<p>进入buf</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062438/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162238_cngcyp.png"></p>
+<p>可用看到一个返回地址</p>
+<p>就可以写payload，构造exp</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062434/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162252_nt8yhs.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062445/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162259_fhw2pl.png"></p>
+<h3 id="未开NX保护构造shellcod"><a href="#未开NX保护构造shellcod" class="headerlink" title="未开NX保护构造shellcod"></a>未开NX保护构造shellcod</h3><p>给出系统功能函数间调用说明，代码实现。重点给出系统整体实现、主要功能代码实现。</p>
+<p>构造shellcode，可用自己写，也可<br>以使用pwntools进行自动编写简单的shellcode<br>或者可以用搜索引擎检索别人写好可以直接用的shellcode</p>
+<p>例如这是exploit-db上关于sh对应的shellcode<br>shellcode=”\x31\xc0\x31\xdb\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31\xd2\xb0\x0b\x51\x52\x55\x89\xe5\x0f\x34\x31\xc0\x31\xdb\xfe\xc0\x51\x52\x55\x89\xe5\x0f\x34”</p>
+<p>或者自己写，然后反编译<br>以execve(“/bin/sh”)为例子<br>在当前位置执行/bin/sh，使用ececve(“/bin/sh,0,0”)</p>
+<p>C代码</p>
+<p>#include “stdlib.h”</p>
+<p>#include “unistd.h”</p>
+<p>char *buf[]={“/bin/sh”,NULL};</p>
+<p>void main()</p>
+<p>{</p>
+<pre><code>execve(&quot;/bin/sh&quot;,buf,NULL);
+
+exit(0);
+</code></pre>
+<p>}</p>
+<p>汇编</p>
+<p>global _start</p>
+<p>_start:</p>
+<p>xor eax,eax  //eax置0</p>
+<p>xor edx,edx  //edx置0</p>
+<p>push edx</p>
+<p>push “/sh”</p>
+<p>push “/bin”   //将/bin/sh入栈</p>
+<p>mov ebx,esp   //ebx指向/bin/sh这个字符串</p>
+<p>xor ecx,ecx</p>
+<p>mov al,0Bh    //eax置为execve函数的中断号</p>
+<p>int 80h       //调用软中断</p>
+<p>execve()用来执行参数filename字符串所代表的文件路径，第二个参数是利用指针数组来传递给执行文件的参数，并且需要以空指针(NULL)结束，最后一个参数则为传递给执行文件的新环境变量数组。</p>
+<p>execve()对应的中断向量表为：0x0b，对应eax</p>
+<p>使用gcc编译成.c程序后，把hex的记录下来</p>
+<p>就是</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642065132/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113171204_rbux2e.png"></p>
+<p>shellcode=”\x31\xc0\x31\xd2\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xb0\x0b\xcd\x80”</p>
+<p>这里我就使用pwntools来构造shellcode</p>
+<p>下载好文件</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062446/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162317_cnmfsf.png"></p>
+<p>未开启nx，是32位寄存器，使用ida pro 32</p>
+<p>并未发现/bin/sh和system函数</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062447/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162324_jyyaq6.png"></p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062440/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162332_d8po7j.png"></p>
+<p>反汇编main函数</p>
+<p>进入function()函数</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062448/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162341_t2yk69.png"></p>
+<p>可以发现一个缓冲区溢出漏洞和一个printf函数泄漏</p>
+<p>通过buf对read进行覆盖</p>
+<p>使用pwntools的shellcraft.sh()自动构造<br>shellcode</p>
+<p>但是我的pwntools使用asm(shellcraft.sh())构建shellcode</p>
+<p><img data-src="https://res.cloudinary.com/darenfan/image/upload/v1642062444/blog/darenhsf/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/20220113162353_wtsgco.png"></p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>学习了二进制栈保护机制，学习了栈保护机制canary、fortify、nx、pie、relro相关的保护功能，并在ctf平台实例操作，虽然ctf平台有很多问题，但还是学到了很多知识，在写exp脚本上，理解有多了很多，在操作中，也渐渐掌握了pwntools工具的搭建和使用，还有程序调试的gdb操作，shellcode的原理和构造和使用shellcode的不同方法。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Daren
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://www.hsfan.top/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制">http://www.hsfan.top/2021/11/29/栈保护机制/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/pwn/" rel="tag"># pwn</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" rel="prev" title="漏洞检测之常用漏洞">
+                  <i class="fa fa-chevron-left"></i> 漏洞检测之常用漏洞
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" rel="next" title="网络预警系统">
+                  网络预警系统 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daren</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.10.5/dist/algoliasearch-lite.umd.js" integrity="sha256-HWlivbjXc58GuU4EIZziqIE83FFZ/da42de13pGZnMA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.30.2/dist/instantsearch.production.min.js" integrity="sha256-eqhx/eer5fsD7YooSb21wsfJaQkJ/4gF3bmRBZP7q2o=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.6/pdfobject.min.js","integrity":"sha256-77geM50MfxCD17eqyJR+Dag1svjJOLN+BJ2F/DMqMEY="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.1.0/firebase-app-compat.js" integrity="sha256-vHsVPXMiiuqVAnPSp1kYwUCcb78FqcfOLqyXWCg0Tio=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.1.0/firebase-firestore-compat.js" integrity="sha256-n06izZ6mb8g7z14QSr3zBn6ZharyPS6YCHqd1n8cnbg=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":null,"projectId":null}</script>
+  <script src="/js/third-party/statistics/firestore.js"></script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://www.hsfan.top/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+
+</body>
+</html>
