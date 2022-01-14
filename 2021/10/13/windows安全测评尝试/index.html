@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>windows安全测评尝试 | Angrily bullfighting</title><meta name="keywords" content="系统安全测评"><meta name="author" content="Daren"><meta name="copyright" content="Daren"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="对windows系统测评，以windows server 2008进行测评 进行身份验证，访问控制，安全审计，入侵防范，恶意代码防范，资源控制的分布操作 身份验证（1）、应对登录的用户进行身份标识和鉴别，身份鉴别信息距今有复杂要求。 A、应检查用户在登录时是否采用了身份鉴别措施(使用netplwiz)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows安全测评尝试">
+<meta property="og:url" content="http://darenhsf.github.io/2021/10/13/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/index.html">
+<meta property="og:site_name" content="Angrily bullfighting">
+<meta property="og:description" content="对windows系统测评，以windows server 2008进行测评 进行身份验证，访问控制，安全审计，入侵防范，恶意代码防范，资源控制的分布操作 身份验证（1）、应对登录的用户进行身份标识和鉴别，身份鉴别信息距今有复杂要求。 A、应检查用户在登录时是否采用了身份鉴别措施(使用netplwiz)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-10-13T09:35:22.000Z">
+<meta property="article:modified_time" content="2022-01-13T10:37:20.389Z">
+<meta property="article:author" content="Daren">
+<meta property="article:tag" content="系统安全测评">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://darenhsf.github.io/2021/10/13/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'windows安全测评尝试',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-13 18:37:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Angrily bullfighting</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">windows安全测评尝试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-13T09:35:22.000Z" title="发表于 2021-10-13 17:35:22">2021-10-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-13T10:37:20.389Z" title="更新于 2022-01-13 18:37:20">2022-01-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="windows安全测评尝试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>对windows系统测评，以windows server 2008进行测评</p>
+<p>进行身份验证，访问控制，安全审计，入侵防范，恶意代码防范，资源控制的分布操作</p>
+<h2 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h2><p>（1）、应对登录的用户进行身份标识和鉴别，身份鉴别信息距今有复杂要求。</p>
+<p>A、应检查用户在登录时是否采用了身份鉴别措施(使用netplwiz)</p>
+<span id="more"></span>
+
+<p>在windows server 2008中使用win+r 打开运行窗口，输入netplwiz，查看账户信息</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066405/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172823_e0obgw.png"></p>
+<p>必须勾选要使用本机，用户必须输入用户名和密码这一栏，如果存在不需要密码的用户就可以不需要身份验证就可以登录</p>
+<p>B、检查用户列表，检查用户身份标识是否具有唯一性</p>
+<p>但是windows系统默认唯一</p>
+<p>检查用户名和组是否有重复或者克隆、可疑的身份</p>
+<p>C、检查用户配置信息火访谈系统管理员，检查是否不存在空口令用户<br>打开cmd查看用户列表</p>
+<p>我这只有一个用户，但是我创建了一个用户<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066406/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172831_letovb.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066408/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172837_jltap7.png"></p>
+<p>通过切换用户，查看是否有空口令用户</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066410/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172903_dklz1v.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066412/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172911_nfyym0.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066410/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172856_avalsb.png"> </p>
+<p>不输入密码进行实验</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066413/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172920_eyqil3.png"></p>
+<p>通过这样的方式检查是否有空口令用户</p>
+<p>必须输入密码才能进去</p>
+<p>D、检查用户鉴别信息是否具有复杂度要求并定期更换<br>本地安全策略secpol.msc</p>
+<p>进入账户策略，密码策略</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066415/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172925_geefmm.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066417/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172931_hyijqh.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066419/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172937_bdst24.png"></p>
+<p>有六个策略，只有进行合理的配置才能符合要求</p>
+<p>（2）、应具有登录失败处理功能，配置并启用结束会话、限制非法登录次数和当登录连接超时自动退出等相关措施应核查是否配置并启用了登录失败处理功能</p>
+<p>A、    应核查是否配置并启用了限制非法登录达到一定次数后实现账户锁定功能</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066421/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172942_da4rld.png"></p>
+<p>账户策略中的账户锁定策略，可以看到三项，通过这三项可以配置</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066422/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172949_vosfcj.png"></p>
+<p>C、应核查是否配置并启用了远程登录连接超时并自动退出功能</p>
+<p>win+r<br>输入gpedit.msc进入计算机配置计算机配置-管理模板-Windows组件-远程桌面服务-远程桌面会话主机-会话时间限制</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066424/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113172955_mhbbhq.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066427/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173000_jkwtpc.png"></p>
+<p>会话可以在服务器配置页面找到远程桌面进行配置</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066432/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173031_lmedxx.png"></p>
+<p>（3）、当进行远程管理时，应采取必要措施，防止鉴别信息在网络传输过程中被窃听</p>
+<p>应核查是否采用加密等安全方式对系统进行远程管理，防止鉴别信息在网络传输过程中被窃听</p>
+<p>如果安装功能，在服务services.msc中禁用telnet。新版windows已经默认没有安装telnet服务</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642068002/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113175947_hjqk4m.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066430/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173023_r15rbv.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066432/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173031_lmedxx.png"></p>
+<p>（4）、应采用两种或两种以上组合的鉴别技术对用户进行身份鉴别，且其中一种鉴别技术应使用密码技术来实现</p>
+<p>应核查系统是否采用两种或两种以上组合的鉴别技术对用户身份进行鉴别，其中一种鉴别技术应使用密码技术来实现</p>
+<p>询问管理员使用了哪些设备和技术</p>
+<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><p>（1）、应对登录的用户分配账户和权限<br>A、应访谈网络管理员、安全管理员、系统管理员或核查用户账户和权限设置情况</p>
+<p>本地安全策略-本地策略-用户权限分配</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066433/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173042_zv7cti.png"></p>
+<p>看看有哪些不安全服务。比如从网访问计算机</p>
+<p>B、应核查是否已禁用或限制匿名、默认账户的访问权限</p>
+<p>（2）、应重命名或删除默认账户，修改默认账户的默认口令</p>
+<p>A、    应核查是否已经重命名默认账户或默认账户已被删除</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066435/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173050_amvkdm.png"></p>
+<p>可以看到很多信息，创建时间等等</p>
+<p>B、    应核查是否已修改默认账户的默认口令</p>
+<p>（3）、应及时删除或停用多余的、过期的账户，避免共享账户的存在</p>
+<p>A、    应核查是否不存在多余或过期账户<br>使用 net user (相关的用户名)</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066436/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173057_hnix8k.png"></p>
+<p>B、    应访谈网络管理员、安全管理员和系统管理员不同用户是否采用不同账户登录系统</p>
+<p>(4)、访问控制的粒度应达到主体为用户级或进程级，客体为文件、数据库表级</p>
+<p>A、    应核查访问控制策略的控制粒度是否达到主体为用户级或进程级，客体为文件、数据库表、记录或字段级 磁盘、目录、文件的属性安全</p>
+<p>对文件的属性进行查看</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066438/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173102_und4ug.png"></p>
+<h2 id="安全审计"><a href="#安全审计" class="headerlink" title="安全审计"></a>安全审计</h2><p>(1)应启用安全审计功能，审计覆盖到每个用户，对重要的用户行为和重要安全事件进行审计</p>
+<p>A、    应核查是否开启了安全审计功能<br>B、    应核查安全审计范围是否覆盖到每个用户<br>C、应核查是否对重要的用户行为和重要安全事件进行审计</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066439/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173109_zqsyvd.png"></p>
+<p>通过高级</p>
+<p>本地策略的审核，查看账户登录，账户管理，详细跟踪等等</p>
+<p>(2)审计记录应包括事件的日期和时间、用户、事件类型、事件是否成功及其他与审计相关的信息</p>
+<p>应核查审计记录信息是否包括事件的日期和时间、用户、事件类型、事件是否成功及其他与审计相关的信息</p>
+<p>通过事件查看器eventvwr</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066441/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173115_vajby1.png"></p>
+<p>在windows日志下面有应用程序日志，安全日志，安装程序日志，系统日志，主要看安全相关的日志，可以看到有哪些审核成功，审核失败，错误原因。只要管理员来管理日志，其他人是不允许的。</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066443/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173123_m0gg4f.png"></p>
+<p>(3)、应对审计记录进行保护，定期备份，避免受到未预期的删除、修改或覆盖等</p>
+<p>应核查是否采取了保护措施对审计记录进行保护，应核查是否采取技术措施对审计记录进行定期备份，并核查其备份策略</p>
+<p>本地安全策略-本地策略-用户权限分配-管理审核和安全日志；日志记录达到最大时，将其存档，不覆盖事件</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066444/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173129_xaomc7.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066447/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173134_fg6j4m.png"></p>
+<p>设置日志的大小，位置，和解决方案。</p>
+<p>对日志进行相关的备份</p>
+<h2 id="入侵防范"><a href="#入侵防范" class="headerlink" title="入侵防范"></a>入侵防范</h2><p>(1)应遵循最小安装的原则，仅安装需要的组件和应用程序</p>
+<p>应访谈系统管理员是否遵循最小安装原则</p>
+<p>应确认是否已经关闭非必要的组件和应用程序</p>
+<p>查看服务器的角色，功能有哪些<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066448/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173140_wl27hm.png"></p>
+<p>(2)应关闭不需要的系统服务、默认共享和高危端口</p>
+<p>应访谈系统管理员是否定期对系统服务进行梳理，关闭了非必要的系统服务(services.msc)和默认共享<br>查看服务，看看启用了哪些服务进行核查</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642068002/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113175947_hjqk4m.png"></p>
+<p>看默认共享</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066455/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173151_eehdsl.png"></p>
+<p>应核查是否存在非必要的高危端口<br>netstat –an,135,139,445等</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066456/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173203_wpgylc.png"></p>
+<p>(3)应通过设定终端接入方式或网络地址范围对通过网络进行管理的管理终端进行限制</p>
+<p>应核查配置文件是否对终端接入范围进行限制</p>
+<p>给远程管理设置白名单的方式<br>主要在防火墙上配置</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066457/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173226_yphylo.png"></p>
+<p>设置入站规则</p>
+<p>(4)应能发现可能存在的漏洞，并在经过充分测试评估后，及时修补漏洞<br>应进行漏洞扫描，核查是否存在高风险漏洞</p>
+<p>应访谈系统管理员，核查是否在经过充分测试评估后及时修补漏洞<br>查看补丁</p>
+<p>查看是否安装了补丁</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066458/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173236_wk5xjq.png"></p>
+<p>(5)应能够检测到对重要节点进行入侵的行为，并在发生严重入侵事件时提供报警</p>
+<p>应访谈并核查入侵检测的措施（询问是否安装了主机入侵检测系统，并进行了适当配置；核查特征库是否定期升级）</p>
+<p>应核查在发生严重入侵事件时是否提供报警</p>
+<h2 id="恶意代码防范"><a href="#恶意代码防范" class="headerlink" title="恶意代码防范"></a>恶意代码防范</h2><p>(1)应采用免受恶意代码攻击的技术措施或采用可信计算技术建立从系统到应用的信任链，实现系统运行过程中重要程序或文件完整性检测，并在检测到破坏后进行恢复</p>
+<p>应核查防恶意代码工具的安装和使用情况，核查是否定期进行升级和更新防恶意代码库， 或核查是否采用可信计算技术建立从系统到应用的信任链（Windows Server 2008 默认未启用，启用Windows Defender）</p>
+<p>在服务中查看</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066461/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173241_rqarqu.png"></p>
+<p>应访谈系统管理员，核查是否有保护重要系统程序或文件完整性的措施</p>
+<p>当检测到程序或文件受到破坏后，核查是否具备恢复的措施<br>对备份的文件要进行检查，避免备份里面也有木马、病毒等等</p>
+<h2 id="资源控制"><a href="#资源控制" class="headerlink" title="资源控制"></a>资源控制</h2><p>(1)应限制单个用户或进程对系统资源的最大使用限度</p>
+<p>应核查是否存在系统资源控制的措施，如核查配置参数是否设置大进程数</p>
+<p>看看IIS服务器<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066460/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173247_lxwe7q.png"></p>
+<p>看看高级设置，看看cup有哪些限制</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642066462/blog/darenhsf/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/20220113173253_uqxiir.png"></p>
+<p>看看不同的程序池对cup有哪些限制</p>
+<p>(2)、应对重要节点进行监视，包括监视CPU、硬盘、内存等资源的使用情况</p>
+<p>应访谈系统管理员是否有保证上述安全功能的措施（包括通过第三方工具或增强功能实现）</p>
+<p>应核查是否对重要节点的系统CPU、硬盘、内存、磁盘容量、网络服务等进行监视</p>
+<p>系统自身只能通过系统资源管理器对系统资源进行监控，可以通过第三方监控工具完成，集中监控，集中展示，专人查看</p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>本次实验通过windows server 2008进行操作，在windows系统测评上我学到了如何去进行身份鉴定、访问控制、安全审计、如何应对入侵、恶意代码防范、资源控制，了解到了本地策略，组策略，服务器管理，cup限制等等内容，在实验中也遇到了一些问题，比如用户的空口令无法设置，但是并不影响身份鉴定的检测方法。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Daren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://darenhsf.github.io/2021/10/13/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/">http://darenhsf.github.io/2021/10/13/windows%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84%E5%B0%9D%E8%AF%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://darenhsf.github.io" target="_blank">Angrily bullfighting</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%84/">系统安全测评</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%B1%87%E6%80%BB/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">文件上传漏洞</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/16/ghidra%E5%AE%89%E8%A3%85/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ubuntu ghidra</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Daren</div><div class="author-info__description">The gentleman is as gentle as his jade</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="toc-number">1.</span> <span class="toc-text">身份验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">访问控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%AE%A1%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">安全审计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E4%BE%B5%E9%98%B2%E8%8C%83"><span class="toc-number">4.</span> <span class="toc-text">入侵防范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E9%98%B2%E8%8C%83"><span class="toc-number">5.</span> <span class="toc-text">恶意代码防范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%8E%A7%E5%88%B6"><span class="toc-number">6.</span> <span class="toc-text">资源控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">7.</span> <span class="toc-text">心得</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网络预警系统"/></a><div class="content"><a class="title" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统">网络预警系统</a><time datetime="2022-01-13T10:15:54.000Z" title="发表于 2022-01-13 18:15:54">2022-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="栈保护机制"/></a><div class="content"><a class="title" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制">栈保护机制</a><time datetime="2021-11-29T14:20:31.000Z" title="发表于 2021-11-29 22:20:31">2021-11-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="漏洞检测之常用漏洞"/></a><div class="content"><a class="title" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞">漏洞检测之常用漏洞</a><time datetime="2021-11-16T03:26:32.000Z" title="发表于 2021-11-16 11:26:32">2021-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/11/XSS/" title="XSS"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XSS"/></a><div class="content"><a class="title" href="/2021/11/11/XSS/" title="XSS">XSS</a><time datetime="2021-11-11T03:35:22.000Z" title="发表于 2021-11-11 11:35:22">2021-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息收集"/></a><div class="content"><a class="title" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集">信息收集</a><time datetime="2021-10-17T06:05:42.000Z" title="发表于 2021-10-17 14:05:42">2021-10-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Daren</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

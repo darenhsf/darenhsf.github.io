@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VNC连接 | Angrily bullfighting</title><meta name="author" content="Daren"><meta name="copyright" content="Daren"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="VNC连接配置过程开启VNC Server在终端输入命令：  sudo raspi-config  raspi-config是Raspbian系统自带的配置工具，树莓派的很多必要功能都需要通过它进行设置。  一开始没想到终端也会出现这种类似图形界面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VNC连接">
+<meta property="og:url" content="http://darenhsf.github.io/2019/11/13/vnc%E8%BF%9E%E6%8E%A5/index.html">
+<meta property="og:site_name" content="Angrily bullfighting">
+<meta property="og:description" content="VNC连接配置过程开启VNC Server在终端输入命令：  sudo raspi-config  raspi-config是Raspbian系统自带的配置工具，树莓派的很多必要功能都需要通过它进行设置。  一开始没想到终端也会出现这种类似图形界面">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2019-11-13T05:00:48.000Z">
+<meta property="article:modified_time" content="2021-10-15T03:32:25.257Z">
+<meta property="article:author" content="Daren">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://darenhsf.github.io/2019/11/13/vnc%E8%BF%9E%E6%8E%A5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VNC连接',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-15 11:32:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Angrily bullfighting</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VNC连接</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-11-13T05:00:48.000Z" title="发表于 2019-11-13 13:00:48">2019-11-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-15T03:32:25.257Z" title="更新于 2021-10-15 11:32:25">2021-10-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VNC连接"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="VNC连接配置过程"><a href="#VNC连接配置过程" class="headerlink" title="VNC连接配置过程"></a>VNC连接配置过程</h1><h2 id="开启VNC-Server"><a href="#开启VNC-Server" class="headerlink" title="开启VNC Server"></a>开启<strong>VNC Server</strong></h2><p>在终端输入命令：</p>
+<blockquote>
+<p>sudo raspi-config</p>
+</blockquote>
+<p>raspi-config是Raspbian系统自带的配置工具，树莓派的很多必要功能都需要通过它进行设置。</p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605094021524.png" alt="image-20200605094021524"></p>
+<p>一开始没想到终端也会出现这种类似图形界面</p>
+<span id="more"></span>
+<p>依次选择<code>Interfacing Options</code>   —-&gt;  <code>VNC</code>上下左右控制选项，开启VNC服务</p>
+<p>除了使用wifi管理查看 ip ，也可以输入 <code>ifconfig</code>(ssh连接其实已经知道ip了)</p>
+<h2 id="安装VNC服务"><a href="#安装VNC服务" class="headerlink" title="安装VNC服务"></a><strong>安装VNC服务</strong></h2><blockquote>
+<p>上一步只是开启了树莓派的vnc接口</p>
+</blockquote>
+<ul>
+<li>以下步骤最好先给树莓派换源。使得下载东西速度快点</li>
+</ul>
+<p><code>sudo apt-get install tightvncserver</code></p>
+<p>在完成安装后需要对VNC设置一个密码，在命令行输入： vncpasswd （先输入连接客户端密码两次，然后会询问是否设置一个只能查看桌面(view-only)密码</p>
+<p><code>这么多密码我也不知道干嘛的，我把密码都设为树莓派的登录密码</code></p>
+<p>完成后，在命令行输入： <code>vncserver</code> 启动VNC服务。</p>
+<h2 id="vnc连接"><a href="#vnc连接" class="headerlink" title="vnc连接"></a>vnc连接</h2><p>1.首先file新建一个连接</p>
+<p>2.输入 ip 和表示连接的任意名字 -&gt; ok</p>
+<p>3.双击出现得电脑图标进行连接，双击之后会出现一个警告，点击continue</p>
+<p>4.输入用户名<code>pi</code>和<code>设置的密码</code>连接</p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605100032393.png" alt="image-20200605100032393"></p>
+<h1 id="VNC连接出现问题"><a href="#VNC连接出现问题" class="headerlink" title="VNC连接出现问题"></a>VNC连接出现问题</h1><blockquote>
+<p>下面的两种问题出现一般都可以解决</p>
+</blockquote>
+<ul>
+<li>没有开启桌面自动登录</li>
+</ul>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605100519222.png" alt="image-20200605100519222"></p>
+<h2 id="解决Cannot-currently-show-the-desktop"><a href="#解决Cannot-currently-show-the-desktop" class="headerlink" title="解决Cannot currently show the desktop"></a>解决<code>Cannot currently show the desktop</code></h2><p>1 开启桌面自动登录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+
+<p>选择 <code>Boot Options</code>-&gt;<code>Desktop</code>-&gt;<code>Desktop Autologin desktop</code>确定就好</p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605101241032.png" alt="image-20200605101241032"></p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605101452362.png" alt="image-20200605101452362"></p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605101507044.png" alt="image-20200605101507044"></p>
+<p>2.调整桌面默认分辨率（不必要，但是可以设置试试）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+
+<p>选择<code>Advanced Options</code>-&gt;<code>Resolution</code>-&gt;<code>DMT Mode </code>确认即可</p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605101617410.png"></p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605101638435.png" alt="image-20200605101638435"></p>
+<blockquote>
+<p>分辨率条</p>
+</blockquote>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605101652153.png" alt="image-20200605101652153"></p>
+<ul>
+<li>vnc服务没有正常开启</li>
+</ul>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605100724784.png" alt="image-20200605100724784"></p>
+<h2 id="解决vnc服务没有正常开启"><a href="#解决vnc服务没有正常开启" class="headerlink" title="解决vnc服务没有正常开启"></a>解决vnc服务没有正常开启</h2><blockquote>
+<p>其实还是重复上面vnc连接步骤</p>
+</blockquote>
+<p>先确认树莓派是否工作，ip不要搞错</p>
+<p><code>sudo raspi-config</code></p>
+<p>1.开启vnc服务</p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605102225468.png" alt="image-20200605102225468"></p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200605102240672.png" alt="image-20200605102240672"></p>
+<p><code>sudo apt-get install tightvncserver</code>（没有下载的下载）</p>
+<p>2.输入<code>vncserver</code>，开启服务</p>
+<h1 id="树莓派换源"><a href="#树莓派换源" class="headerlink" title="树莓派换源"></a>树莓派换源</h1><h2 id="1-修改软件更新源"><a href="#1-修改软件更新源" class="headerlink" title="1.修改软件更新源"></a>1.修改软件更新源</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+
+<p>第一行注释掉</p>
+<p>加上这个中科大的软件源地址</p>
+<p><code>deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi</code></p>
+<p>注意 <code>stretch</code>的地方可能有的是<code>buster</code>,以原本的为主</p>
+<p>所以其实修改<code>http://...</code>这个网址就行了</p>
+<ul>
+<li><p>中国科学技术大学<br><code>Raspbian http://mirrors.ustc.edu.cn/raspbian/raspbian/</code></p>
+</li>
+<li><p>阿里云<br><code>Raspbian http://mirrors.aliyun.com/raspbian/raspbian/</code></p>
+</li>
+<li><p>清华大学<br><code>Raspbian http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/</code></p>
+</li>
+</ul>
+<h2 id="2-修改系统更新源"><a href="#2-修改系统更新源" class="headerlink" title="2.修改系统更新源"></a>2.修改系统更新源</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/apt/sources.list.d/raspi.list</span><br></pre></td></tr></table></figure>
+
+<p>将第一行注释掉,加上中科大的系统源地址</p>
+<p><code>deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ stretch main ui</code></p>
+<h2 id="同步更新源，执行如下命令："><a href="#同步更新源，执行如下命令：" class="headerlink" title="同步更新源，执行如下命令："></a>同步更新源，执行如下命令：</h2><blockquote>
+<p>改完一定执行下面命令才能生效</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Daren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://darenhsf.github.io/2019/11/13/vnc%E8%BF%9E%E6%8E%A5/">http://darenhsf.github.io/2019/11/13/vnc%E8%BF%9E%E6%8E%A5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://darenhsf.github.io" target="_blank">Angrily bullfighting</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/11/13/sudo%E5%91%BD%E4%BB%A4/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">sudo命令用法详解</div></div></a></div><div class="next-post pull-right"><a href="/2019/11/13/wireshark/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">安装wireshark</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Daren</div><div class="author-info__description">The gentleman is as gentle as his jade</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VNC%E8%BF%9E%E6%8E%A5%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">VNC连接配置过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AFVNC-Server"><span class="toc-number">1.1.</span> <span class="toc-text">开启VNC Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85VNC%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.2.</span> <span class="toc-text">安装VNC服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vnc%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.</span> <span class="toc-text">vnc连接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VNC%E8%BF%9E%E6%8E%A5%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">VNC连接出现问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3Cannot-currently-show-the-desktop"><span class="toc-number">2.1.</span> <span class="toc-text">解决Cannot currently show the desktop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3vnc%E6%9C%8D%E5%8A%A1%E6%B2%A1%E6%9C%89%E6%AD%A3%E5%B8%B8%E5%BC%80%E5%90%AF"><span class="toc-number">2.2.</span> <span class="toc-text">解决vnc服务没有正常开启</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E6%8D%A2%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text">树莓派换源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9%E8%BD%AF%E4%BB%B6%E6%9B%B4%E6%96%B0%E6%BA%90"><span class="toc-number">3.1.</span> <span class="toc-text">1.修改软件更新源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E6%9B%B4%E6%96%B0%E6%BA%90"><span class="toc-number">3.2.</span> <span class="toc-text">2.修改系统更新源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0%E6%BA%90%EF%BC%8C%E6%89%A7%E8%A1%8C%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">3.3.</span> <span class="toc-text">同步更新源，执行如下命令：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网络预警系统"/></a><div class="content"><a class="title" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统">网络预警系统</a><time datetime="2022-01-13T10:15:54.000Z" title="发表于 2022-01-13 18:15:54">2022-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="栈保护机制"/></a><div class="content"><a class="title" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制">栈保护机制</a><time datetime="2021-11-29T14:20:31.000Z" title="发表于 2021-11-29 22:20:31">2021-11-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="漏洞检测之常用漏洞"/></a><div class="content"><a class="title" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞">漏洞检测之常用漏洞</a><time datetime="2021-11-16T03:26:32.000Z" title="发表于 2021-11-16 11:26:32">2021-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/11/XSS/" title="XSS"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XSS"/></a><div class="content"><a class="title" href="/2021/11/11/XSS/" title="XSS">XSS</a><time datetime="2021-11-11T03:35:22.000Z" title="发表于 2021-11-11 11:35:22">2021-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息收集"/></a><div class="content"><a class="title" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集">信息收集</a><time datetime="2021-10-17T06:05:42.000Z" title="发表于 2021-10-17 14:05:42">2021-10-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Daren</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

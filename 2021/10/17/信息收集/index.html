@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>信息收集 | Angrily bullfighting</title><meta name="author" content="Daren"><meta name="copyright" content="Daren"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="业务相关 github泄漏  网盘泄漏  敏感路径扫描    https:&#x2F;&#x2F;github.com&#x2F;ring04h&#x2F;dirfuzz   QQ群文件泄漏  域名相关域名商 找域名漏洞，越权影响目标域名  欺骗域名商客服，影响目标域名  社工账号，篡改解析地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信息收集">
+<meta property="og:url" content="http://darenhsf.github.io/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/index.html">
+<meta property="og:site_name" content="Angrily bullfighting">
+<meta property="og:description" content="业务相关 github泄漏  网盘泄漏  敏感路径扫描    https:&#x2F;&#x2F;github.com&#x2F;ring04h&#x2F;dirfuzz   QQ群文件泄漏  域名相关域名商 找域名漏洞，越权影响目标域名  欺骗域名商客服，影响目标域名  社工账号，篡改解析地址">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-10-17T06:05:42.000Z">
+<meta property="article:modified_time" content="2021-10-18T11:58:07.031Z">
+<meta property="article:author" content="Daren">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://darenhsf.github.io/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '信息收集',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-18 19:58:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Angrily bullfighting</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">信息收集</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-17T06:05:42.000Z" title="发表于 2021-10-17 14:05:42">2021-10-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-18T11:58:07.031Z" title="更新于 2021-10-18 19:58:07">2021-10-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="信息收集"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="业务相关"><a href="#业务相关" class="headerlink" title="业务相关"></a>业务相关</h1><ul>
+<li><p>github泄漏</p>
+</li>
+<li><p>网盘泄漏</p>
+</li>
+<li><p>敏感路径扫描</p>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/ring04h/dirfuzz">https://github.com/ring04h/dirfuzz</a></p>
+</blockquote>
+<ul>
+<li>QQ群文件泄漏</li>
+</ul>
+<h1 id="域名相关"><a href="#域名相关" class="headerlink" title="域名相关"></a>域名相关</h1><h2 id="域名商"><a href="#域名商" class="headerlink" title="域名商"></a>域名商</h2><ul>
+<li><p>找域名漏洞，越权影响目标域名</p>
+</li>
+<li><p>欺骗域名商客服，影响目标域名</p>
+</li>
+<li><p>社工账号，篡改解析地址</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
+<li><p>渗透DNS服务器，和社工DNS服务商</p>
+</li>
+<li><p>DNS域传送漏洞</p>
+</li>
+<li><p>子域名接管漏洞</p>
+</li>
+</ul>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><ul>
+<li><p>找真实IP地址<br>  1、censys.io等网络空间引擎查找关键字</p>
+<p>  2、SSRF漏洞</p>
+<p>  3、查找域名历史解析IP</p>
+<pre><code>  https://securitytrails.com/
+  
+  site.ip138.com
+</code></pre>
+<p>  4、服务器信息泄漏</p>
+<p>  5、探测子域名IP</p>
+<p>  6、cloudflare(HatCloud0</p>
+<p>  7、看邮件发送者源IP</p>
+<p>  8、APP客户端</p>
+<p>  9、DOS CDN可能会回源模式</p>
+</li>
+</ul>
+<ul>
+<li>破解CDN服务账号</li>
+</ul>
+<h2 id="WHOIS"><a href="#WHOIS" class="headerlink" title="WHOIS"></a>WHOIS</h2><ul>
+<li>注册者邮箱</li>
+</ul>
+<blockquote>
+<p>反查其他域名</p>
+</blockquote>
+<ul>
+<li><p>手机号</p>
+</li>
+<li><p>地址</p>
+</li>
+<li><p>注册者名称</p>
+</li>
+<li><p>DNS</p>
+</li>
+</ul>
+<h2 id="子域名"><a href="#子域名" class="headerlink" title="子域名"></a>子域名</h2><h3 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><ul>
+<li><p>fofo、傻蛋、谛听、zoomeye、censys</p>
+</li>
+<li><p>Google、bing、baidu、duckduckgo</p>
+</li>
+<li><p>接口聚合： <a target="_blank" rel="noopener" href="https://github.com/bit4woo/teemo">https://github.com/bit4woo/teemo</a></p>
+</li>
+</ul>
+<h3 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h3><ul>
+<li>layer</li>
+</ul>
+<ul>
+<li>wydomain</li>
+</ul>
+<h3 id="网页爬虫"><a href="#网页爬虫" class="headerlink" title="网页爬虫"></a>网页爬虫</h3><ul>
+<li>基于JS的域名探测<a target="_blank" rel="noopener" href="https://github.com/nsonaniya2010/SubDomainizer">https://github.com/nsonaniya2010/SubDomainizer</a></li>
+</ul>
+<h3 id="DNS查找"><a href="#DNS查找" class="headerlink" title="DNS查找"></a>DNS查找</h3><ul>
+<li>dnsdumpster.com</li>
+</ul>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.virustotal.com/">www.virustotal.com</a></li>
+</ul>
+<h1 id="服务器主机"><a href="#服务器主机" class="headerlink" title="服务器主机"></a>服务器主机</h1><h2 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h2><ul>
+<li><p>nmap</p>
+</li>
+<li><p>Zenmap</p>
+</li>
+</ul>
+<h2 id="系统识别"><a href="#系统识别" class="headerlink" title="系统识别"></a>系统识别</h2><ul>
+<li><p>nmap -O</p>
+</li>
+<li><p>大小写敏感</p>
+</li>
+<li><p>TTL</p>
+</li>
+<li><p>banner</p>
+</li>
+<li><p>信息泄漏</p>
+</li>
+<li><p>特殊端口 如（22/139/445/1433/3389）</p>
+</li>
+<li><p>HOSTNAME</p>
+</li>
+</ul>
+<h2 id="相关资产"><a href="#相关资产" class="headerlink" title="相关资产"></a>相关资产</h2><ul>
+<li><p>同服网站</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://dns.aizhan.com/">https://dns.aizhan.com</a></p>
+</blockquote>
+</li>
+<li><p>备案反查</p>
+</li>
+</ul>
+<h2 id="C段业务"><a href="#C段业务" class="headerlink" title="C段业务"></a>C段业务</h2><ul>
+<li>可能会有其他相关业务，如交换机、机房后台、监控系统</li>
+</ul>
+<h2 id="指纹识别"><a href="#指纹识别" class="headerlink" title="指纹识别"></a>指纹识别</h2><ul>
+<li><p>特有文件MD5</p>
+</li>
+<li><p>包含字符</p>
+</li>
+<li><p>cookie</p>
+</li>
+<li><p>响应头</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Daren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://darenhsf.github.io/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">http://darenhsf.github.io/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://darenhsf.github.io" target="_blank">Angrily bullfighting</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/11/XSS/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">XSS</div></div></a></div><div class="next-post pull-right"><a href="/2021/10/17/%E5%90%8E%E6%B8%97%E9%80%8F%E4%B8%8E%E6%8C%81%E7%BB%AD%E6%B8%97%E9%80%8F/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">后渗透与持续渗透</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Daren</div><div class="author-info__description">The gentleman is as gentle as his jade</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E7%9B%B8%E5%85%B3"><span class="toc-number">1.</span> <span class="toc-text">业务相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">域名相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E5%95%86"><span class="toc-number">2.1.</span> <span class="toc-text">域名商</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS"><span class="toc-number">2.2.</span> <span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CDN"><span class="toc-number">2.3.</span> <span class="toc-text">CDN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WHOIS"><span class="toc-number">2.4.</span> <span class="toc-text">WHOIS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%9F%9F%E5%90%8D"><span class="toc-number">2.5.</span> <span class="toc-text">子域名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E"><span class="toc-number">2.5.1.</span> <span class="toc-text">搜索引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-number">2.5.2.</span> <span class="toc-text">暴力破解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E7%88%AC%E8%99%AB"><span class="toc-number">2.5.3.</span> <span class="toc-text">网页爬虫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E6%9F%A5%E6%89%BE"><span class="toc-number">2.5.4.</span> <span class="toc-text">DNS查找</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BB%E6%9C%BA"><span class="toc-number">3.</span> <span class="toc-text">服务器主机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3"><span class="toc-number">3.1.</span> <span class="toc-text">端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%AF%86%E5%88%AB"><span class="toc-number">3.2.</span> <span class="toc-text">系统识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E4%BA%A7"><span class="toc-number">3.3.</span> <span class="toc-text">相关资产</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C%E6%AE%B5%E4%B8%9A%E5%8A%A1"><span class="toc-number">3.4.</span> <span class="toc-text">C段业务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB"><span class="toc-number">3.5.</span> <span class="toc-text">指纹识别</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网络预警系统"/></a><div class="content"><a class="title" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统">网络预警系统</a><time datetime="2022-01-13T10:15:54.000Z" title="发表于 2022-01-13 18:15:54">2022-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="栈保护机制"/></a><div class="content"><a class="title" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制">栈保护机制</a><time datetime="2021-11-29T14:20:31.000Z" title="发表于 2021-11-29 22:20:31">2021-11-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="漏洞检测之常用漏洞"/></a><div class="content"><a class="title" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞">漏洞检测之常用漏洞</a><time datetime="2021-11-16T03:26:32.000Z" title="发表于 2021-11-16 11:26:32">2021-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/11/XSS/" title="XSS"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XSS"/></a><div class="content"><a class="title" href="/2021/11/11/XSS/" title="XSS">XSS</a><time datetime="2021-11-11T03:35:22.000Z" title="发表于 2021-11-11 11:35:22">2021-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息收集"/></a><div class="content"><a class="title" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集">信息收集</a><time datetime="2021-10-17T06:05:42.000Z" title="发表于 2021-10-17 14:05:42">2021-10-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Daren</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

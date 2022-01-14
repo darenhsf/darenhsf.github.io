@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>二进制基础 | Angrily bullfighting</title><meta name="author" content="Daren"><meta name="copyright" content="Daren"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="捣鼓捣鼓二进制安全的基础，争取快些入门二进制安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二进制基础">
+<meta property="og:url" content="http://darenhsf.github.io/2019/09/09/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Angrily bullfighting">
+<meta property="og:description" content="捣鼓捣鼓二进制安全的基础，争取快些入门二进制安全">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2019-09-09T12:29:09.000Z">
+<meta property="article:modified_time" content="2019-09-10T08:28:40.478Z">
+<meta property="article:author" content="Daren">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://darenhsf.github.io/2019/09/09/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9F%BA%E7%A1%80/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '二进制基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-09-10 16:28:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Angrily bullfighting</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">二进制基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-09-09T12:29:09.000Z" title="发表于 2019-09-09 20:29:09">2019-09-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-09-10T08:28:40.478Z" title="更新于 2019-09-10 16:28:40">2019-09-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="二进制基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src="/images/100402-15673898420c2c.jpg"></p>
+<center>
+<font size="4" color="orange">
+捣鼓捣鼓二进制安全的基础，争取快些入门二进制安全
+</font>
+</center>
+
+<span id="more"></span>
+
+<h3 id="了解系统"><a href="#了解系统" class="headerlink" title="了解系统"></a>了解系统</h3><p>二进制安全都是围着系统进行的。</p>
+<p>第一，我们得理解系统，要深入理解计算机系统的运行机制</p>
+<p>第二，得去破坏系统，从中学习创造漏洞挖崛与利用技巧</p>
+<p>第三，学会挖掘和利用后我们得去学系统的重构，设计与构建系统防护</p>
+<h3 id="了解二进制安全的系统体系结构"><a href="#了解二进制安全的系统体系结构" class="headerlink" title="了解二进制安全的系统体系结构"></a>了解二进制安全的系统体系结构</h3><h4 id="第一就是机器指令与汇编语言"><a href="#第一就是机器指令与汇编语言" class="headerlink" title="第一就是机器指令与汇编语言"></a>第一就是机器指令与汇编语言</h4><h5 id="机器语言"><a href="#机器语言" class="headerlink" title="机器语言"></a>机器语言</h5><p>机器语言是用二进制代码表示的计算机能识别的一种机器指令的集合</p>
+<p>机器语言也叫指令集，也可以成为机器码</p>
+<p>机器语言的的特点就是灵活、直接执行和速度快</p>
+<p>缺点就是麻烦，程序员自己得处理每条指令和每一条数据的储存分配和输入输出，而且，机器语言的指令代码直观性太差，很容易出错</p>
+<h5 id="汇编语言"><a href="#汇编语言" class="headerlink" title="汇编语言"></a>汇编语言</h5><p>汇编语言是比机器语言高级一点，直观性比机器语言好</p>
+<p>本质是一种助记符表示的仍可以面向机器的计算机语言，汇编语言也可以叫符号语言</p>
+<p>优点：保持了机器语言的灵活性，而且也保持了机器语言的速度快的特点，因为这是轻量级的语言，所以编制的系统软件和控制软件，占用内存空间少，运行速度快，这是高级语言不能比的</p>
+<p>缺点：很明显，汇编语言也是使用起来很繁琐的，通用性也很差</p>
+<h5 id="低级语言的问题"><a href="#低级语言的问题" class="headerlink" title="低级语言的问题"></a>低级语言的问题</h5><p>上诉的机器语言和汇编语言都是低级语言，而这类语言对机器了解要求是很大的，低级语言是要求使用者对硬件结构及其工作原理都要十分熟悉</p>
+<h5 id="高级语言"><a href="#高级语言" class="headerlink" title="高级语言"></a>高级语言</h5><p>计算机行业不断的发展，低级语言已经不能满足人们了，渐渐了人们寻求到了一些与人类自认语言相接近的且能被计算机接受的语言</p>
+<p>特点：语意明确、规矩明确、自然直观、通用兼容和能面向任何的机型（通过高级编译和解译程序）</p>
+<h5 id="cpu的运作原理"><a href="#cpu的运作原理" class="headerlink" title="cpu的运作原理"></a>cpu的运作原理</h5><p>我总结了网上学习的内容和看视频所做的笔记，做了一个思维导图</p>
+<p><img src="1GWT8M6VJLZKCHIY6.jpg"></p>
+<h4 id="第二就是cpu的设计与实现"><a href="#第二就是cpu的设计与实现" class="headerlink" title="第二就是cpu的设计与实现"></a>第二就是cpu的设计与实现</h4><h5 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h5><p>属性：CUP能够处理的全部指令的集合。</p>
+<h6 id="指令的格式"><a href="#指令的格式" class="headerlink" title="指令的格式"></a>指令的格式</h6><p>一条指令包括两个部分：操作码和地址码</p>
+<p>操作码其实就是指令序列号，用来告诉CPU需要执行的是那一条指令。</p>
+<p>地址码包括源操作数地址、目的地址和下一条指令的地址</p>
+<p>指令可以不必有地址码，比如一条空指令就只有操作码而没有地址码</p>
+<p><img src="20190910001928.png"></p>
+<h6 id="指令的分类"><a href="#指令的分类" class="headerlink" title="指令的分类"></a>指令的分类</h6><p>算术逻辑运算指令：包括加减乘除算术运算指令，与非或异等逻辑指令，现在的指令系统还加入了一些十进制运算指令以及字符串运算指令等。</p>
+<p>浮点数运算指令：用于对浮点数进行运算。浮点运算要大大复杂于整数运算，所以CPU中一般还会有专门负责浮点运算的浮点运算单元。现在的浮点指令中一般还加入了向量指令，用于直接对矩阵进行运算，对于现在的多媒体和3D处理很有用。</p>
+<p>位操作运算指令：指令系统中有一组位操作指令，如左移一位右移一位等。对于计算机内部以二进制码表示的数据来说，这种操作是非常简单快捷的。</p>
+<p>其他指令：上面三种都是运算型指令，除此之外还有许多非运算的其他指令。这些指令包括：数据传送指令、堆栈操作指令、转移类指令、输入输出指令和一些比较特殊的指令，如特权指令、多处理器控制指令和等待、停机、空操作等指令。</p>
+<p> 对于指令中的地址码，也会有许多不同的寻址（编址）方式，主要有直接寻址，间接寻址，寄存器寻址，基址寻址，变址寻址等，某些复杂的指令系统会有几十种甚至更多的寻址方式。</p>
+<h6 id="CPU内核结构"><a href="#CPU内核结构" class="headerlink" title="CPU内核结构"></a>CPU内核结构</h6><p>CPU内核分为运算器和控制器</p>
+<p>①运算器</p>
+<p>算术逻辑运算单元ALU（Arithmetic and Logic<br>Unit）：主要用来计算二进制的加减乘除、与或非异或</p>
+<p>浮点运算单元FPU（Floating Point Unit）：FPU主要负责浮点运算和高精度整数运算。</p>
+<p>通用寄存器组：是一组最快的存储器，用来保存参加运算的操作数和中间结果。</p>
+<p>专用寄存器：通常是一些状态寄存器，不能通过程序改变，由CPU自己控制，表明某种状态。</p>
+<p>②控制器</p>
+<p>运算器只能完成运算，而控制器用于控制着整个CPU的工作。</p>
+<p>指令控制器：它要完成取指令、分析指令等操作，然后交给执行单元（ALU或FPU）来执行，同时还要形成下一条指令的地址。</p>
+<p>时序控制器：作用是为每条指令按时间顺序提供控制信号。</p>
+<p>总线控制器：主要用于控制CPU的内外部总线，包括地址总线、数据总线、控制总线等等。</p>
+<p>中断控制器用于控制各种各样的中断请求，并根据优先级的高低对中断请求进行排队，逐个交给CPU处理。</p>
+<center>
+__________________________
+</center>
+
+
+<h3 id="汇编语言基本指令"><a href="#汇编语言基本指令" class="headerlink" title="汇编语言基本指令"></a>汇编语言基本指令</h3><h4 id="机器码，又称机器码"><a href="#机器码，又称机器码" class="headerlink" title="机器码，又称机器码"></a>机器码，又称机器码</h4><p>ultraedit打开exe文件，可以看到许多的由0，1，2，3等等组成的数码，这些数码就是机械码</p>
+<p>修改程序时必须通过修改机器码来修改exe文件</p>
+<h4 id="全部汇编知识"><a href="#全部汇编知识" class="headerlink" title="全部汇编知识"></a>全部汇编知识</h4><p>cmd a,b 比较a与b</p>
+<p>mov a,b 把b的值送给a</p>
+<p>ret 返回主程序</p>
+<p>nop 无作用，是英文“no operation”的简写，意是是“do nothing”（机器码90）（解释：ultraedit打开编辑exe文件时你看到90，等同于汇编语句nop）<br>call 调用子程序</p>
+<p>je 或 jz 若不相等则跳（机器码74或0F84）</p>
+<p>jne或jnz 若不相等跳（机器码75或0F85)</p>
+<p>jmp 无条件跳（机器码EB）</p>
+<p>jb 若小于则跳</p>
+<p>ja 若大于则跳</p>
+<p>jg 若大于则跳</p>
+<p>jge 若大于等于则跳</p>
+<p>j1 若小于则跳</p>
+<p>j1e 若小于则跳</p>
+<p>pop 出栈</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Daren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://darenhsf.github.io/2019/09/09/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9F%BA%E7%A1%80/">http://darenhsf.github.io/2019/09/09/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://darenhsf.github.io" target="_blank">Angrily bullfighting</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/09/10/%E5%9F%BA%E7%A1%80pwn%E7%9A%84%E5%B0%8F%E7%99%BD%E6%B5%81%E7%A8%8B/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">基础pwn的小白流程</div></div></a></div><div class="next-post pull-right"><a href="/2019/08/25/bugku%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E6%9F%A5%E7%9C%8Bflag/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">bugku输入密码查看flag</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Daren</div><div class="author-info__description">The gentleman is as gentle as his jade</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">了解系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8%E7%9A%84%E7%B3%BB%E7%BB%9F%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">了解二进制安全的系统体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%B0%B1%E6%98%AF%E6%9C%BA%E5%99%A8%E6%8C%87%E4%BB%A4%E4%B8%8E%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80"><span class="toc-number">2.1.</span> <span class="toc-text">第一就是机器指令与汇编语言</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80"><span class="toc-number">2.1.1.</span> <span class="toc-text">机器语言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80"><span class="toc-number">2.1.2.</span> <span class="toc-text">汇编语言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%8E%E7%BA%A7%E8%AF%AD%E8%A8%80%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.1.3.</span> <span class="toc-text">低级语言的问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E8%AF%AD%E8%A8%80"><span class="toc-number">2.1.4.</span> <span class="toc-text">高级语言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#cpu%E7%9A%84%E8%BF%90%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.5.</span> <span class="toc-text">cpu的运作原理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%B0%B1%E6%98%AFcpu%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">第二就是cpu的设计与实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.2.1.</span> <span class="toc-text">指令系统</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">指令的格式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">指令的分类</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#CPU%E5%86%85%E6%A0%B8%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.1.3.</span> <span class="toc-text">CPU内核结构</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">汇编语言基本指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E7%A0%81%EF%BC%8C%E5%8F%88%E7%A7%B0%E6%9C%BA%E5%99%A8%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">机器码，又称机器码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E9%83%A8%E6%B1%87%E7%BC%96%E7%9F%A5%E8%AF%86"><span class="toc-number">3.2.</span> <span class="toc-text">全部汇编知识</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网络预警系统"/></a><div class="content"><a class="title" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统">网络预警系统</a><time datetime="2022-01-13T10:15:54.000Z" title="发表于 2022-01-13 18:15:54">2022-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="栈保护机制"/></a><div class="content"><a class="title" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制">栈保护机制</a><time datetime="2021-11-29T14:20:31.000Z" title="发表于 2021-11-29 22:20:31">2021-11-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="漏洞检测之常用漏洞"/></a><div class="content"><a class="title" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞">漏洞检测之常用漏洞</a><time datetime="2021-11-16T03:26:32.000Z" title="发表于 2021-11-16 11:26:32">2021-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/11/XSS/" title="XSS"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XSS"/></a><div class="content"><a class="title" href="/2021/11/11/XSS/" title="XSS">XSS</a><time datetime="2021-11-11T03:35:22.000Z" title="发表于 2021-11-11 11:35:22">2021-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息收集"/></a><div class="content"><a class="title" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集">信息收集</a><time datetime="2021-10-17T06:05:42.000Z" title="发表于 2021-10-17 14:05:42">2021-10-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Daren</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

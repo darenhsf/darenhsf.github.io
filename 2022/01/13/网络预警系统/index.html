@@ -1,0 +1,1568 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>网络预警系统 | Angrily bullfighting</title><meta name="keywords" content="python"><meta name="author" content="Daren"><meta name="copyright" content="Daren"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="摘要主要参考CVE等漏洞平台，建立漏洞信息库，针对某个范围（ip段、企业单位、地理范围等），建立数字资产库，采集资产的指纹信息（如端口、服务、软件及其版本等），根据漏洞信息库对指定范围的资产进行漏洞匹配，判断风险等级并进行相应的漏洞预警通过学习python爬虫将cve的漏洞信息爬取下来，通过爬取下来的xls表格录入数据库，通过数据库建立一个自己的漏洞信息库。 现在编写的python爬虫爬取了4万多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络预警系统">
+<meta property="og:url" content="http://darenhsf.github.io/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Angrily bullfighting">
+<meta property="og:description" content="摘要主要参考CVE等漏洞平台，建立漏洞信息库，针对某个范围（ip段、企业单位、地理范围等），建立数字资产库，采集资产的指纹信息（如端口、服务、软件及其版本等），根据漏洞信息库对指定范围的资产进行漏洞匹配，判断风险等级并进行相应的漏洞预警通过学习python爬虫将cve的漏洞信息爬取下来，通过爬取下来的xls表格录入数据库，通过数据库建立一个自己的漏洞信息库。 现在编写的python爬虫爬取了4万多">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2022-01-13T10:15:54.000Z">
+<meta property="article:modified_time" content="2022-01-14T09:57:08.176Z">
+<meta property="article:author" content="Daren">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://darenhsf.github.io/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '网络预警系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-14 17:57:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Angrily bullfighting</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">网络预警系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-13T10:15:54.000Z" title="发表于 2022-01-13 18:15:54">2022-01-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-14T09:57:08.176Z" title="更新于 2022-01-14 17:57:08">2022-01-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="网络预警系统"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>主要参考CVE等漏洞平台，建立漏洞信息库，针对某个范围（ip段、企业单位、地理范围等），建立数字资产库，采集资产的指纹信息（如端口、服务、软件及其版本等），根据漏洞信息库对指定范围的资产进行漏洞匹配，判断风险等级并进行相应的漏洞预警<br>通过学习python爬虫将cve的漏洞信息爬取下来，通过爬取下来的xls表格录入数据库，通过数据库建立一个自己的漏洞信息库。</p>
+<p>现在编写的python爬虫爬取了4万多条漏洞信息放入表格和数据库，再通过nmap扫描下来的资产信息对比数据库，判断出有风险等级并进行相应的漏洞预警。</p>
+<p>目前最大的困难就是对nmap扫描下来的资产信息无法规整的放入数据库和表格，在python爬虫上对于数据直接放入数据库目前有问题，对于pymysql的使用不熟练。</p>
+<span id="more"></span>
+
+<h2 id="网络预警系统开发基础技术"><a href="#网络预警系统开发基础技术" class="headerlink" title="网络预警系统开发基础技术"></a>网络预警系统开发基础技术</h2><h3 id="内容介绍"><a href="#内容介绍" class="headerlink" title="内容介绍"></a>内容介绍</h3><p>使用到python爬虫技术，数据库操作技术，开发语言是python，在在实现过程中搭建过开源的乌云漏洞库，linglong漏洞扫描器，openvas，AWVS来研究，最后学习python并研究并写python爬虫完成实验，输出到表格，再输入到数据库中，通过nmap进行扫描某个范围的ip段，采集资产来进行匹配，来判断风险等级并进行相应的漏洞预警</p>
+<h3 id="网络爬虫（web-craeler）"><a href="#网络爬虫（web-craeler）" class="headerlink" title="网络爬虫（web craeler）"></a>网络爬虫（web craeler）</h3><p>是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本，它们被广泛用于互联网搜索引擎或其他类似网站，可以自动采集所有其能够访问到的页面内容，以获取或更新这些网站的内容和检索方式。从功能上来讲，爬虫一般分为数据采集，处理，储存三个部分。传统爬虫从一个或若干初始网页的URL开始，获得初始网页上的URL，在抓取网页的过程中，不断从当前页面上抽取新的URL放入队列,直到满足系统的一定停止条件。聚焦爬虫的工作流程较为复杂，需要根据一定的网页分析算法过滤与主题无关的链接，保留有用的链接并将其放入等待抓取的URL队列。然后，它将根据一定的搜索策略从队列中选择下一步要抓取的网页URL，并重复上述过程，直到达到系统的某一条件时停止。另外，所有被爬虫抓取的网页将会被系统存贮，进行一定的分析、过滤，并建立索引，以便之后的查询和检索；对于聚焦爬虫来说，这一过程所得到的分析结果还可能对以后的抓取过程给出反馈和指导。</p>
+<p>Web网络爬虫系统的功能是下载网页数据，为搜索引擎系统提供数据来源。很多大型的网络搜索引擎系统都被称为基于 Web数据采集的搜索引擎系统，比如Google、Baidu。由此可见Web 网络爬虫系统在搜索引擎中的重要性。网页中除了包含供用户阅读的文字信息外，还包含一些超链接信息。Web网络爬虫系统正是通过网页中的超连接信息不断获得网络上的其它网页。正是因为这种采集过程像一个爬虫或者蜘蛛在网络上漫游，所以它才被称为网络爬虫系统或者网络蜘蛛系统，在英文中称为Spider或者Crawler。</p>
+<p>其中的一些函数</p>
+<p>r = requests.get(url, headers=header, timeout=30)</p>
+<p>Requests 是⽤Python语⾔编写，基于urllib，采⽤Apache2 Licensed开源协议的 HTTP 库。它⽐ urllib 更加⽅便，可以节约我们⼤量的⼯作，完全满⾜HTTP测试需求。</p>
+<p>html = BeautifulSoup(r.content.decode(), ‘html.parser’)</p>
+<p>html.parser是一个非常简单和实用的库，它的核心是HTMLParser类。从源码来看，它内部封装了一系列regular expression。工作的流程是：当你feed给它一个类似HTML格式的字符串时，它会调用goahead方法向前迭代各个标签，并调用对应的parse_xxxx方法提取start_tag, tag, attrs data comment和end_tag等等标签信息和数据，然后调用对text 返回的是unicode 型的数据，一般是在网页的header中定义的编码形式。</p>
+<p>content返回的是bytes，二级制型的数据。</p>
+<p>如果想要提取文本就用text</p>
+<p>但是如果想要提取图片、文件，就要用到content应的方法对这些抽取出来的内容进行处理。</p>
+<p>Python decode() 方法以 encoding 指定的编码格式解码字符串。默认编码为字符串编码。</p>
+<p>schedule         #定时发送</p>
+<p>t time             #时间模块</p>
+<p>email.mime.text import MIMEText        #构建邮件内容 </p>
+<p>email.header import Header          #构建邮件头</p>
+<h3 id="Nmap的使用"><a href="#Nmap的使用" class="headerlink" title="Nmap的使用"></a>Nmap的使用</h3><p>nmap：具有免费、支持跨平台、速度快等优点；<br>重要参数</p>
+<p>-sP :ping扫描（不进行端口扫描）</p>
+<p>-sT：进行TCP全连接扫描</p>
+<p>-sS：进行SYN半连接扫描</p>
+<p>-sF：进行FIN扫描</p>
+<p>-sN：进行Null扫描</p>
+<p>-sX：进行Xmas扫描</p>
+<p>-O：进行测探目标主机版本（不是很准）</p>
+<p>-sV：可以显示服务的详细版本</p>
+<p>-A：全面扫描</p>
+<p>-p:指定端口扫描</p>
+<p>-oN：会将扫描出来的结果保存成一个txt文件</p>
+<p>-oX：会将扫描出来的结果保存成一个xml文件</p>
+<p>[-T1]-[-T5]:提高扫描速度</p>
+<p>详细分析</p>
+<p>主机发现</p>
+<p>nmap -sP 192.168.16.0/24</p>
+<p>单的扫描（默认会扫tcp 前1000端口）<br>nmap 192.168.16.100</p>
+<p>端口扫描</p>
+<p>指定端口：nmap 192.168.16.100 -p 80(单个端<br>口）</p>
+<p>nmap 192.168.16.100 -p 1-100（多个端口）</p>
+<p>nmap 192.168.16.100 -p- (所有端口)</p>
+<p>TCP全连接扫描：nmap -sT 192.168.16.100 -p 80<br>优点：准确 缺点：速度慢，会留下大量、密集的日志记录</p>
+<p>SYN半连接扫描：nmap -sS 192.168.16.100 -p 80<br>优点：速度很快 缺点：就是不准并且需要root权限<br>隐藏扫描：FIN扫描 Null扫描 Xmas扫描</p>
+<p>目标主机版本（不是很准确）</p>
+<p>nmap -O 192.168.16.100 </p>
+<p>服务版本</p>
+<p>nmap -O -sV 192.168.16.100 </p>
+<p>全面扫描</p>
+<p>nmap -A 192.168.16.100 </p>
+<p>保存结果</p>
+<p>nmap -A 192.168.16.100 -oN nmap1<br>等</p>
+<h3 id="Mysql数据库的使用"><a href="#Mysql数据库的使用" class="headerlink" title="Mysql数据库的使用"></a>Mysql数据库的使用</h3><p>MySQL 是一款安全、跨平台、高效的，并与 PHP、Java 等主流编程语言紧密结合的数据库系统。该数据库系统是由瑞典的 MySQL AB 公司开发、发布并支持，由 MySQL 的初始开发人员 David Axmark 和 Michael Monty Widenius 于 1995 年建立的。MySQL 为各种流行的程序设计语言提供支持，为它们提供了很多的 API 函数，包括 PHP、ASP.NET、Java、Eiffel、Python、Ruby、Tcl、C、C++、Perl 语言等。MySQL 数据库的最大有效表尺寸通常是由操作系统对文件大小的限制决定的，而不是由 MySQL 内部限制决定的。InnoDB 存储引擎将 InnoDB 表保存在一个表空间内，该表空间可由数个文件创建，表空间的最大容量为 64TB，可以轻松处理拥有上千万条记录的大型数据库。</p>
+<h3 id="使用jdbc操作数据查询"><a href="#使用jdbc操作数据查询" class="headerlink" title="使用jdbc操作数据查询"></a>使用jdbc操作数据查询</h3><p>JDBC 指 Java 数据库连接，是一种标准Java应用编程接口（ JAVA API），用来连接 Java 编程语言和广泛的数据库。</p>
+<p>JDBC API 库包含下面提到的每个任务，都是与数据库相关的常用用法。</p>
+<p>•    制作到数据库的连接。</p>
+<p>•    创建 SQL 或 MySQL 语句。</p>
+<p>•    执行 SQL 或 MySQL 查询数据库。</p>
+<p>•    查看和修改所产生的记录。</p>
+<p>从根本上来说，JDBC 是一种规范，它提供了一套完整的接口，允许便携式访问到底层数据库，因此可以用 Java 编写不同类型的可执行文件，例如：</p>
+<p>•    Java 应用程序</p>
+<p>•    Java Applets</p>
+<p>•    Java Servlets</p>
+<p>•    Java ServerPages (JSPs)</p>
+<p>•    Enterprise JavaBeans (EJBs)</p>
+<p>所有这些不同的可执行文件就可以使用 JDBC 驱动程序来访问数据库，这样可以方便的访问数据。<br>JDBC 具有 ODBC 一样的性能，允许 Java 程序包含与数据库无关的代码。</p>
+<h2 id="步骤分析"><a href="#步骤分析" class="headerlink" title="步骤分析"></a>步骤分析</h2><h3 id="Python爬取cve与cnnvd漏洞信息"><a href="#Python爬取cve与cnnvd漏洞信息" class="headerlink" title="Python爬取cve与cnnvd漏洞信息"></a>Python爬取cve与cnnvd漏洞信息</h3><p>通过观察cve漏洞页面的url来确定我们需要的url信息</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135147/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114115739_heonnp.png"></p>
+<p>可以看到这漏洞页的url,我们需要的是将每一页都爬取下来</p>
+<p>点击第二页时</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135149/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114115754_j3qog4.png"></p>
+<p>url发生了变化，能明显看到url发生了变化，也出现了规律，通过这个规律就可以构造我们需要的url信息</p>
+<p>可以写成<a target="_blank" rel="noopener" href="http://vulhub.org.cn/vulns/%7Bj%7D?view=global">http://vulhub.org.cn:80/vulns/{j}?view=global</a></p>
+<p>“j”可以代表不同的页数</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135154/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114115804_aua9l8.png"></p>
+<p>通过对cve官网进行查看相应的headers等信息，构造发送，获取相应的内容</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135168/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114115815_hs5fpg.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135174/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114115831_xnrtdd.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135177/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114115911_md9erg.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135180/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114115924_klt4od.png"></p>
+<p>这样就得到了cookie和自己的浏览器的信息</p>
+<p>接下来构造请求数据</p>
+<p>我们将这些信息赋值给一个变量</p>
+<pre><code>burp0_url = f&quot;http://vulhub.org.cn:80/vulns/&#123;j&#125;?view=global&quot;
+
+burp0_cookies=&#123;&quot;_csrf_token&quot;: &quot;629b8310c3efb5aca85b39726ef56d29b505dc91&quot;,&quot;session&quot;: &quot;eyJfY3NyZl90b2tlbiI6IjYyOWI4MzEwYzNlZmI1YWNhODViMzk3MjZlZjU2ZDI5YjUwNWRjOTEiLCJfZnJlc2giOmZhbHNlfQ.YYTTIA.E-cwfm_arSSLqc772cS3GqCIPu0&quot;,&quot;Hm_lvt_1ac51b9b492db88525810a29c7aa73cd&quot;:&quot;1636092045&quot;, &quot;Hm_lpvt_1ac51b9b492db88525810a29c7aa73cd&quot;: &quot;1636094752&quot;&#125;
+
+burp0_headers = &#123;&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0)Gecko/20100101Firefox/94.0&quot;,&quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8&quot;,&quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, &quot;Connection&quot;: &quot;close&quot;, &quot;Referer&quot;: &quot;http://cve.scap.org.cn/vulns/2?view=global&quot;, &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;&#125;
+
+data = requests.get(burp0_url, headers=burp0_headers, cookies=burp0_cookies).text
+</code></pre>
+<p>可以通过for循环进行每页的爬取，直到开始页数到结束页数</p>
+<pre><code>for j in range(1,n):
+
+引入requests和bs4,再引入xlsxwriter
+
+import requests
+
+
+from bs4 import BeautifulSoup
+
+import xlsxwriter
+</code></pre>
+<p>应入库后建立文件，并在当前文件夹下建立文件</p>
+<pre><code>workbook = xlsxwriter.Workbook(&#39;loudong.xlsx&#39;)
+
+建立好之后向文件中建立行列
+
+worksheet = workbook.add_worksheet()
+
+worksheet.write(0,0,&#39;URL&#39;)      #这个是写进第一行第一列
+
+worksheet.write(0,1,&#39;cve&#39;)      #这个是写进第一行第二列
+
+worksheet.write(0,2,&#39;time&#39;)     #后面以此类推
+
+worksheet.write(0,3,&#39;name&#39;)
+
+………..
+</code></pre>
+<p>引入的BeautifulSoup是一个python的一个库，最主要的功能是从网页抓取数据。eautiful Soup 提供一些简单的、python 式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。 Beautiful Soup 自动将输入文档转换为 Unicode 编码，输出文档转换为 utf-8 编码。你不需要考虑编码方式，除非文档没有指定一个编码方式，这时，Beautiful Soup 就不能自动识别编码方式了。然后，你仅仅需要说明一下原始编码方式就可以了。 Beautiful Soup 已成为和 lxml、html6lib 一样出色的 python 解释器，为用户灵活地提供不同的解析策略或强劲的速度。Beautiful Soup 支持 Python 标准库中的 HTML 解析器，还支持一些第三方的解析器。</p>
+<p>soup = BeautifulSoup(data, ‘lxml’)</p>
+<p>定义i=1</p>
+<p>通过for循环将数据写入文件中去</p>
+<pre><code>for link in soup.find_all(&#39;td&#39;):
+
+    if i%6 == 1:
+
+        href = link.a.attrs[&#39;href&#39;]
+
+        cve = link.a.string.strip()
+
+        worksheet.write(k, 0, &quot;http://vulhub.org.cn&quot;+href)
+
+        worksheet.write(k, 1, cve)
+
+    if i%6 == 2:
+
+        time = link.string
+
+        worksheet.write(k, 2, time)
+
+    if i%6 == 4:
+
+        name = link.string
+
+        worksheet.write(k, 3, name)
+
+    if i%6 == 0:
+
+        k = k+1
+
+    i = i+1
+</code></pre>
+<p>最后关闭文件workbook.close()</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135184/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114115949_bmcsvl.png"></p>
+<p>这是第一个python代码的的爬取结果</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135191/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120106_pdqsr3.png"></p>
+<p>由于cve门户漏洞资料少，所以重对一个包含了cve漏洞的网址进行爬取—cnnvd，其中除了有cve名称的漏洞，对应的漏洞信息相对仔细，所以构建了第二个爬虫。</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135197/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120121_clhwk2.png"></p>
+<p>漏洞详细信息展示</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135202/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120153_vrfxhx.png"></p>
+<p>同样和第一步一样，对网站一样进行搜集资料准备</p>
+<p>引入库</p>
+<pre><code>import requests
+from bs4 import BeautifulSoup
+import traceback
+import re
+import xlwt
+</code></pre>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135207/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120204_jxyzcj.png"></p>
+<p>分析url的规律</p>
+<p>url = ‘<a target="_blank" rel="noopener" href="http://www.cnnvd.org.cn/web/vulnerability/querylist.tag?pageno=&#39;">http://www.cnnvd.org.cn/web/vulnerability/querylist.tag?pageno=&#39;</a> + str(j) + ‘&amp;repairLd=’</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135212/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120216_dpe4og.png"></p>
+<p>获取user-agernt</p>
+<p>进行构造</p>
+<pre><code>header = &#123;            &#39;user-agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36&#39;,            &#39;Connection&#39;: &#39;keep-alive&#39;, &#125;
+
+r = requests.get(url, headers=header, timeout=30)
+
+也是使用beautifulsoup这个库
+html = BeautifulSoup(r.content.decode(), &#39;html.parser&#39;)
+</code></pre>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135218/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120228_jo206z.png"></p>
+<p>查看标签</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135226/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120243_ngyisr.png"></p>
+<p>获取到对应的标签</p>
+<p>link = html.find(class_=’detail_xq w770’)  # 漏洞信息详情</p>
+<p>link_introduce = html.find(class_=’d_ldjj’)  # 漏洞简介</p>
+<p>link_others = html.find_all(class_=’d_ldjj m_t_20’)  # 其他</p>
+<p>………</p>
+<p>定义15个list列表</p>
+<p>功能1：实现对cve漏洞信息库的爬取，通过使用requests，BeatifulSoup</p>
+<p>建立列表<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135231/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120404_l9sjki.png"></p>
+<p>建立文件并写入行列信息</p>
+<pre><code>f = xlwt.Workbook()  # 创建EXCEL工作簿
+    sheet1 = f.add_sheet(u&#39;sheet1&#39;, cell_overwrite_ok=True)  # 创建sheet
+    sheet1.write(0, 0, &quot;漏洞名称&quot;)
+    sheet1.write(0, 1, &quot;网址&quot;)
+    sheet1.write(0, 2, &quot;CNNVD编号&quot;)
+    sheet1.write(0, 3, &quot;危害等级&quot;)
+    sheet1.write(0, 4, &quot;CVE编号&quot;)
+    sheet1.write(0, 5, &quot;漏洞类型&quot;)
+    sheet1.write(0, 6, &quot;发布时间&quot;)
+    sheet1.write(0, 7, &quot;威胁类型&quot;)
+    sheet1.write(0, 8, &quot;更新时间&quot;)
+    sheet1.write(0, 9, &quot;厂商&quot;)
+    sheet1.write(0, 10, &quot;漏洞简介&quot;)
+    sheet1.write(0, 11, &quot;漏洞公告&quot;)
+    sheet1.write(0, 12, &quot;参考网址&quot;)
+    sheet1.write(0, 13, &quot;受影响实体&quot;)
+    sheet1.write(0, 14, &quot;补丁&quot;)
+</code></pre>
+<p>在建立好表格基础信息之后先存入前三列信息</p>
+<p>因为在步进入单独的页面时就有了前三列的信息</p>
+<p>查看具体信息<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135236/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120423_wvnfev.png"></p>
+<p>查看标签信息<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135618/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120434_jpy9fg.png"></p>
+<p>在这得在在一步进行构造请求</p>
+<pre><code>url = &#39;http://www.cnnvd.org.cn/web/vulnerability/querylist.tag?pageno=&#39; + str(j) + &#39;&amp;repairLd=&#39;
+        print(&quot;page&quot; + str(j))
+        header = &#123;
+            &#39;user-agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36&#39;,
+            &#39;Connection&#39;: &#39;keep-alive&#39;, &#125;
+        r = requests.get(url, headers=header, timeout=30)
+        # r.raise_for_status()抛出异常
+        html = BeautifulSoup(r.content.decode(), &#39;html.parser&#39;)
+</code></pre>
+<p>获取标签内信息<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135626/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120448_jrkjhk.png"></p>
+<pre><code>link = html.find_all(class_=&#39;a_title2&#39;)
+
+将获取下来的信息放入通过列表操作录入表格里
+
+
+list1.append(i.text.lstrip())
+                ##print (&quot;http://www.cnnvd.org.cn&quot;+i.attrs[&#39;href&#39;])
+                k = str(i.attrs[&#39;href&#39;])
+                list2.append(&quot;http://www.cnnvd.org.cn&quot; + k)
+
+网址里面只有有cnnvd的编号，直接截取后面的字符串
+                list3.append(k[28:])
+                # print(&quot;http://www.cnnvd.org.cn&quot;+k)
+                getURLDATA(&quot;http://www.cnnvd.org.cn&quot; + k)
+            except:
+                print(&quot;http://www.cnnvd.org.cn&quot; + k)
+                break
+</code></pre>
+<p>爬取结果<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135631/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114120512_vopc3p.png"></p>
+<p>之后的详细信息得进入网页中去<br>通过函数def的操作避免分页的逻辑不流畅问题</p>
+<p>getURLDATA(“<a target="_blank" rel="noopener" href="http://www.cnnvd.org.cn&quot;/">http://www.cnnvd.org.cn&quot;</a> + k)</p>
+<p>这里构造新的请求信息</p>
+<p><a target="_blank" rel="noopener" href="http://www.cnnvd.org.cn&quot;/">http://www.cnnvd.org.cn&quot;</a> + k<br>k就是每个漏洞网址，再加上官网网址就能进入漏洞的详细信息</p>
+<p>请求信息：</p>
+<pre><code>header = &#123;
+        &#39;user-agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36&#39;,
+        &#39;Connection&#39;: &#39;keep-alive&#39;, &#125;
+    r = requests.get(url, headers=header, timeout=30)
+继续使用brautifulsoup库
+html = BeautifulSoup(r.content.decode(), &#39;html.parser&#39;)
+</code></pre>
+<p>获取漏洞详细信息</p>
+<p>查看所有信息<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135637/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121406_qv1z6m.png"></p>
+<p>所有标签<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135642/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121426_xp3sp4.png"></p>
+<p>标签展示<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135647/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121445_jvmdm3.png"></p>
+<p>构造：</p>
+<pre><code>html = BeautifulSoup(r.content.decode(), &#39;html.parser&#39;)
+
+link = html.find(class_=&#39;detail_xq w770&#39;)  # 漏洞信息详情
+link_introduce = html.find(class_=&#39;d_ldjj&#39;)  # 漏洞简介
+link_others = html.find_all(class_=&#39;d_ldjj m_t_20&#39;)  # 其他
+</code></pre>
+<p>通过content[]获取列表形式的的数据，通过find(‘a’)标签内的文本信息，通过lstrip().rstrip()去除其他字符串，比如字符、空格、\</p>
+<p>在漏洞详情里能找到6个信息</p>
+<p>六个信息<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135652/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121458_azxhe8.png"></p>
+<pre><code>try:
+      list4.append(str(link.contents[3].contents[5].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+      list4.append(&quot;&quot;)
+</code></pre>
+<p>通过link.contents[3].contents[5].find(‘a’).text.lstrip().rstrip())定位到漏洞危害的信息，find(‘a’)找到a标签里的text</p>
+<p>Cve编号也一样</p>
+<pre><code>try:
+  list5.append(str(link.contents[3].contents[7].find(&#39;a&#39;).text.lstrip().rstrip()))
+except:
+  list5.append(&quot;&quot;)
+</code></pre>
+<p>在详细信息里可定位到厂商</p>
+<pre><code> try:
+    list10.append(str(link.contents[3].contents[17].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+      list10.append(&quot;&quot;)
+</code></pre>
+<p>接下来查找漏洞简介<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642150292/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114164423_unobnc.png"></p>
+<p>漏洞标签简介<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642150293/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114164313_z5emyl.png"></p>
+<p>标签字<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135662/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121523_tofypv.png"></p>
+<p>可以看到有两段简介，需要将这两段结合起来</p>
+<pre><code>link_introduce_data=BeautifulSoup(link_introduce.decode(), &#39;html.parser&#39;).find_all(name=&#39;p&#39;)
+</code></pre>
+<p>使用beautifulsoup库，找到p标签,判断有几段简介<br>通过for循环将判断出来的简介累加放入list11</p>
+<pre><code>try:
+        link_introduce_data = BeautifulSoup(link_introduce.decode(), &#39;html.parser&#39;).find_all(name=&#39;p&#39;)
+        s = &quot;&quot;
+        for i in range(0, len(link_introduce_data)):
+            s = s + str(link_introduce_data[i].text.lstrip().rstrip())
+        list11.append(s)
+    except:
+        list11.append(&quot;&quot;)
+
+当漏洞公告不为空时，按照上一步方法，半段有几段公告并累加放入List12
+    if (len(link_others) != 0):
+        try:          
+            link_others_data1 = BeautifulSoup(link_others[0].decode(), &#39;html.parser&#39;).find_all(name=&#39;p&#39;)
+            s = &quot;&quot;
+            for i in range(0, len(link_others_data1)):
+                s = s + str(link_others_data1[i].text.lstrip().rstrip())
+            list12.append(s)
+        except:
+            list12.append(&quot;&quot;)
+</code></pre>
+<p>参考网址也是一样，和简介一样一般都有信息，就没做判断</p>
+<pre><code>    try:       
+        link_others_data2 = BeautifulSoup(link_others[1].decode(), &#39;html.parser&#39;).find_all(name=&#39;p&#39;)
+        s = &quot;&quot;
+        for i in range(0, len(link_others_data2)):
+            s = s + str(link_others_data2[i].text.lstrip().rstrip())
+        list13.append(s)
+    except:
+        list13.append(&quot;&quot;)
+</code></pre>
+<p>补丁和受影响实体也是一样，都是判断有几段需要的信息，来累加放入列表</p>
+<p>如果都为空那列表都为空</p>
+<p>爬取结果如图<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135668/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121546_roe7xx.png"></p>
+<p>Python代码3</p>
+<p>cve漏洞信息自动更新并邮件提醒</p>
+<p>引入邮件提醒的库</p>
+<pre><code>mport smtplib           #发送邮件使用
+import schedule         #定时发送
+import time             #时间模块
+from email.mime.text import MIMEText        #构建邮件内容
+from email.header import Header          #构建邮件头
+from email.mime.multipart import MIMEMultipart
+</code></pre>
+<p>通过这些库进行邮件操作</p>
+<p>构造cve的请求信息，与之前一样</p>
+<pre><code>headers = &#123;
+    &#39;User-Agent&#39;: &#39;Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0&#39;,
+    &#39;Accept&#39;: &#39;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#39;,
+    &#39;Accept-Language&#39;: &#39;zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3&#39;,
+    &#39;Accept-Encoding&#39;: &#39;gzip, deflate&#39;,
+    &#39;Upgrade-Insecure-Requests&#39;: &#39;1&#39;,
+&#125;
+</code></pre>
+<p>通过这个url可以得到更新的cve信息</p>
+<p>网站展示图<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135673/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121603_dnoajy.png"></p>
+<pre><code>url = &quot;https://cassandra.cerias.purdue.edu/CVE_changes/today.html&quot;
+response = requests.get(url, headers=headers, timeout=60)
+</code></pre>
+<p>把获取到的信息进行优化成html的形式</p>
+<p>通过<a target="_blank" rel="noopener" href="http://www.w3.org/1999/xhtml%E6%9D%A5%E4%BC%98%E5%8C%96%EF%BC%8C%E4%BD%BF%E7%94%A8%E8%BF%99%E4%B8%AA%E7%BD%91%E5%9D%80%E6%9D%A5%E7%94%9F%E6%88%90html%E7%BB%93%E6%9E%84">http://www.w3.org/1999/xhtml来优化，使用这个网址来生成html结构</a><br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135679/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121623_vtbzc6.png"><br>转化为html文件后可以更美观的查看漏洞信息</p>
+<p>邮件操作</p>
+<pre><code>from_addr = &#39;xxxxxxxx@qq.com&#39;
+</code></pre>
+<p>在邮箱中建立授权码<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135684/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121635_ym9dcb.png"></p>
+<p>password = ‘xxxxxxxxxx’<br>to_addrs = ‘<a href="mailto:&#x78;&#120;&#x78;&#x78;&#120;&#120;&#x78;&#120;&#x78;&#x78;&#x40;&#113;&#x71;&#46;&#99;&#111;&#x6d;">&#x78;&#120;&#x78;&#x78;&#120;&#120;&#x78;&#120;&#x78;&#x78;&#x40;&#113;&#x71;&#46;&#99;&#111;&#x6d;</a>‘</p>
+<p>提前写好发送邮箱地址和接受邮箱的地址</p>
+<p>创建一个带附件的邮件实例</p>
+<pre><code>message=MIMEMultipart()
+发信服务器
+smtp_server = &#39;smtp.qq.com&#39;
+</code></pre>
+<p>若邮件正文较长，可以这样设置一个变量</p>
+<pre><code>text = &#39;快来看看今天最新的CVE漏洞信息吧&#39; 
+    
+传入文本，文本类型（plain）、文本编码
+mail_inside = MIMEText(text,&#39;plain&#39;,&#39;utf-8&#39;)  
+
+构造html附件
+att3 = MIMEText(open(r&#39; H:\pycharmproject\pythonProject1\cve_today.html&#39;, &#39;rb&#39;).read(), &#39;base64&#39;, &#39;utf-8&#39;)
+att3[&quot;Content-Type&quot;] = &#39;application/octet-stream&#39;
+att3[&quot;Content-Disposition&quot;] = &#39;attachment; filename=&quot;boke.html&quot;&#39;
+message.attach(att3)
+</code></pre>
+<p>由于得每天自动更新，所以放在服务器里操作</p>
+<p>开启发信服务，这里使用的是加密传输</p>
+<pre><code>server = smtplib.SMTP_SSL(smtp_server,465)      #465是端口号，另一个端口号是587
+
+登录发信邮箱
+
+ server.login(from_addr,password)
+ 发送邮件
+ server.sendmail(from_addr,to_addrs,message.as_string())
+ 关闭服务
+ server.quit()
+ print(&#39;邮件发送成功&#39;)
+</code></pre>
+<p>扫描展示<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135688/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121651_qw2oag.png"></p>
+<p>生成文件<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135695/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121707_qavfmi.png"></p>
+<p>文件展示<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135701/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121737_ej8p32.png"></p>
+<p>在服务器中操作更换地址<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135708/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121915_otht8x.png"></p>
+<p>编辑代码<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135714/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121930_podkmv.png"></p>
+<p>设置crontab定时任务<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135720/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114121942_ttrjii.png"></p>
+<p>设置crontab更新时间<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135733/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122015_wprh0f.png"></p>
+<p>设置完成<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135738/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122025_k3twjk.png"></p>
+<pre><code>* * * * * /home/test.sh #每1分钟执行一次test.sh脚本
+*/5 * * * * /home/test.sh #每5分钟执行一次test.sh脚本
+30 21 * * * command     #每晚的21:30执行命令
+1 1,2 * * * reboot    #其中的1,2代表每天的1点和2点的第一分钟的时候执行reboot命令，中间的逗号表示不同的时间点
+1 1-3 * * * reboot    #其中的1-3表示每天的1点到3点的第一分钟的时候执行reboot命令。“-”可以表示一个时间的范围
+3,15 * * * * myCommand  #  每小时的第3和第15分钟执行
+3,15 8-11 * * * myCommand  #在上午8点到11点的第3和第15分钟执行
+3,15 8-11 */2  *  * myCommand   #每隔两天的上午8点到11点的第3和第15分钟执行
+3,15 8-11 * * 1 myCommand   #每周一上午8点到11点的第3和第15分钟执行
+0 23-7 * * * command    #晚上11点到早上7点之间，执行命令
+</code></pre>
+<p>测试效果如图<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642154171/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114175557_fzpmuy.png"></p>
+<p>邮件附件展示<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135750/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122126_bmw87c.png"></p>
+<h3 id="Nmap操作"><a href="#Nmap操作" class="headerlink" title="Nmap操作"></a>Nmap操作</h3><p>Nmap技术，我们的目的就是通过建立一个漏洞信息库，通过nmap扫描目标ip的资产信息来和漏洞库对比</p>
+<p>通过使用nmap自带的脚本和相应参数来实现</p>
+<p>这里通过脚本来扫描</p>
+<p>通过nmap扫描可以把iP段的资产扫描下来，通过nmap 的报告输出参数将报告输出</p>
+<p>-oN    标准保存</p>
+<p>-oX    XML保存</p>
+<p>-oG    Grep保存</p>
+<p>-oA    保存到所有格式</p>
+<p>-F 快速扫描</p>
+<p>nmap -F -oG test.txt xxx.xxx.xxx.x<br>xx</p>
+<p>将结果Grep保存。</p>
+<p>nmap -F -oA test xxx.xxx.xxx.xxx</p>
+<p>该选项可将扫描结果以标准格式、XML格式和Grep格式一次性保存，分别放在.nmap，.xml和.gnmap文件中。</p>
+<p>namp -F -oN text.txt xxx.xxx.xxx.xxx</p>
+<p>一般情况用标准情况如图扫描结果</p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135755/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122141_vawmwq.png"></p>
+<p>使用nmap可以输出好使用，详细的xml格式的模板，但是xml格式的文本不能给予非专业友好的使用，但是用xsltproc可以转换xml到htm格式的模板，给予友好的可视度。首先扫描一下端口</p>
+<p>xsltproc背景：</p>
+<p>通过XSL层叠样式表把XML转换为相应格式的文件，<br> HTML,XHTML,PDF等。</p>
+<p>apt-get install xsltproc</p>
+<p>使用nmap默认的htm格式转化xml文件。</p>
+<p>nmap扫描：扫面网段192.168.1.0/24的vnc服务，输出xml文件。</p>
+<p>nmap –script vnc-info 192.168.1.0/24 -oX test01.xml<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135763/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122152_p7ayry.png"></p>
+<p>使用xsltproc转化nmap格式xml到默认htm格式：<br>xsltproc -o test01.htm test01.xml<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135768/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122203_k3x9lo.png"></p>
+<p>使用修改过的模板</p>
+<p>xsltproc -o test02.htm xsltmoban.xsl test01.xml</p>
+<p>效果展示<br>在浏览器中打开文件<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135775/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122221_b9wbrs.png"></p>
+<p>每个ip的详细信息<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135780/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122243_ma1pqb.png"></p>
+<p>在线主机<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135787/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122302_ylmza0.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135794/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122312_h9aljm.png"></p>
+<p>使用nmap的脚本也可以进行各种操作，包括漏洞扫描</p>
+<p>这里的脚本有</p>
+<p>auth: 负责处理鉴权证书（绕开鉴权）的脚本</p>
+<p>broadcast: 在局域网内探查更多服务开启状况，如dhcp/dns/sqlserver等服务</p>
+<p>brute: 提供暴力破解方式，针对常见的应用如http/snmp等</p>
+<p>default: 使用-sC或-A选项扫描时候默认的脚本，提供基本脚本扫描能力</p>
+<p>discovery: 对网络进行更多的信息，如SMB枚举、SNMP查询等</p>
+<p>dos: 用于进行拒绝服务攻击</p>
+<p>exploit: 利用已知的漏洞入侵系统</p>
+<p>external: 利用第三方的数据库或资源，例如进行whois解析</p>
+<p>fuzzer: 模糊测试的脚本，发送异常的包到目标机，探测出潜在漏洞 intrusive: 入侵性的脚本，此类脚本可能引发对方的IDS/IPS的记录或屏蔽</p>
+<p>malware: 探测目标机是否感染了病毒、开启了后门等信息</p>
+<p>safe: 此类与intrusive相反，属于安全性脚本</p>
+<p>version: 负责增强服务与版本扫描（Version Detection）功能的脚本</p>
+<p>vuln: 负责检查目标机是否有常见的漏洞（Vulnerability），如是否有MS08_067</p>
+<p>使用vuln漏洞扫描脚本如图<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135800/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122326_wiauit.png"></p>
+<p>可以看到这些有漏洞，甚至可以看到cve的编号<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135807/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122338_ypecwa.png"></p>
+<p>我在github平台找到这个nmap扫描的加强脚本<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135812/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122351_xxtuhc.png"></p>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135817/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122408_ttm15t.png"></p>
+<p>执行结果<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135825/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122430_duaul5.png"></p>
+<h3 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h3><p>cev漏洞信息入库，通过Sqlyog连接数据库将爬下来的数据导入到数据库中</p>
+<p>1.在数据库中建立新的database，建立新的table（loudong）</p>
+<p>代码实现：</p>
+<pre><code>DROP DATABASE loudongku
+CREATE DATABASE loudongku CHARSET=&quot;utf8&quot;
+USE loudongku
+DROP TABLE loudong
+CREATE TABLE loudong(
+    uname VARCHAR(100) ,            
+    wangzhi VARCHAR(100),        
+    CNNVDid VARCHAR(100),
+    weihaidengji VARCHAR(10),
+    CVEid VARCHAR(100),
+    loudongleixing VARCHAR(100),
+    fabuTime VARCHAR(100),
+    weixieleixing VARCHAR(100),
+    gengxinTime VARCHAR(100),
+    cahngshang VARCHAR(100),
+    loudongjianjie VARCHAR(100),
+    loudonggonggao VARCHAR(100),
+    caokaowangzhi VARCHAR(100),
+    shouyinxiangshiti VARCHAR(100),
+    buding VARCHAR(100)
+            )
+</code></pre>
+<p>将爬取下来的表格信息另存为.txt文件并将该文件的编码改为utf-8<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135830/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122451_nudadc.png"></p>
+<p>将整个文本文件存入到数据库中</p>
+<p>代码实现：</p>
+<pre><code>LOAD DATA LOCAL INFILE &quot;D:\\loudong.txt&quot;INTO TABLE loudong FIELDS TERMINATED BY &quot;    &quot; IGNORE 1 LINES;        
+USE loudongku    
+4.在数据库中查看导入的漏洞信息
+代码实现：
+SELECT * FROM loudong
+</code></pre>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135839/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122504_j61iay.png"></p>
+<p>在Java的编译器中使用jdbc来连接数据库，使用preparedstatement 来操作数据库</p>
+<p>1.使用jdbc来连接数据库</p>
+<p>代码实现：</p>
+<pre><code>package util;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+public class jdbc &#123;
+    private static String uname=&quot;root&quot;;
+    private static String upwd=&quot;root&quot;;
+    private static String url=&quot;jdbc:mysql://localhost:3306/loudongku&quot;;
+    private static String driverName=&quot;com.mysql.jdbc.Driver&quot;;
+    
+  static&#123;
+      try&#123;
+          Class.forName(driverName);
+      &#125;catch(ClassNotFoundException e)&#123;
+          throw new RuntimeException(e);
+      &#125;
+  &#125;
+  
+  public static Connection getCon()&#123;
+      try &#123;
+        return DriverManager.getConnection(url,uname,upwd);
+    &#125; catch (Exception e) &#123;
+        throw new RuntimeException(e);
+    &#125;
+  &#125;
+  public static void close(ResultSet set,Statement sta,Connection con)&#123;
+        try &#123;
+            if(set!=null)&#123;
+                set.close();
+            &#125;
+        &#125; catch (Exception e) &#123;
+            throw new RuntimeException(e);//异常转换
+        &#125;
+        try &#123;
+            if(sta!=null)&#123;
+                sta.close();
+            &#125;
+        &#125; catch (Exception e) &#123;
+            throw new RuntimeException(e);//异常转换
+        &#125;
+        try &#123;
+            if(con!=null)&#123;
+                con.close();
+            &#125;
+        &#125; catch (Exception e) &#123;
+            throw new RuntimeException(e);//异常转换
+        &#125;
+        
+    &#125;
+  public static void main(String[] args) &#123;
+    System.out.println(getCon());
+&#125;
+</code></pre>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135927/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122518_a3iumq.png"></p>
+<p>创建漏洞表的实现类</p>
+<p>代码实现：</p>
+<pre><code>package entity;
+
+import java.io.Serializable;
+
+
+public class Loudong implements Serializable&#123;
+
+       private String uname;             
+       private String    wangzhi;         
+       private String    CNNVDid ;
+       private String    weihaidengji; 
+       private String    CVEid ;
+       private String    loudongleixing ;
+       private String     fabuTime ;
+       private String    weixieleixing ;
+       private String    gengxinTime ;
+       private String     cahngshang ;
+       private String    loudongjianjie ;
+       private String    loudonggonggao ;
+       private String    caokaowangzhi; 
+       private String shouyinxiangshiti ;
+       private String    buding ;
+    public String getUname() &#123;
+        return uname;
+    &#125;
+    public void setUname(String uname) &#123;
+        this.uname = uname;
+    &#125;
+    public String getWangzhi() &#123;
+        return wangzhi;
+    &#125;
+    public void setWangzhi(String wangzhi) &#123;
+        this.wangzhi = wangzhi;
+    &#125;
+    public String getCNNVDid() &#123;
+        return CNNVDid;
+    &#125;
+    public void setCNNVDid(String cNNVDid) &#123;
+        CNNVDid = cNNVDid;
+    &#125;
+    public String getWeihaidengji() &#123;
+        return weihaidengji;
+    &#125;
+    public void setWeihaidengji(String weihaidengji) &#123;
+        this.weihaidengji = weihaidengji;
+    &#125;
+    public String getCVEid() &#123;
+        return CVEid;
+    &#125;
+    public void setCVEid(String cVEid) &#123;
+        CVEid = cVEid;
+    &#125;
+    public String getLoudongleixing() &#123;
+        return loudongleixing;
+    &#125;
+    public void setLoudongleixing(String loudongleixing) &#123;
+        this.loudongleixing = loudongleixing;
+    &#125;
+    public String getFabuTime() &#123;
+        return fabuTime;
+    &#125;
+    public void setFabuTime(String fabuTime) &#123;
+        this.fabuTime = fabuTime;
+    &#125;
+    public String getWeixieleixing() &#123;
+        return weixieleixing;
+    &#125;
+    public void setWeixieleixing(String weixieleixing) &#123;
+        this.weixieleixing = weixieleixing;
+    &#125;
+    public String getGengxinTime() &#123;
+        return gengxinTime;
+    &#125;
+    public void setGengxinTime(String gengxinTime) &#123;
+        this.gengxinTime = gengxinTime;
+    &#125;
+    public String getCahngshang() &#123;
+        return cahngshang;
+    &#125;
+    public void setCahngshang(String cahngshang) &#123;
+        this.cahngshang = cahngshang;
+    &#125;
+    public String getLoudongjianjie() &#123;
+        return loudongjianjie;
+    &#125;
+    public void setLoudongjianjie(String loudongjianjie) &#123;
+        this.loudongjianjie = loudongjianjie;
+    &#125;
+    public String getLoudonggonggao() &#123;
+        return loudonggonggao;
+    &#125;
+    public void setLoudonggonggao(String loudonggonggao) &#123;
+        this.loudonggonggao = loudonggonggao;
+    &#125;
+    public String getCaokaowangzhi() &#123;
+        return caokaowangzhi;
+    &#125;
+    public void setCaokaowangzhi(String caokaowangzhi) &#123;
+        this.caokaowangzhi = caokaowangzhi;
+    &#125;
+    public String getShouyinxiangshiti() &#123;
+        return shouyinxiangshiti;
+    &#125;
+    public void setShouyinxiangshiti(String shouyinxiangshiti) &#123;
+        this.shouyinxiangshiti = shouyinxiangshiti;
+    &#125;
+    public String getBuding() &#123;
+        return buding;
+    &#125;
+    public void setBuding(String buding) &#123;
+        this.buding = buding;
+    &#125;
+    
+    public Loudong() &#123;
+        super();
+        // TODO Auto-generated constructor stub
+    &#125;
+    
+    
+    public Loudong(String uname, String wangzhi, String cNNVDid, String weihaidengji, String cVEid,
+            String loudongleixing, String fabuTime, String weixieleixing, String gengxinTime, String cahngshang,
+            String loudongjianjie, String loudonggonggao, String caokaowangzhi, String shouyinxiangshiti,
+            String buding) &#123;
+        super();
+        this.uname = uname;
+        this.wangzhi = wangzhi;
+        CNNVDid = cNNVDid;
+        this.weihaidengji = weihaidengji;
+        CVEid = cVEid;
+        this.loudongleixing = loudongleixing;
+        this.fabuTime = fabuTime;
+        this.weixieleixing = weixieleixing;
+        this.gengxinTime = gengxinTime;
+        this.cahngshang = cahngshang;
+        this.loudongjianjie = loudongjianjie;
+        this.loudonggonggao = loudonggonggao;
+        this.caokaowangzhi = caokaowangzhi;
+        this.shouyinxiangshiti = shouyinxiangshiti;
+        this.buding = buding;
+    &#125;
+    @Override
+    public String toString() &#123;
+        return &quot;Loudong [uname=&quot; + uname + &quot;, wangzhi=&quot; + wangzhi + &quot;, CNNVDid=&quot; + CNNVDid + &quot;, weihaidengji=&quot;
+                + weihaidengji + &quot;, CVEid=&quot; + CVEid + &quot;, loudongleixing=&quot; + loudongleixing + &quot;, fabuTime=&quot; + fabuTime
+                + &quot;, weixieleixing=&quot; + weixieleixing + &quot;, gengxinTime=&quot; + gengxinTime + &quot;, cahngshang=&quot; + cahngshang
+                + &quot;, loudongjianjie=&quot; + loudongjianjie + &quot;, loudonggonggao=&quot; + loudonggonggao + &quot;, caokaowangzhi=&quot;
+                + caokaowangzhi + &quot;, shouyinxiangshiti=&quot; + shouyinxiangshiti + &quot;, buding=&quot; + buding + &quot;]&quot;;
+    &#125;  &#125;
+</code></pre>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135934/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122540_cac2ng.png"></p>
+<p>使用preparedstatement来操作数据库查询漏洞信息</p>
+<pre><code>public class loudongCrud &#123;
+    public static void main(String[] args) throws Exception&#123;
+        
+        
+        
+        System.out.println(getone(&quot;CVE-2021-45662&quot;));
+        
+        
+        
+        
+        
+    &#125;
+    
+    public static Loudong getone(String URL)throws Exception&#123;
+    
+        Connection con=jdbc.getCon();
+        String sql=&quot;select * from loudong where CVEid=?&quot;;
+        PreparedStatement sta=con.prepareStatement(sql);
+        sta.setString(1, URL);
+        ResultSet set =sta.executeQuery();
+        
+        Loudong lod=null;
+        
+        if(set.next())&#123;
+            lod=new Loudong();
+            lod.setUname(set.getString(&quot;uname&quot;));
+            lod.setWangzhi(set.getString(&quot;wangzhi&quot;));
+            lod.setCNNVDid(set.getString(&quot;CNNVDid&quot;));
+            lod.setWeihaidengji(set.getString(&quot;weihaidengji&quot;));
+            lod.setCVEid(set.getString(&quot;CVEid&quot;));
+            lod.setLoudongleixing(set.getString(&quot;loudongleixing&quot;));
+            lod.setFabuTime(set.getString(&quot;fabuTime&quot;));
+            lod.setWeixieleixing(set.getString(&quot;weixieleixing&quot;));
+            lod.setGengxinTime(set.getString(&quot;gengxinTime&quot;));
+            lod.setCahngshang(set.getString(&quot;cahngshang&quot;));
+            lod.setLoudongjianjie(set.getString(&quot;loudongjianjie&quot;));
+            lod.setLoudonggonggao(set.getString(&quot;loudonggonggao&quot;));
+            lod.setCaokaowangzhi(set.getString(&quot;caokaowangzhi&quot;));
+            lod.setShouyinxiangshiti(set.getString(&quot;shouyinxiangshiti&quot;));
+            lod.setBuding(set.getString(&quot;buding&quot;));
+        
+            
+            
+        
+            
+            
+            
+            
+            
+        &#125;
+        jdbc.close(set, sta, con);
+        return lod;
+   
+    &#125;
+    
+&#125;
+</code></pre>
+<p><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135942/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122746_ssgcwo.png"></p>
+<h2 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h2><h3 id="系统开发环境配置"><a href="#系统开发环境配置" class="headerlink" title="系统开发环境配置"></a>系统开发环境配置</h3><p>开发用到了python语言，使用了pycharm-ide,使用了anaconda解释器，使用了kali中nmap和脚本和漏洞扫描脚本，除了进行ip段的资产扫描，还可以进一步扫描常见漏洞</p>
+<h3 id="爬取cve和cnnvd"><a href="#爬取cve和cnnvd" class="headerlink" title="爬取cve和cnnvd"></a>爬取cve和cnnvd</h3><p>给出系统功能函数间调用说明，代码实现。重点给出系统整体实现、主要功能代码实现。</p>
+<p>首先找到我们要爬取的目标<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135950/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122815_noyb8p.png"></p>
+<p>进入目标位置<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135956/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122828_zfmeub.png"></p>
+<p>找爬取漏洞信息位置<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642135962/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122840_v0q92x.png"></p>
+<p>漏洞信息详细<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136017/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122856_ncdnb7.png"></p>
+<p>f12进行查看元素</p>
+<p>查看标签<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136036/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122914_g3hcr8.png"></p>
+<p>通过查看这构造请求的相关信息，url变化，浏览器标识，定位相关标签，cookie信息</p>
+<p>通过使用相关的库来解析页面并获取我们想要的东西</p>
+<p>结果展示<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136042/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122936_ht9loy.png"></p>
+<p>可以发现这漏洞信息很少，真发愁时我发现cnnvd官网的漏洞信息包含了cve的信息，并且编号一样，漏洞信息更为详细</p>
+<p>漏洞详细<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136048/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114122953_avi0ir.png"></p>
+<p>漏洞分页情况<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136056/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123008_unxk2s.png"></p>
+<p>标签详细<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136064/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123032_euxtpc.png"></p>
+<h3 id="Nmap扫描流程"><a href="#Nmap扫描流程" class="headerlink" title="Nmap扫描流程"></a>Nmap扫描流程</h3><p>在使用python爬虫爬取到cve和cnnvd漏洞信息后进行网络资产的收集，通过使用nmap工具来收集资产信息</p>
+<p>阿里服务器IP：139.196.12.141，登陆之后打开一些端口服务进行实验</p>
+<p>Nmap 139.196.12.141</p>
+<p>结果图<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136072/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123058_wlbzwf.png"></p>
+<p>扫描过程<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136079/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123109_wdquhf.png"></p>
+<p>可以看到能后扫描出端口、状态和服务</p>
+<p>可以通过不同的参数进行收集资产，比如-O，扫描目标操作系统的指纹识别</p>
+<p>指纹识别<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136090/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123124_rycprr.png"></p>
+<p>使用nmap自带的脚本vuln来进行常用的漏洞扫描</p>
+<p>漏洞扫描<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136099/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123136_b693gh.png"></p>
+<p>优化nmap输出的报告</p>
+<p>报告图<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136103/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123151_hn95ov.png"></p>
+<h2 id="系统测试"><a href="#系统测试" class="headerlink" title="系统测试"></a>系统测试</h2><h3 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h3><p>安装pycharm和anaconda解释器</p>
+<p>pycharm,python环境<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136109/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123207_oiyw1r.png"></p>
+<p>解释器<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136115/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123215_q3zbfc.png"></p>
+<p>环境变量<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136124/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123236_jlxock.png"></p>
+<p>解释器搭建<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136133/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123250_dtr78z.png"></p>
+<h3 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h3><p>Namp环境，服务器搭建如图</p>
+<p>kali中的nmap<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136146/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123259_kdvldl.png"></p>
+<p>windows下的nmap<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136151/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123310_obwow6.png"></p>
+<p>扫描资产<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136164/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123322_i05vqx.png"></p>
+<p>crontab定时任务<br><img src="https://res.cloudinary.com/darenfan/image/upload/v1642136176/blog/darenhsf/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/20220114123331_wl9d2v.png"></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>开发内容：</p>
+<ol>
+<li>参考CVE等漏洞平台，建立漏洞信息库</li>
+<li></li>
+<li>针对某个范围（ip段、企业单位、地理范围等），建立数字资产库，采集资产的指纹信息（如端口、服务、软件及其版本等）</li>
+<li></li>
+<li>根据漏洞信息库对指定范围的资产进行漏洞匹配，判断风险等级并进行相应的漏洞预警</li>
+</ol>
+<p>要求:</p>
+<ol>
+<li><p>建立漏洞库要考虑自动更新</p>
+</li>
+<li><p>资产指纹可参考Nmap</p>
+</li>
+<li></li>
+<li><p>漏洞预警可以以报告、大屏、电邮等形式展示或通知</p>
+</li>
+</ol>
+<p>在开发中完成了对漏洞信息的爬取，对资产信息的收集，对数据的处理，使用了python爬虫库、nmap、数据库，漏洞库自动更新和漏洞通知由于技术不足导致还没完成，开始时我们三人都在搭建在服务器上名为“linglong”项目的漏洞扫描器，写了java版本的端口扫描器，搭建乌云资料库，并导入近九万条数据，通过分析实例，页面结构，细查python库，在研究网上的代码例子（代码都不能跑，都有错误）最后弄出三个pyhton爬虫代码，发送邮件带有预警工具的库，自动更新的功能使用服务器的crontab定时任务来操作。之后我用python爬取到cve的漏洞信息，将爬取到的表格信息转换成.txt文件，在转换文本编码方式之后，利用Sqlyog将文本存入创建好的数据库表中，利用java的jdbc来连接数据库，之后再用preparedstatement来操作数据库。拿到nmap扫描到的数据后，筛选比对数据库，找出该漏洞的信息。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]李亚利.网络漏洞扫描器的发展现状和评价标准[J].科技创新与应用,2020(29):68-69.</p>
+<p>[2]张昊,贺江敏,屈晔.网络安全漏洞检测技术研究及应用[J].网络空间安全,2020,11(09):84-89.</p>
+<p>[3]孟清,路贺俊,刘对,高雨.基于Python的自动代理Web漏洞扫描器的设计与实现[J].科技视界,2020(17):41-45.DOI:10.19694/j.cnki.issn2095-2457.2020.17.14.</p>
+<p>[4]徐贵江,黄媛媛,陈子豪,殷旭东,钱振江.基于Python的Web漏洞扫描器[J].软件工程,2020,23(04):19-21+11.DOI:10.19644/j.cnki.issn2096-1472.2020.04.005.</p>
+<p>[5]刘洋洋. 基于Nessus漏洞扫描系统的研究与优化[D].电子科技大学,2020.DOI:10.27005/d.cnki.gdzku.2020.002852.</p>
+<p>[6]张思思. 轻量级Web应用漏洞扫描器的优化实现[D].华中科技大学,2020.DOI:10.27157/d.cnki.ghzku.2020.000495.</p>
+<p>[7]张云鹏,付强.高可用性自动化网络漏洞检测[J].电脑迷,2018(04):106.</p>
+<p>[8]李舸. 信息安全风险评估的漏洞分析及评估方法改进[D].重庆大学,2007.</p>
+<p>[9]吴春飞. 信息安全漏洞库的数据库设计及后台管理平台的实现[D].北京邮电大学,2011.</p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><h3 id="爬取cve的python代码"><a href="#爬取cve的python代码" class="headerlink" title="爬取cve的python代码"></a>爬取cve的python代码</h3><pre><code>import requests
+from bs4 import BeautifulSoup
+import xlsxwriter
+
+workbook = xlsxwriter.Workbook(&#39;loudong.xlsx&#39;) # 建立文件
+
+worksheet = workbook.add_worksheet()
+worksheet.write(0,0,&#39;URL&#39;)      #这个是写进第一行第一列
+worksheet.write(0,1,&#39;cve&#39;)      #这个是写进第一行第二列
+worksheet.write(0,2,&#39;time&#39;)     #后面以此类推
+worksheet.write(0,3,&#39;name&#39;)
+
+k=1
+i=1
+for j in range(1,3601):       # 开始页数到结束页数，自行设置
+    burp0_url = f&quot;http://vulhub.org.cn:80/vulns/&#123;j&#125;?view=global&quot;
+    burp0_cookies = &#123;&quot;_csrf_token&quot;: &quot;629b8310c3efb5aca85b39726ef56d29b505dc91&quot;, &quot;session&quot;: &quot;eyJfY3NyZl90b2tlbiI6IjYyOWI4MzEwYzNlZmI1YWNhODViMzk3MjZlZjU2ZDI5YjUwNWRjOTEiLCJfZnJlc2giOmZhbHNlfQ.YYTTIA.E-cwfm_arSSLqc772cS3GqCIPu0&quot;, &quot;Hm_lvt_1ac51b9b492db88525810a29c7aa73cd&quot;: &quot;1636092045&quot;, &quot;Hm_lpvt_1ac51b9b492db88525810a29c7aa73cd&quot;: &quot;1636094752&quot;&#125;
+    burp0_headers = &#123;&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0&quot;, &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8&quot;, &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, &quot;Connection&quot;: &quot;close&quot;, &quot;Referer&quot;: &quot;http://cve.scap.org.cn/vulns/2?view=global&quot;, &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;&#125;
+    data = requests.get(burp0_url, headers=burp0_headers, cookies=burp0_cookies).text
+
+    soup = BeautifulSoup(data, &#39;lxml&#39;)
+
+    for link in soup.find_all(&#39;td&#39;):
+        if i%6 == 1:
+            href = link.a.attrs[&#39;href&#39;]
+            cve = link.a.string.strip()
+            worksheet.write(k, 0, &quot;http://vulhub.org.cn&quot;+href)
+            worksheet.write(k, 1, cve)
+        if i%6 == 2:
+            time = link.string
+            worksheet.write(k, 2, time)
+        if i%6 == 4:
+            name = link.string
+            worksheet.write(k, 3, name)
+        if i%6 == 0:
+            k = k+1
+        i = i+1
+    print(f&quot;已爬取数据：第&#123;j&#125;条&quot;)
+workbook.close()
+</code></pre>
+<h3 id="爬取cnnvd的python源码"><a href="#爬取cnnvd的python源码" class="headerlink" title="爬取cnnvd的python源码"></a>爬取cnnvd的python源码</h3><pre><code># -*- coding:utf-8 -*-
+import sys
+# print (u&#39;系统默认编码为&#39;,sys.getdefaultencoding())
+default_encoding = &#39;utf-8&#39;  # 重新设置编码方式为uft-8
+if sys.getdefaultencoding() != default_encoding:
+    reload(sys)
+    sys.setdefaultencoding(default_encoding)
+# print (u&#39;系统默认编码为&#39;,sys.getdefaultencoding())
+import requests
+from bs4 import BeautifulSoup
+import traceback
+import re
+import xlwt
+
+
+def getURLDATA(url):
+    # url = &#39;http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201901-1014&#39;
+    header = &#123;
+        &#39;user-agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36&#39;,
+        &#39;Connection&#39;: &#39;keep-alive&#39;, &#125;
+    r = requests.get(url, headers=header, timeout=30)
+    # r.raise_for_status()抛出异常
+    html = BeautifulSoup(r.content.decode(), &#39;html.parser&#39;)
+
+    link = html.find(class_=&#39;detail_xq w770&#39;)  # 漏洞信息详情
+    link_introduce = html.find(class_=&#39;d_ldjj&#39;)  # 漏洞简介
+    link_others = html.find_all(class_=&#39;d_ldjj m_t_20&#39;)  # 其他
+    # print(len(link_introduce))
+    try:
+        list4.append(str(link.contents[3].contents[5].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+        list4.append(&quot;&quot;)
+    try:
+        list5.append(str(link.contents[3].contents[7].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+        list5.append(&quot;&quot;)
+    try:
+        list6.append(str(link.contents[3].contents[9].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+        list6.append(&quot;&quot;)
+    try:
+         list7.append(str(link.contents[3].contents[11].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+       list7.append(&quot;&quot;)
+    try:
+        list8.append(str(link.contents[3].contents[13].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+       list8.append(&quot;&quot;)
+    try:
+       list9.append(str(link.contents[3].contents[15].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+         list9.append(&quot;&quot;)
+    try:
+        list10.append(str(link.contents[3].contents[17].find(&#39;a&#39;).text.lstrip().rstrip()))
+    except:
+        list10.append(&quot;&quot;)
+
+        # link_introduce=html.find(class_=&#39;d_ldjj&#39;)#漏洞简介
+    try:
+        link_introduce_data = BeautifulSoup(link_introduce.decode(), &#39;html.parser&#39;).find_all(name=&#39;p&#39;)
+        s = &quot;&quot;
+        for i in range(0, len(link_introduce_data)):
+            s = s + str(link_introduce_data[i].text.lstrip().rstrip())
+        # print(s)
+        list11.append(s)
+    except:
+        list11.append(&quot;&quot;)
+
+    if (len(link_others) != 0):
+
+        try:
+            # 漏洞公告
+            link_others_data1 = BeautifulSoup(link_others[0].decode(), &#39;html.parser&#39;).find_all(name=&#39;p&#39;)
+            s = &quot;&quot;
+            for i in range(0, len(link_others_data1)):
+
+                s = s + str(link_others_data1[i].text.lstrip().rstrip())
+
+            list12.append(s)
+        except:
+            list12.append(&quot;&quot;)
+
+        try:
+            # 参考网址
+            link_others_data2 = BeautifulSoup(link_others[1].decode(), &#39;html.parser&#39;).find_all(name=&#39;p&#39;)
+            s = &quot;&quot;
+            for i in range(0, len(link_others_data2)):
+
+                s = s + str(link_others_data2[i].text.lstrip().rstrip())
+
+            list13.append(s)
+        except:
+            list13.append(&quot;&quot;)
+
+        try:
+            # 受影响实体
+            link_others_data3 = BeautifulSoup(link_others[2].decode(), &#39;html.parser&#39;).find_all(&#39;a&#39;, attrs=&#123;
+                &#39;class&#39;: &#39;a_title2&#39;&#125;)
+            s = &quot;&quot;
+            for i in range(0, len(link_others_data3)):
+
+                s = s + str(link_others_data3[i].text.lstrip().rstrip())
+
+            list14.append(s)
+        except:
+            list14.append(&quot;&quot;)
+
+        try:
+            # 补丁
+            link_others_data3 = BeautifulSoup(link_others[3].decode(), &#39;html.parser&#39;).find_all(&#39;a&#39;, attrs=&#123;
+                &#39;class&#39;: &#39;a_title2&#39;&#125;)
+            s = &quot;&quot;
+            for i in range(0, len(link_others_data3)):
+
+                s = s + str(link_others_data3[i].text.lstrip().rstrip())
+
+            list15.append(s)
+        except:
+            list15.append(&quot;&quot;)
+    else:
+        list12.append(&quot;&quot;)
+        list13.append(&quot;&quot;)
+        list14.append(&quot;&quot;)
+        list15.append(&quot;&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    global list4
+    global list5
+    global list6
+    global list7
+    global list8
+    global list9
+    global list10
+    global list11
+    global list12
+    global list13
+    global list14
+    global list15
+
+    list1 = []  # 网站的url
+    list2 = []  # 漏洞的名称
+    list3 = []  # cnnvd编号
+    list4 = []  # 危害等级
+    list5 = []  # CVE编号
+    list6 = []  # 漏洞类型
+    list7 = []  # 发布时间
+    list8 = []  # 威胁类型
+    list9 = []  # 更新时间
+    list10 = []  # 厂商
+    list11 = []  # 漏洞简介
+    list12 = []  # 漏洞公告
+    list13 = []  # 参考网址
+    list14 = []  # 受影响实体
+    list15 = []  # 补丁
+    start = 1
+    last = 30
+    # url = &#39;http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201901-1014&#39;
+    # getURLDATA(url)
+    f = xlwt.Workbook()  # 创建EXCEL工作簿
+    sheet1 = f.add_sheet(u&#39;sheet1&#39;, cell_overwrite_ok=True)  # 创建sheet
+    sheet1.write(0, 0, &quot;漏洞名称&quot;)
+    sheet1.write(0, 1, &quot;网址&quot;)
+    sheet1.write(0, 2, &quot;CNNVD编号&quot;)
+    sheet1.write(0, 3, &quot;危害等级&quot;)
+    sheet1.write(0, 4, &quot;CVE编号&quot;)
+    sheet1.write(0, 5, &quot;漏洞类型&quot;)
+    sheet1.write(0, 6, &quot;发布时间&quot;)
+    sheet1.write(0, 7, &quot;威胁类型&quot;)
+    sheet1.write(0, 8, &quot;更新时间&quot;)
+    sheet1.write(0, 9, &quot;厂商&quot;)
+    sheet1.write(0, 10, &quot;漏洞简介&quot;)
+    sheet1.write(0, 11, &quot;漏洞公告&quot;)
+    sheet1.write(0, 12, &quot;参考网址&quot;)
+    sheet1.write(0, 13, &quot;受影响实体&quot;)
+    sheet1.write(0, 14, &quot;补丁&quot;)
+
+    for j in range(start, last + 1):
+        # url=&#39;http://www.cnnvd.org.cn/web/vulnerability/querylist.tag?pageno=1&amp;repairLd=&#39;
+        url = &#39;http://www.cnnvd.org.cn/web/vulnerability/querylist.tag?pageno=&#39; + str(j) + &#39;&amp;repairLd=&#39;
+        print(&quot;page&quot; + str(j))
+        header = &#123;
+            &#39;user-agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36&#39;,
+            &#39;Connection&#39;: &#39;keep-alive&#39;, &#125;
+        r = requests.get(url, headers=header, timeout=30)
+        # r.raise_for_status()抛出异常
+        html = BeautifulSoup(r.content.decode(), &#39;html.parser&#39;)
+        link = html.find_all(class_=&#39;a_title2&#39;)
+        for i in link:
+            ##print (i.text.lstrip())
+            try:
+                list1.append(i.text.lstrip())
+                ##print (&quot;http://www.cnnvd.org.cn&quot;+i.attrs[&#39;href&#39;])
+                k = str(i.attrs[&#39;href&#39;])
+                list2.append(&quot;http://www.cnnvd.org.cn&quot; + k)
+                list3.append(k[28:])
+                # print(&quot;http://www.cnnvd.org.cn&quot;+k)
+                getURLDATA(&quot;http://www.cnnvd.org.cn&quot; + k)
+            except:
+                print(&quot;http://www.cnnvd.org.cn&quot; + k)
+                break
+
+    for i in range(len(list15)):
+        sheet1.write(i + 1, 0, list1[i])
+        sheet1.write(i + 1, 1, list2[i])
+        sheet1.write(i + 1, 2, list3[i])
+        sheet1.write(i + 1, 3, list4[i])
+        sheet1.write(i + 1, 4, list5[i])
+        sheet1.write(i + 1, 5, list6[i])
+        sheet1.write(i + 1, 6, list7[i])
+        sheet1.write(i + 1, 7, list8[i])
+        sheet1.write(i + 1, 8, list9[i])
+        sheet1.write(i + 1, 9, list10[i])
+        sheet1.write(i + 1, 10, list11[i])
+        sheet1.write(i + 1, 11, list12[i])
+        sheet1.write(i + 1, 12, list13[i])
+        sheet1.write(i + 1, 13, list14[i])
+        sheet1.write(i + 1, 14, list15[i])
+    f.save(str(start) + &quot;-&quot; + str(last) + &quot;.xls&quot;)  # 保存文件
+</code></pre>
+<h3 id="每日监控最新漏洞并发送电邮警告的python源码"><a href="#每日监控最新漏洞并发送电邮警告的python源码" class="headerlink" title="每日监控最新漏洞并发送电邮警告的python源码"></a>每日监控最新漏洞并发送电邮警告的python源码</h3><pre><code>#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+import requests
+from bs4 import BeautifulSoup
+import re
+import datetime
+import smtplib           #发送邮件使用
+import schedule         #定时发送
+import time             #时间模块
+from email.mime.text import MIMEText        #构建邮件内容
+from email.header import Header          #构建邮件头
+from email.mime.multipart import MIMEMultipart
+
+headers = &#123;
+    &#39;User-Agent&#39;: &#39;Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0&#39;,
+    &#39;Accept&#39;: &#39;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#39;,
+    &#39;Accept-Language&#39;: &#39;zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3&#39;,
+    &#39;Accept-Encoding&#39;: &#39;gzip, deflate&#39;,
+    &#39;Upgrade-Insecure-Requests&#39;: &#39;1&#39;,
+&#125;
+
+
+class CveObject:
+    cve_no = &#39;&#39;                     # 漏洞编号
+    cve_nvd_url = &#39;&#39;                # 漏洞nvd url链接地址
+    cve_description = &#39;&#39;            # 漏洞描述
+    cve_level = &#39;&#39;                  # 威胁等级
+    cve_score = &#39;&#39;                  # 威胁评分
+    cve_cna = &#39;&#39;                    # 漏洞分配的机构
+
+    def show(self):
+        &quot;&quot;&quot;
+        Show basic vul information
+        :return: None
+        &quot;&quot;&quot;
+        print(&#39;----------------------------------&#39;)
+        print(&#39;编号：&#39;, self.cve_no)
+        print(&#39;漏洞描述：&#39;, self.cve_description)
+        print(&#39;漏洞等级：&#39;, self.cve_level)
+        print(&#39;漏洞评分：&#39;, self.cve_score)
+        print(&#39;\n\n&#39;)
+
+
+url = &quot;https://cassandra.cerias.purdue.edu/CVE_changes/today.html&quot;
+cve_obj_list = []           # cve obj-s fill with detailed information
+today = datetime.date.today()
+
+
+def get_cve_urls():
+    start_content = &#39;New entries&#39;  # 起始字符串
+    end_content = &#39;Graduations&#39;
+    response = requests.get(url, headers=headers, timeout=60)
+    response = str(response.text)
+    start_index = response.index(start_content)
+    if start_index &gt;= 0:
+        start_index += len(start_content)
+        end_index = response.index(end_content)
+        cve_urls_content = response[start_index:end_index]  # 获取网页的指定范围
+        soup = BeautifulSoup(cve_urls_content, &#39;lxml&#39;)
+        cve_url_lists = []  # 存放获取到的cve url
+
+        for u in soup.find_all(&#39;a&#39;):
+            cve_url = u[&quot;href&quot;]
+            cve_url_lists.append(cve_url)
+
+        return cve_url_lists
+
+
+def fill_with_nvd(cve, cve_obj):
+    &quot;&quot;&quot;
+    Fetch detailed information by search cve to fill cve_obj that can be fetch from NVD
+    :param cve: cve no
+    :param cve_obj: cve object to fill
+    :return: None
+    &quot;&quot;&quot;
+    cve_obj.cve_no = cve
+
+    nvd_url = &#39;https://nvd.nist.gov/vuln/detail/&#39;
+    url = &#39;&#123;&#125;&#123;&#125;&#39;.format(nvd_url, cve)
+    cve_obj.cve_nvd_url = url
+
+    try:
+        print(url)
+        response = requests.get(url, headers=headers, timeout=60)
+        # print(response.status_code)
+        if response.status_code == 200:
+            # fill description
+            content = response.text
+            description = re.findall(&#39;&lt;p data-testid=&quot;vuln-description&quot;&gt;(.*).&lt;/p&gt;?&#39;, content)[0]
+            print(description)
+            cve_obj.cve_description = description
+
+            soup = BeautifulSoup(content, &quot;html.parser&quot;)
+            severity = soup.find(&#39;a&#39;, id=&quot;Cvss3NistCalculatorAnchor&quot;).get_text()
+            score, cve_level = severity.split(&#39; &#39;)
+            cve_obj.cve_score = score
+            cve_obj.cve_level = cve_level
+            print(score, cve_level)
+    except:
+        print(&#39;v3 not scored, switch to v2...&#39;)
+        try:
+            severity = soup.find(&#39;a&#39;, id=&quot;Cvss2CalculatorAnchor&quot;).get_text()
+            score, cve_level = severity.split(&#39; &#39;)
+            cve_obj.cve_score = score
+            cve_obj.cve_level = cve_level
+            print(score, cve_level)
+        except:
+            cve_obj.cve_score = &#39;N/A&#39;
+            cve_obj.cve_level = &#39;N/A&#39;
+            print(&#39;v2 not scored either...&#39;)
+    finally:
+        cve_obj.show()
+    pass
+
+
+def write2html():
+    &quot;&quot;&quot;
+    Write cve into to create a html file, this function is terriblely implemented, (^_^)
+    :param keyword: software name
+    :return: None
+    &quot;&quot;&quot;
+    print(&#39;write data to html&#39;)
+    html = &#39;&#39;
+    header = &#39;&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;\
+&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;\
+&lt;head&gt;\
+    &lt;title&gt;CVEs&lt;/title&gt;\
+    &lt;meta content=&quot;text/html&quot; charset=&quot;utf-8&quot;&gt;&lt;/meta&gt;\
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;list.css&quot;&gt;\
+&lt;/head&gt;\
+&lt;body&gt;\
+&lt;div id=&quot;div_title&quot; align=&quot;center&quot;&gt;\
+    &lt;div id=&quot;div_title_inner&quot;&gt;&lt;h1&gt;CVEs for &#123;&#125; &lt;/h1&gt;&lt;/div&gt;\
+&lt;/div&gt;\
+&lt;div id=&quot;div_title_occupy&quot;&gt;&lt;/div&gt;&#39;
+
+    header = header.format(today)
+
+    body = &#39;&lt;div id=&quot;div_main&quot;&gt;\
+    &lt;div id=&quot;div_content&quot;&gt; \
+        &lt;div id=&quot;div_content_body&quot;&gt;&lt;h3&gt;漏洞列表&lt;/h3&gt;\
+            &lt;div id=&quot;uri_list_div&quot;&gt;&#39;
+
+    vul_list = &#39;&#39;
+    for obj in cve_obj_list:
+        vul = &#39;&lt;a href=&quot;#&#123;&#125;&quot;&gt;&#123;&#125;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#123;&#125;&lt;/a&gt;&lt;br /&gt;&#39;
+        vul = vul.format(obj.cve_no, obj.cve_no, obj.cve_level)
+        vul_list = &#39;&#123;&#125;&#123;&#125;&#39;.format(vul_list, vul)
+
+    vul_left = &#39;&lt;/div&gt;\
+        &lt;/div&gt;\
+    &lt;/div&gt;\
+    &lt;div id=&quot;div_body&quot;&gt;&#39;
+
+    body = &#39;&#123;&#125;&#123;&#125;&#123;&#125;&#39;.format(body, vul_list, vul_left)
+
+    table = &#39;&lt;a name=&quot;vul-overview&quot;&gt;&lt;/a&gt;&lt;div id=&quot;div_get&quot;&gt; \
+                &lt;table class=&quot;uri_t&quot; id=&quot;uri_table&quot; border=&quot;1&quot;&gt;\
+                    &lt;tr align=&quot;center&quot;&gt;\
+                        &lt;td&gt;等级&lt;/td&gt;\
+                        &lt;td&gt;严重&lt;/td&gt;\
+                        &lt;td&gt;高危&lt;/td&gt;\
+                        &lt;td&gt;中危&lt;/td&gt;\
+                        &lt;td&gt;低危&lt;/td&gt;\
+                        &lt;td&gt;N/A&lt;/td&gt;\
+                    &lt;/tr&gt;\
+                    &lt;tr align=&quot;center&quot;&gt;\
+                        &lt;td&gt;个数(&#123;&#125;)&lt;/td&gt;\
+                        &lt;td&gt;&#123;&#125;&lt;/td&gt;\
+                        &lt;td&gt;&#123;&#125;&lt;/td&gt;\
+                        &lt;td&gt;&#123;&#125;&lt;/td&gt;\
+                        &lt;td&gt;&#123;&#125;&lt;/td&gt;\
+                        &lt;td&gt;&#123;&#125;&lt;/td&gt;\
+                    &lt;/tr&gt;\
+                &lt;/table&gt;\
+            &lt;/div&gt;&#39;
+
+    a = b = c = d = e = 0
+    for cve in cve_obj_list:
+        if cve.cve_level == &#39;CRITICAL&#39;:
+            a += 1
+        elif cve.cve_level == &#39;HIGH&#39;:
+            b += 1
+        elif cve.cve_level == &#39;MEDIUM&#39;:
+            c += 1
+        elif cve.cve_level == &#39;LOW&#39;:
+            d += 1
+        else:
+            e += 1
+
+    table = table.format(cve_obj_list.__len__(), a, b, c, d, e)
+
+    body = &#39;&#123;&#125;&#123;&#125;&#39;.format(body, table)
+
+    for obj in cve_obj_list:
+        cve_body = &#39;&lt;a name=&quot;&#123;&#125;&quot;&gt;&lt;/a&gt;\
+            &lt;div id=&quot;div_get&quot;&gt;\
+                &lt;table class=&quot;uri_t&quot; id=&quot;uri_table&quot;&gt;\
+                    &lt;tr id=&quot;cve_no&quot;&gt;&lt;th&gt;漏洞编号&lt;/th&gt;\
+                        &lt;td&gt;&#123;&#125;&lt;/td&gt;\
+                    &lt;/tr&gt;\
+                    &lt;tr id=&quot;vul_level&quot;&gt;&lt;th&gt;威胁评分&lt;/th&gt;\
+                        &lt;td&gt;&#123;&#125;&lt;/td&gt;\
+                    &lt;/tr&gt;\
+                    &lt;tr id=&quot;cvss&quot;&gt;&lt;th&gt;风险等级&lt;/th&gt;\
+                        &lt;td&gt;&#123;&#125;&lt;/td&gt;\
+                    &lt;/tr&gt;\
+                &lt;/table&gt;\
+                &lt;p id=&quot;description&quot;&gt;漏洞描述&lt;/p&gt;\
+                &lt;div id=&quot;example_div&quot;&gt;&lt;a id=&quot;description&quot;&gt;\
+                    &#123;&#125;\
+                    &lt;/a&gt;\
+                &lt;/div&gt;\
+                &lt;p id=&quot;references&quot;&gt;参考链接&lt;/p&gt;\
+                &lt;div id=&quot;example_div&quot;&gt;&lt;a id=&quot;references&quot;&gt;\
+                    &#123;&#125;&lt;br /&gt;\
+                    &lt;/a&gt;\
+                &lt;/div&gt;\
+            &lt;/div&gt;&#39;
+
+        cve_body = cve_body.format(obj.cve_no, obj.cve_no, obj.cve_score, obj.cve_level,
+                                   obj.cve_description, obj.cve_nvd_url)
+
+        body = &#39;&#123;&#125;&#123;&#125;&#39;.format(body, cve_body)
+
+    footer = &#39;&lt;/div&gt;\
+&lt;/div&gt;\
+&lt;script&gt;\
+    function AjustContentHeight()&#123;\
+        var div_content = document.getElementById(&quot;div_content&quot;);\
+        var div_body = document.getElementById(&quot;div_body&quot;)\
+        var clientHeight = document.documentElement.clientHeight;\
+        clientHeight -= 69;\
+        div_content.style.height = clientHeight + &quot;px&quot;;\
+        div_body.style.height = clientHeight + &quot;px&quot;;\
+    &#125;\
+    window.onload=function()&#123;AjustContentHeight();&#125;\
+    window.onresize=function()&#123;AjustContentHeight();\
+ &#125;\
+&lt;/script&gt;\
+&lt;/body&gt;\
+&lt;/html&gt;&#39;
+    html = &#39;&#123;&#125;&#123;&#125;&#123;&#125;&#39;.format(header, body, footer)
+
+    # write to cve html file for showing results
+    file = &#39;cve_today.html&#39;
+    with open(file, &#39;w&#39;, encoding=&#39;utf-8&#39;) as fw:
+        fw.write(html)
+
+
+def main():
+    # 获取每日更新的漏洞URL
+    cve_url_list = get_cve_urls()
+
+    # 分离URL中的CVE编号，使用NVD查询漏洞的详细信息
+    total = len(cve_url_list)
+    index = 0
+    for line in cve_url_list:
+        index += 1
+        # print(line)
+        _, num = line.split(&#39;name=&#39;)
+        cve_no = &#39;CVE-&#123;&#125;&#39;.format(num)
+        msg = &#39;[&#123;&#125;/&#123;&#125;]CVE-&#123;&#125;&#39;.format(index, total, num)
+        print(msg)
+        cve_obj = CveObject()
+        fill_with_nvd(cve_no, cve_obj)
+        cve_obj_list.append(cve_obj)
+    write2html()
+
+
+if __name__ == &#39;__main__&#39;:
+
+    main()
+
+    from_addr = &#39;xxxxxxxxx@qq.com&#39;
+    password = &#39;xxxxxxxxxxx&#39;
+    to_addrs = &#39;xxxxxxxxxx@qq.com&#39;
+    message = MIMEMultipart()
+    smtp_server = &#39;smtp.qq.com&#39;
+    text = &#39;快来看看今天最新的CVE漏洞信息吧&#39;
+    mail_inside = MIMEText(text, &#39;plain&#39;, &#39;utf-8&#39;)
+
+    message[&#39;From&#39;] = Header(from_addr)
+    message[&#39;TO&#39;] = Header(to_addrs)
+    message[&#39;Subject&#39;] = Header(&#39;CVE今天最新的漏洞资料&#39;)
+    message.attach(mail_inside)
+
+    att3 = MIMEText(open(r&#39;H:\pycharmproject\pythonProject1\cve_today.html&#39;, &#39;rb&#39;).read(), &#39;base64&#39;, &#39;utf-8&#39;)
+    att3[&quot;Content-Type&quot;] = &#39;application/octet-stream&#39;
+    att3[&quot;Content-Disposition&quot;] = &#39;attachment; filename=&quot;cve_today.html&quot;&#39;
+    message.attach(att3)
+
+    try:
+        # 开启发信服务，这里使用的是加密传输
+        server = smtplib.SMTP_SSL(smtp_server, 465)  # 465是端口号，另一个端口号是587
+        # 登录发信邮箱
+        server.login(from_addr, password)
+        # 发送邮件
+        server.sendmail(from_addr, to_addrs, message.as_string())
+        # 关闭服务器
+        server.quit()
+        print(&#39;邮件发送成功&#39;)
+    except smtplib.SMTPException as e:
+        print(&#39;error&#39;, e)  # 打印错误
+
+    pass
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Daren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://darenhsf.github.io/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/">http://darenhsf.github.io/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://darenhsf.github.io" target="_blank">Angrily bullfighting</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">栈保护机制</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Daren</div><div class="author-info__description">The gentleman is as gentle as his jade</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF"><span class="toc-number">2.</span> <span class="toc-text">网络预警系统开发基础技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.</span> <span class="toc-text">内容介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%EF%BC%88web-craeler%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">网络爬虫（web craeler）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nmap%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">Nmap的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.4.</span> <span class="toc-text">Mysql数据库的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8jdbc%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.5.</span> <span class="toc-text">使用jdbc操作数据查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">步骤分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python%E7%88%AC%E5%8F%96cve%E4%B8%8Ecnnvd%E6%BC%8F%E6%B4%9E%E4%BF%A1%E6%81%AF"><span class="toc-number">3.1.</span> <span class="toc-text">Python爬取cve与cnnvd漏洞信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nmap%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.</span> <span class="toc-text">Nmap操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="toc-number">3.3.</span> <span class="toc-text">数据库操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">开发流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">4.1.</span> <span class="toc-text">系统开发环境配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E5%8F%96cve%E5%92%8Ccnnvd"><span class="toc-number">4.2.</span> <span class="toc-text">爬取cve和cnnvd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nmap%E6%89%AB%E6%8F%8F%E6%B5%81%E7%A8%8B"><span class="toc-number">4.3.</span> <span class="toc-text">Nmap扫描流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">系统测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-number">5.1.</span> <span class="toc-text">测试环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="toc-number">5.2.</span> <span class="toc-text">功能测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">6.</span> <span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">7.</span> <span class="toc-text">参考文献</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">8.</span> <span class="toc-text">源码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E5%8F%96cve%E7%9A%84python%E4%BB%A3%E7%A0%81"><span class="toc-number">8.1.</span> <span class="toc-text">爬取cve的python代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E5%8F%96cnnvd%E7%9A%84python%E6%BA%90%E7%A0%81"><span class="toc-number">8.2.</span> <span class="toc-text">爬取cnnvd的python源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%8F%E6%97%A5%E7%9B%91%E6%8E%A7%E6%9C%80%E6%96%B0%E6%BC%8F%E6%B4%9E%E5%B9%B6%E5%8F%91%E9%80%81%E7%94%B5%E9%82%AE%E8%AD%A6%E5%91%8A%E7%9A%84python%E6%BA%90%E7%A0%81"><span class="toc-number">8.3.</span> <span class="toc-text">每日监控最新漏洞并发送电邮警告的python源码</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网络预警系统"/></a><div class="content"><a class="title" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统">网络预警系统</a><time datetime="2022-01-13T10:15:54.000Z" title="发表于 2022-01-13 18:15:54">2022-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="栈保护机制"/></a><div class="content"><a class="title" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制">栈保护机制</a><time datetime="2021-11-29T14:20:31.000Z" title="发表于 2021-11-29 22:20:31">2021-11-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="漏洞检测之常用漏洞"/></a><div class="content"><a class="title" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞">漏洞检测之常用漏洞</a><time datetime="2021-11-16T03:26:32.000Z" title="发表于 2021-11-16 11:26:32">2021-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/11/XSS/" title="XSS"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XSS"/></a><div class="content"><a class="title" href="/2021/11/11/XSS/" title="XSS">XSS</a><time datetime="2021-11-11T03:35:22.000Z" title="发表于 2021-11-11 11:35:22">2021-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息收集"/></a><div class="content"><a class="title" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集">信息收集</a><time datetime="2021-10-17T06:05:42.000Z" title="发表于 2021-10-17 14:05:42">2021-10-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Daren</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>wifi基础 | Angrily bullfighting</title><meta name="author" content="Daren"><meta name="copyright" content="Daren"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基本概念Wi-Fi上可用的基础设施类型AP（基站） AP充当所有客户端设备之间的无线通信的中介，并且能够将有线网络转换为无线网络（例如，空中电缆媒体转换器设备）。  AP通过使用任何称为SSID或ESSID的网络名称向所有当前的无线设备通告自己。   ESSID（扩展服务集标识符）定义分配给网络单元的名称，最多可以包含32个字符&#x2F;字节。  AP通过发送的小型网络帧（每分钟大约250个）显示网络名称">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wifi基础">
+<meta property="og:url" content="http://darenhsf.github.io/2019/11/13/wifi%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Angrily bullfighting">
+<meta property="og:description" content="基本概念Wi-Fi上可用的基础设施类型AP（基站） AP充当所有客户端设备之间的无线通信的中介，并且能够将有线网络转换为无线网络（例如，空中电缆媒体转换器设备）。  AP通过使用任何称为SSID或ESSID的网络名称向所有当前的无线设备通告自己。   ESSID（扩展服务集标识符）定义分配给网络单元的名称，最多可以包含32个字符&#x2F;字节。  AP通过发送的小型网络帧（每分钟大约250个）显示网络名称">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2019-11-13T05:00:48.000Z">
+<meta property="article:modified_time" content="2021-10-15T03:33:10.193Z">
+<meta property="article:author" content="Daren">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://darenhsf.github.io/2019/11/13/wifi%E5%9F%BA%E7%A1%80/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'wifi基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-15 11:33:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Angrily bullfighting</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">wifi基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-11-13T05:00:48.000Z" title="发表于 2019-11-13 13:00:48">2019-11-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-15T03:33:10.193Z" title="更新于 2021-10-15 11:33:10">2021-10-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="wifi基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="Wi-Fi上可用的基础设施类型"><a href="#Wi-Fi上可用的基础设施类型" class="headerlink" title="Wi-Fi上可用的基础设施类型"></a>Wi-Fi上可用的基础设施类型</h2><h3 id="AP（基站）"><a href="#AP（基站）" class="headerlink" title="AP（基站）"></a>AP（<strong>基站</strong>）</h3><ul>
+<li><p>AP充当所有客户端设备之间的无线通信的中介，并且能够将有线网络转换为无线网络（例如，空中电缆媒体转换器设备）。</p>
+</li>
+<li><p>AP通过使用任何称为SSID或ESSID的网络名称向所有当前的无线设备通告自己。 </p>
+</li>
+<li><p>ESSID（扩展服务集标识符）定义分配给网络单元的名称，最多可以包含32个字符/字节。</p>
+</li>
+<li><p>AP通过发送的小型网络帧（每分钟大约250个）显示网络名称及其操作特性，从而公开ESSID。</p>
+<span id="more"></span>
+<h3 id="STA（工作站）"><a href="#STA（工作站）" class="headerlink" title="STA（工作站）"></a>STA（<strong>工作</strong>站）</h3></li>
+<li><p>它是连接到接入点以使用其网络服务的客户端设备，通常代表计算机，智能手机或IoT设备。</p>
+</li>
+<li><p>接入点可以充当另一个接入点的站点，从而形成另一种类型的基础结构。</p>
+</li>
+<li><p>站点将始终请求访问其要连接的AP。</p>
+</li>
+<li><p>站点将自动连接到满足其网络名称和安全要求并提供更好信号水平的AP。</p>
+</li>
+</ul>
+<blockquote>
+<p>AP与STA都具有必要的硬件和软件连接到网络并符合标准。</p>
+</blockquote>
+<h3 id="Distribution-System-DS"><a href="#Distribution-System-DS" class="headerlink" title="Distribution System (DS)"></a><strong>Distribution System (DS)</strong></h3><ul>
+<li><strong>分布式系统</strong>定义了一个虚拟的AP底层，负责虚拟地连接网络的无线和有线区域。 </li>
+<li>DS还允许在不同的AP之间交换数据，这些AP协作形成一个网络基础架构。</li>
+<li>当STA正在构成基础结构的不同AP之间漫游时，DS负责交换STA的活动会话以及其他功能。</li>
+</ul>
+<h3 id="BSS-Simple-Networks"><a href="#BSS-Simple-Networks" class="headerlink" title="BSS Simple Networks"></a><strong>BSS Simple Networks</strong></h3><ul>
+<li><p>BSS是一种简单的基础架构模式，因为它基于单个访问点上的集中式网络。 </p>
+</li>
+<li><p>AP始终充当BSS小区中发生的所有通信的中介</p>
+</li>
+<li><p>所有接入点都有一个唯一的ID标识符，称为BSSID，通常指AP的无线网络接口的MAC地址。</p>
+</li>
+</ul>
+<p>三个站点（STA1，STA2和STA3）中的每个站点如何由于覆盖范围低而无法与其他任何站点进行通信。<br>但是，通过在任何通信中使用AP（在三个站的范围内）作为中介，可以正确建立网络所有组件之间的所有通信。</p>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200806121203207.png" alt="image-20200806121203207"></p>
+<h3 id="ESS-Extended-Networks"><a href="#ESS-Extended-Networks" class="headerlink" title="ESS Extended Networks"></a><strong>ESS Extended Networks</strong></h3><ul>
+<li>ESS扩展网络扩展服务集定义了用于大型Wi-Fi基础架构的设计。</li>
+<li>不仅有一个AP，而且通过DS通过有线网络互连的两个或更多设备也可以通过WDS通过无线网桥连接。</li>
+<li>多个BSS可以构成一个扩展网络，称为扩展服务集（ESS）网络</li>
+<li>一个ESS网络内部的STA可以互相通信，是采用相同的SSID的多个BSS形成的更大规模的虚拟BSS。</li>
+<li>连接BSS的组件称为分布式系统（Distribution System，DS）。</li>
+</ul>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200806121755807.png" alt="image-20200806121755807"></p>
+<h3 id="AdHoc"><a href="#AdHoc" class="headerlink" title="AdHoc"></a>AdHoc</h3><ul>
+<li>AdHoc，对等网络或IBSS网络“独立基本服务集”（IBSS）是最简单的网络基础架构模式，但使用最少的模式。<br>它对应于一个特定类型的网络（对等网络），</li>
+<li>其中每个组件或站点（STA）直接与它想要的站点进行通信，而无需任何中介。</li>
+</ul>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200806122012716.png" alt="image-20200806122012716"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">“隐藏节点”通信</span><br><span class="line"></span><br><span class="line">Wi-Fi网络拓扑的安排方式是，AP将始终充当不同站点之间所有通信的中介。</span><br><span class="line">即使一个站点希望直接与另一个站点“讲话”，它仍将使用该AP。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="STA与AP建立连接的过程"><a href="#STA与AP建立连接的过程" class="headerlink" title="STA与AP建立连接的过程"></a>STA与AP建立连接的过程</h2><ol>
+<li><p>AP通过发送带有许多有关其功能的信息的(beacon frames)信标帧来不断宣布其存在。<br>它通常在固定的通道中每秒最多传输十个信标。</p>
+</li>
+<li><p>探针交换</p>
+<ul>
+<li>当STA打开其Wi-Fi适配器时，它将开始侦听所有频道，并创建当前网络的列表。</li>
+<li>后来，此STA通常以更主动的方式起作用，发出“broadcast probe request”类型的帧来询问当前网络的规范。</li>
+<li>然后，它将向其列表中优先级最高的请求发送“directed probe request”帧。</li>
+<li>该区域中与探测请求相匹配的每个AP将通过发送（ <em>probe response</em>）探测响应类型帧（告知其功能）来答复“探测”站。</li>
+</ul>
+<p>3.认证（Authentication）</p>
+<pre><code>-      STA从所选的AP请求身份验证
+-      其请求网络的名称（或SSID），安全类型和加密密钥都必须匹配。
+-      AP使用其配置的身份验证模式来响应身份验证请求。
+-      身份验证有两种可能的类型：OSA（开放系统身份验证）和SKA（共享密钥身份验证）。
+</code></pre>
+<p>4.关联(Association)</p>
+<ul>
+<li>STA请求与所选AP关联</li>
+<li>除非AP没有足够的资源来接受更多的客户端，或者如果存在某种类型的MAC地址过滤，例如AP，则AP始终会对关联做出肯定的响应</li>
+<li>关联过程只是将站点的MAC地址添加到其伙伴列表中。</li>
+<li>然后对STA进行身份验证并进行关联。</li>
+</ul>
+</li>
+</ol>
+<p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20200806115532656.png" alt="image-20200806115532656"></p>
+<h2 id="802-11帧格式"><a href="#802-11帧格式" class="headerlink" title="802.11帧格式"></a>802.11帧格式</h2><p><img src="https://img-blog.csdn.net/20130712111619296?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTXlBcnJvdw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="img"></p>
+<h3 id="MAC-Header（MAC头）"><a href="#MAC-Header（MAC头）" class="headerlink" title="MAC Header（MAC头）"></a>MAC Header（MAC头）</h3><p>   • Frame Control（帧控制域）</p>
+<p>   • Duration/ID（持续时间/标识）</p>
+<p>   • Address（地址域）</p>
+<p>   • Sequence Control（序列控制域）</p>
+<blockquote>
+<p>Frame Control（帧控制域）</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">• Protocol Version（协议版本）：通常为0；</span><br><span class="line"> • Type（类型域）和Subtype（子类型域）：共同指出帧的类型；</span><br><span class="line"> • To DS：表明该帧是BSS向DS发送的帧；</span><br><span class="line"> • From DS：表明该帧是DS向BSS发送的帧；</span><br><span class="line"> • More Frag：用于说明长帧被分段的情况，是否还有其它的帧；</span><br><span class="line"> • Retry（重传域）：用于帧的重传，接收STA利用该域消除重传帧；</span><br><span class="line"> • Pwr Mgt（能量管理域）：1：STA处于power_save模式；0：处于active模式；</span><br><span class="line"> • More Data（更多数据域）：1：至少还有一个数据帧要发送给STA ；</span><br><span class="line"> • Protected Frame： 1：帧体部分包含被密钥套处理过的数据；否则：0；</span><br><span class="line"> • Order（序号域）：1：长帧分段传送采用严格编号方式；否则：0。</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p> Duration/ID（持续时间/标识）</p>
+</blockquote>
+<p>   表明该帧和它的确认帧将会占用信道多长时间；对于帧控制域子类型为：Power Save-Poll的帧，该域表示了STA的连接身份（AID, Association Indentification）。</p>
+<blockquote>
+<p> Address（地址域）</p>
+</blockquote>
+<p>Address（地址域）：源地址（SA）、目的地址（DA）、传输工作站地址（TA）、接收工作站地址（RA），SA与DA必不可少，后两个只对跨BSS的通信有用，而目的地址可以为单播地址（Unicast address）、多播地址（Multicast address）、广播地址（Broadcast address）。</p>
+<blockquote>
+<p>分析帧的结构，则最多可以观察到四个MAC地址字段。</p>
+</blockquote>
+<p>DA：目标地址-最终工作站的目标MAC地址。</p>
+<p>SA：源地址-发起传输的站点的MAC地址。<br>RA：接收器地址-应该接收帧的站点的MAC地址。<br>TA：发送器地址-发送帧的站的MAC地址。<br>FromDS和ToDS字段指示帧的源或目的地是否是DS（分发系统）。</p>
+<ul>
+<li>从互联网到达站点的帧：FromDS = 1 ToDS = 0</li>
+<li>从站点到互联网的帧：FromDS = 0 ToDS = 1</li>
+<li>从同一BSS的一个站点到另一个站点的帧：FromDS = 0 ToDS = 0</li>
+<li>帧通过WDS系统从一个站点到另一个站点FromDS = 1 ToDS = 1</li>
+</ul>
+<p>​    </p>
+<blockquote>
+<p> Sequence Control（序列控制域）</p>
+</blockquote>
+<p>   Sequence Control（序列控制域）：由代表MSDU（MAC Server Data Unit）或者MMSDU（MAC Management Server Data Unit）的12位序列号（Sequence Number）和表示MSDU和MMSDU的每一个片段的编号的4位片段号组成（Fragment Number）。</p>
+<h3 id="Frame-Body（帧体部分）"><a href="#Frame-Body（帧体部分）" class="headerlink" title="Frame Body（帧体部分）"></a><strong>Frame Body（帧体部分）</strong></h3><p>  包含信根据帧的类型有所不同，主要封装的是上层的数据单元，长度为0~2312个字节，可以推出，802.11帧最大长度为：2346个字节；</p>
+<h3 id="FCS（校验域）"><a href="#FCS（校验域）" class="headerlink" title="FCS（校验域）"></a><strong>FCS（校验域）</strong></h3><p>  包含32位循环冗余码。</p>
+<h1 id="帧类型"><a href="#帧类型" class="headerlink" title="帧类型"></a>帧类型</h1><p>帧类型根据其执行的功能进行分类。</p>
+<ul>
+<li>数据帧，负责从/向更高层传输信息。</li>
+<li>管理帧，允许建立和维护通信</li>
+<li>控制帧，：用于竞争期间的握手通信和正向确认(RTS信道预约、CTS预约成功、ACK等)、结束非竞争期等，为数据帧的发送提供辅助功能；</li>
+</ul>
+<h2 id="管理帧"><a href="#管理帧" class="headerlink" title="管理帧"></a>管理帧</h2><blockquote>
+<p>802.11管理帧允许在STA和AP之间建立，维护和终止通信的框架。</p>
+</blockquote>
+<p><strong>Beacon Frame</strong>     信标</p>
+<ul>
+<li>AP定期广播信标帧，以显示其存在并向其覆盖区域中的当前站点报告其网络特性（例如SSID，安全性等）。</li>
+<li>通过在所有可用802.11信道上不断搜索信标帧，站点可以获取可用AP列表。</li>
+<li>信标帧包含必要的信息，以识别网络的特征，从而使客户能够决定它们是否满足所有技术要求。 </li>
+<li>AP通常仅在其固定的信道中平均每秒发送10个信标。</li>
+</ul>
+<p><strong>Probe Request Frame</strong>   探测请求</p>
+<ul>
+<li>站点使用探测请求帧，以便从AP获得更多信息，例如，获取其覆盖区域中所有当前接入点的列表。</li>
+<li>可以将探针定向到希望与之连接的特定AP，或者可以将其定向为广播类型，以使所有接收到该探针的AP都通过探针响应帧来表明它们的存在。</li>
+</ul>
+<p><strong>Probe Response Frame</strong>   探头响应</p>
+<ul>
+<li>该帧是接收到站点探测请求的AP的响应。</li>
+<li>它包含用于建立连接的必要信息，例如传输速率等。</li>
+<li>与基本信标帧相比，此帧包含有关网络的更多信息：WPA，WPS和其他安全信息。</li>
+</ul>
+<p><strong>Authentication Frame</strong>     身份验证</p>
+<ul>
+<li><p>身份验证是验证网络中适配器身份并由此决定接受还是拒绝适配器的过程。</p>
+</li>
+<li><p>身份验证帧管理的对话过程取决于AP使用的身份验证系统，如果它是开放的（OSA）或使用SKA（共享密钥）来强制进行质询模式身份验证。</p>
+<ul>
+<li>仅在使用OSA（开放系统身份验证）时，该站仅发送身份验证请求帧，而AP则以另一个身份验证响应帧进行响应，指示它是接受还是拒绝连接。</li>
+<li>使用SKA共享密钥身份验证时，AP将检查站点是否知道正确的共享密钥。</li>
+</ul>
+</li>
+</ul>
+<p><strong>De-authentication Frame</strong>    取消认证帧</p>
+<ul>
+<li><p>这是一个站点要终止通信或离开BSS时发送给另一站点（站点或接入点）的帧。</p>
+</li>
+<li><p>黑客通常使用此帧强制站点从AP断开连接，并随后允许站点漫游到另一个真实或伪造的AP。</p>
+</li>
+</ul>
+<p>**Association Request Frame    **关联请求帧</p>
+<ul>
+<li>客户端通过向访问点发送关联请求帧来发起关联。</li>
+<li>接入点将建立关联ID以识别客户端并在其资源中保留存储空间。</li>
+<li>关联帧包含将来通信所需的数据，例如网络SSID，传输速率等</li>
+</ul>
+<p><strong>Reassociation Request Frame</strong>  重新关联请求帧</p>
+<ul>
+<li>当与AP关联的客户端想要移动到同一网络上另一个提供更好信号的接入点的覆盖区域时，它将使用重新关联过程。</li>
+<li>重新关联意味着所涉及的两个AP都同步它们的帧存储缓冲区。</li>
+<li>为了建立与新接入点的重新关联，站点将重新关联帧发送到新的AP。</li>
+</ul>
+<p><strong>Reassociation Response Frame</strong>        重新关联响应帧</p>
+<ul>
+<li>重关联响应帧与关联响应帧相似。</li>
+</ul>
+<p><strong>Disassociation Frame</strong>    解除关联</p>
+<ul>
+<li>它是STA要终止与AP的网络连接时（通常是在关闭计算机时）礼貌地发送的帧。</li>
+<li>该帧允许AP在关联过程中释放分配给站点的资源</li>
+</ul>
+<p> <strong>Action Frame</strong>   动作</p>
+<ul>
+<li>这种类型的帧用于向AP请求某个站点的特定操作，例如RF测试请求，站点调查或数据包“阻止发送公告”等，最多可用于17个类别。</li>
+<li>在IEEE设计的每个新标准中，这种类型的帧都在不断扩展。</li>
+</ul>
+<h2 id="控制帧"><a href="#控制帧" class="headerlink" title="控制帧"></a>控制帧</h2><p>**Request to Send (RTS) Frame **  请求发送（RTS）帧</p>
+<ul>
+<li>在两个站点与同一接入点相关联但彼此不在彼此的覆盖范围之内的情况下，这些帧用于减少网络冲突。</li>
+<li>该站发送一个RTS帧，要求启动一个新的传输顺序。</li>
+</ul>
+<p>**Clear to Send (CTS) Frame **   清除发送（CTS）帧</p>
+<ul>
+<li>普通模式下的站使用CTS帧来响应RTS帧，以使信道不受其他关联站的传输影响。 </li>
+<li>CTS帧包含一个时间值，在该时间值期间，其余站被迫在发送通信序列的必要时间内停止发送。</li>
+</ul>
+<p>**Acknowledgment (ACK) Frame **   确认（ACK）帧</p>
+<ul>
+<li>ACK帧旨在确认帧的接收。</li>
+<li>如果ACK帧未到达，则发送方重新发送数据帧。</li>
+<li>新标准支持按数据组（组ACK）创建ACK，以实现更高的效率和速度。</li>
+</ul>
+<h2 id="数据帧"><a href="#数据帧" class="headerlink" title="数据帧"></a>数据帧</h2><p><strong>Data Frames</strong> 数据帧</p>
+<ul>
+<li>负责从OSI模型的上层传输信息（ payload ）。</li>
+<li>在通过WEP或WPA加密的网络中，此 payload 被加密，</li>
+<li>在OPEN网络的情况下，该 payload 采用纯文本格式。</li>
+<li>像大多数其他网络协议一样，802.11标准允许对数据包进行分段。</li>
+</ul>
+<h2 id="帧的类型值"><a href="#帧的类型值" class="headerlink" title="帧的类型值"></a>帧的类型值</h2><blockquote>
+<p> Frame Control（帧控制域）中的Type（类型域）和Subtype（子类型域）共同指出帧的类型，当Type的B3B2位为00时，该帧为管理帧；为01时，该帧为控制帧；为10时，该帧为数据帧。而Subtype进一步判断帧类型，如管理帧里头细分为关联和认证帧</p>
+</blockquote>
+<p>数据帧 (Data Frame)</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Subtype</th>
+<th>Frametype</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10</td>
+<td>0000</td>
+<td>Data（数据）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0001</td>
+<td>Data+CF-ACK</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0010</td>
+<td>Data+CF-Poll</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0011</td>
+<td>Data+CF-ACK+CF-Poll</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0100</td>
+<td>Null data（无数据：未传送数据）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0101</td>
+<td>CF-ACK（未传送数据）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0110</td>
+<td>CF-Poll（未传送数据）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0111</td>
+<td>Data+CF-ACK+CF-Poll</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1000</td>
+<td>Qos Data</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1001</td>
+<td>Qos Data + CF-ACK</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1010</td>
+<td>Qos Data + CF-Poll</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1011</td>
+<td>Qos Data + CF-ACK+ CF-Poll</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1100</td>
+<td>QoS Null（未传送数据）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1101</td>
+<td>QoS CF-ACK（未传送数据）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1110</td>
+<td>QoS CF-Poll（未传送数据）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1111</td>
+<td>QoS CF-ACK+ CF-Poll（未传送数据）</td>
+</tr>
+</tbody></table>
+<p>控制帧 (Control Frame)</p>
+<table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Subtype</strong></th>
+<th><strong>Frametype</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01</td>
+<td>1010</td>
+<td>Power Save（PS）- Poll（省电－轮询）</td>
+</tr>
+<tr>
+<td>01</td>
+<td>1011</td>
+<td>RTS（请求发送，即: Request To Send ，预约信道，帧长20字节）</td>
+</tr>
+<tr>
+<td>01</td>
+<td>1100</td>
+<td>CTS（清除发送，即:Clear To Send ，同意预约，帧长14字节）</td>
+</tr>
+<tr>
+<td>01</td>
+<td>1101</td>
+<td>ACK（确认）</td>
+</tr>
+<tr>
+<td>01</td>
+<td>1110</td>
+<td>CF-End（无竞争周期结束）</td>
+</tr>
+<tr>
+<td>01</td>
+<td>1111</td>
+<td>CF-End（无竞争周期结束）＋CF-ACK（无竞争周期确认）</td>
+</tr>
+</tbody></table>
+<p>管理帧 (Management Frame)</p>
+<blockquote>
+<p> RTS和CTS用于信道预约，CF-End+CF_ACK和ACK用于确认正确接收到帧。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>SubType</strong></th>
+<th><strong>FrameType</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00</td>
+<td>0000</td>
+<td>Association request (连接请求)</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0001</td>
+<td>Association response (连接响应)</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0010</td>
+<td>Reassociation request（重连接请求）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0011</td>
+<td>Reassociation response（重连接联响应）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0100</td>
+<td>Probe request（探测请求）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0101</td>
+<td>Probe response（探测响应）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>1000</td>
+<td>Beacon（信标，被动扫描时AP 发出，notify）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>1001</td>
+<td>ATIM（通知传输指示消息）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>1010</td>
+<td>Disassociation（解除连接，notify）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>1011</td>
+<td>Authentication（身份验证）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>1100</td>
+<td>Deauthentication（解除认证，notify）</td>
+</tr>
+<tr>
+<td>00</td>
+<td>1101～1111</td>
+<td>Reserved（保留，未使用）</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Daren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://darenhsf.github.io/2019/11/13/wifi%E5%9F%BA%E7%A1%80/">http://darenhsf.github.io/2019/11/13/wifi%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://darenhsf.github.io" target="_blank">Angrily bullfighting</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/11/13/bash%E8%AF%AD%E6%B3%95/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">bash语法</div></div></a></div><div class="next-post pull-right"><a href="/2019/11/13/%E6%95%B0%E6%8D%AE%E5%8C%85%E6%A0%BC%E5%BC%8F/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据包格式总结</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Daren</div><div class="author-info__description">The gentleman is as gentle as his jade</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Wi-Fi%E4%B8%8A%E5%8F%AF%E7%94%A8%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">Wi-Fi上可用的基础设施类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AP%EF%BC%88%E5%9F%BA%E7%AB%99%EF%BC%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">AP（基站）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STA%EF%BC%88%E5%B7%A5%E4%BD%9C%E7%AB%99%EF%BC%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">STA（工作站）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Distribution-System-DS"><span class="toc-number">1.1.3.</span> <span class="toc-text">Distribution System (DS)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BSS-Simple-Networks"><span class="toc-number">1.1.4.</span> <span class="toc-text">BSS Simple Networks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ESS-Extended-Networks"><span class="toc-number">1.1.5.</span> <span class="toc-text">ESS Extended Networks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdHoc"><span class="toc-number">1.1.6.</span> <span class="toc-text">AdHoc</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STA%E4%B8%8EAP%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">STA与AP建立连接的过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#802-11%E5%B8%A7%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">802.11帧格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC-Header%EF%BC%88MAC%E5%A4%B4%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">MAC Header（MAC头）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Frame-Body%EF%BC%88%E5%B8%A7%E4%BD%93%E9%83%A8%E5%88%86%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">Frame Body（帧体部分）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FCS%EF%BC%88%E6%A0%A1%E9%AA%8C%E5%9F%9F%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">FCS（校验域）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%A7%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">帧类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%B8%A7"><span class="toc-number">2.1.</span> <span class="toc-text">管理帧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%B8%A7"><span class="toc-number">2.2.</span> <span class="toc-text">控制帧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B8%A7"><span class="toc-number">2.3.</span> <span class="toc-text">数据帧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%A7%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%80%BC"><span class="toc-number">2.4.</span> <span class="toc-text">帧的类型值</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网络预警系统"/></a><div class="content"><a class="title" href="/2022/01/13/%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AD%A6%E7%B3%BB%E7%BB%9F/" title="网络预警系统">网络预警系统</a><time datetime="2022-01-13T10:15:54.000Z" title="发表于 2022-01-13 18:15:54">2022-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="栈保护机制"/></a><div class="content"><a class="title" href="/2021/11/29/%E6%A0%88%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="栈保护机制">栈保护机制</a><time datetime="2021-11-29T14:20:31.000Z" title="发表于 2021-11-29 22:20:31">2021-11-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="漏洞检测之常用漏洞"/></a><div class="content"><a class="title" href="/2021/11/16/%E6%BC%8F%E6%B4%9E%E6%A3%80%E6%B5%8B%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%BC%8F%E6%B4%9E/" title="漏洞检测之常用漏洞">漏洞检测之常用漏洞</a><time datetime="2021-11-16T03:26:32.000Z" title="发表于 2021-11-16 11:26:32">2021-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/11/XSS/" title="XSS"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XSS"/></a><div class="content"><a class="title" href="/2021/11/11/XSS/" title="XSS">XSS</a><time datetime="2021-11-11T03:35:22.000Z" title="发表于 2021-11-11 11:35:22">2021-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息收集"/></a><div class="content"><a class="title" href="/2021/10/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集">信息收集</a><time datetime="2021-10-17T06:05:42.000Z" title="发表于 2021-10-17 14:05:42">2021-10-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Daren</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
